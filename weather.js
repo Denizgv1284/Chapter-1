@@ -247,7 +247,7 @@ if (typeof document !== 'undefined') (async function () {
     const container = byId('outfitProducts');
     container.replaceChildren();
     const cards = [...document.querySelectorAll('#products .product-card')];
-    const chosen = cards.filter(card => outfit.categories.includes(card.dataset.category));
+    const chosen = cards.filter(card => outfit.categories.includes(card.dataset.category) && !card.querySelector('.add').disabled);
     chosen.forEach(card => {
       const row = document.createElement('div');
       row.className = 'outfit-product';

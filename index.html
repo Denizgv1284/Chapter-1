@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DCMD Store</title>
-  <link rel="stylesheet" href="style.css?v=collections-1">
+  <link rel="stylesheet" href="style.css?v=collections-2">
   <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="weather.css?v=mobile-map-2">
   <link rel="stylesheet" href="music.css">
@@ -26,11 +26,13 @@
   <dialog id="siteMenu" class="site-menu" aria-labelledby="menuTitle">
     <div class="menu-heading"><h2 id="menuTitle">DCMD</h2><button id="menuClose" class="menu-close" type="button" aria-label="Close menu">&times;</button></div>
     <div class="menu-links">
-      <a class="menu-featured" href="#products">New Arrivals <span aria-hidden="true">&#8599;</span></a>
+      <a class="menu-featured" href="#products" data-collection-link="all">New Arrivals <span aria-hidden="true">&#8599;</span></a>
       <p class="eyebrow">Collections</p>
-      <a href="#europe-collection">Europe Edition <span aria-hidden="true">&#8599;</span></a>
-      <a href="#black-collection">Black Edition <span aria-hidden="true">&#8599;</span></a>
-      <a href="#country-collection">Country Collection <span aria-hidden="true">&#8599;</span></a>
+      <a href="#products" data-collection-link="europe">Europe Edition <span aria-hidden="true">&#8599;</span></a>
+      <a href="#products" data-collection-link="black">Black Edition <span aria-hidden="true">&#8599;</span></a>
+      <a href="#products" data-collection-link="country">Country Collection <span aria-hidden="true">&#8599;</span></a>
+      <a href="#products" data-collection-link="casual">Casual Collection <span aria-hidden="true">&#8599;</span></a>
+      <a href="#products" data-collection-link="capital">Capital Collection <span aria-hidden="true">&#8599;</span></a>
       <div class="menu-secondary"><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
     </div>
     <div class="menu-language"><p class="eyebrow">Language</p>
@@ -110,21 +112,12 @@
 
 
 
-  <section id="collections" class="collections-section" aria-labelledby="collectionsTitle">
-    <div class="section-head"><div><span class="eyebrow">DCMD / Collections</span><h2 id="collectionsTitle">Collections</h2></div></div>
-    <div class="collection-list">
-      <article id="europe-collection" class="collection-title"><span class="collection-number">01</span><h3>Europe Edition</h3></article>
-      <article id="black-collection" class="collection-title"><span class="collection-number">02</span><h3>Black Edition</h3></article>
-      <article id="country-collection" class="collection-title"><span class="collection-number">03</span><h3>Country Collection</h3><span class="eyebrow">Coming soon</span></article>
-    </div>
-  </section>
-
-  <!-- Products section -->
+<!-- Products section -->
   <section id="products">
     <div class="section-head">
       <div>
         <span class="eyebrow">Latest collection</span>
-        <h2>New Arrivals</h2>
+        <h2 id="selectedCollectionTitle">New Arrivals</h2>
       </div>
 
       <p>
@@ -167,6 +160,7 @@
             <span>Pants</span>
             <small>1</small>
           </label>
+          <label><input type="radio" name="category" value="shorts"><span>Shorts</span><small>1</small></label>
         </fieldset>
 
         <fieldset>
@@ -203,11 +197,11 @@
         <div class="grid">
 
       <!-- Europe T-Shirt -->
-      <article class="product-card" data-category="tshirt" data-price="59" data-name="Europe Collection Tee">
+      <article class="product-card" data-collection="europe" data-category="tshirt" data-price="59" data-name="Europe Collection Tee">
         <div class="product-gallery" role="group" aria-label="DCMD Europe Collection T-shirt">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/europe-tshirt-front.jpeg" alt="DCMD Europe Collection T-shirt - front" draggable="false">
-            <img src="images/europe-tshirt-back.jpeg?v=collections-1" alt="DCMD Europe Collection T-shirt - back" loading="lazy" draggable="false">
+            <img src="images/europe-tshirt-back.jpeg?v=collections-2" alt="DCMD Europe Collection T-shirt - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -227,11 +221,11 @@
       </article>
 
       <!-- Essential T-shirt -->
-      <article class="product-card" data-category="tshirt" data-price="49" data-name="Essential Oversized Tee">
+      <article class="product-card" data-collection="black" data-category="tshirt" data-price="49" data-name="Essential Oversized Tee">
         <div class="product-gallery" role="group" aria-label="DCMD Essential Collection T-shirt">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/essential-tshirt-front.jpeg" alt="DCMD Essential Collection T-shirt - front" draggable="false">
-            <img src="images/essential-tshirt-back.jpeg?v=collections-1" alt="DCMD Essential Collection T-shirt - back" loading="lazy" draggable="false">
+            <img src="images/essential-tshirt-back.jpeg?v=collections-2" alt="DCMD Essential Collection T-shirt - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -251,11 +245,11 @@
       </article>
 
       <!-- Hoodie -->
-      <article class="product-card" data-category="hoodie" data-price="99" data-name="Different Oversized Hoodie">
+      <article class="product-card" data-collection="black" data-category="hoodie" data-price="99" data-name="Different Oversized Hoodie">
         <div class="product-gallery" role="group" aria-label="DCMD Black Hoodie">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/hoodie-front.jpeg" alt="DCMD Black Hoodie - front" draggable="false">
-            <img src="images/hoodie-back.jpeg?v=collections-1" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
+            <img src="images/hoodie-back.jpeg?v=collections-2" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -275,11 +269,11 @@
       </article>
 
       <!-- Pants -->
-      <article class="product-card" data-category="pants" data-price="89" data-name="DCMD Wide Leg Pants">
+      <article class="product-card" data-collection="black" data-category="pants" data-price="89" data-name="DCMD Wide Leg Pants">
         <div class="product-gallery" role="group" aria-label="DCMD Black Pants">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/pants-front.jpeg" alt="DCMD Black Pants - front" draggable="false">
-            <img src="images/pants-back.jpeg?v=collections-1" alt="DCMD Black Pants - back" loading="lazy" draggable="false">
+            <img src="images/pants-back.jpeg?v=collections-2" alt="DCMD Black Pants - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -298,8 +292,97 @@
         </button>
       </article>
 
+<article class="product-card" data-collection="casual" data-category="tshirt" data-price="59" data-name="Casual Cream Tee">
+        <div class="product-gallery" role="group" aria-label="Casual Cream Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/casual-tee-front.jpeg" alt="Casual Cream Tee - front" draggable="false">
+            <img src="images/casual-tee-back.jpeg?v=collections-2" alt="Casual Cream Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">T-shirt</span>
+            <h3>Casual Cream Tee</h3>
+          </div>
+
+          <strong>$59</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+<article class="product-card" data-collection="casual" data-category="shorts" data-price="49" data-name="Casual Cream Shorts">
+        <div class="product-gallery" role="group" aria-label="Casual Cream Shorts">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/casual-shorts-front.jpeg" alt="Casual Cream Shorts - front" draggable="false">
+            <img src="images/casual-shorts-back.jpeg?v=collections-2" alt="Casual Cream Shorts - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">Shorts</span>
+            <h3>Casual Cream Shorts</h3>
+          </div>
+
+          <strong>$49</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+<article class="product-card" data-collection="capital" data-category="tshirt" data-price="59" data-name="Paris FR Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Paris FR Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-paris-front.jpeg" alt="Paris FR Capital Tee - front" draggable="false">
+            <img src="images/capital-paris-back.jpeg?v=collections-2" alt="Paris FR Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">T-shirt</span>
+            <h3>Paris FR Capital Tee</h3>
+          </div>
+
+          <strong>$59</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+<article class="product-card" data-collection="capital" data-category="tshirt" data-price="59" data-name="Warsaw WAW Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Warsaw WAW Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-warsaw-front.jpeg" alt="Warsaw WAW Capital Tee - front" draggable="false">
+            <img src="images/capital-warsaw-back.jpeg?v=collections-2" alt="Warsaw WAW Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">T-shirt</span>
+            <h3>Warsaw WAW Capital Tee</h3>
+          </div>
+
+          <strong>$59</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+        </div><p id="productsEmpty" role="status" hidden></p>
       </div>
+      <aside class="collection-picker" aria-label="Collections"><fieldset><legend>Collections</legend><label><input type="radio" name="collection" value="all" checked><span>All collections</span><small data-collection-count="all"></small></label><label><input type="radio" name="collection" value="europe" ><span>Europe Edition</span><small data-collection-count="europe"></small></label><label><input type="radio" name="collection" value="black" ><span>Black Edition</span><small data-collection-count="black"></small></label><label><input type="radio" name="collection" value="casual" ><span>Casual Collection</span><small data-collection-count="casual"></small></label><label><input type="radio" name="collection" value="capital" ><span>Capital Collection</span><small data-collection-count="capital"></small></label><label><input type="radio" name="collection" value="country" ><span>Country Collection</span><small data-collection-count="country"></small></label></fieldset></aside>
     </div>
   </section>
 
@@ -547,8 +630,8 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=collections-1"></script>
-  <script src="script.js?v=collections-1"></script>
+  <script src="languages.js?v=collections-2"></script>
+  <script src="script.js?v=collections-2"></script>
   <script src="vendor/leaflet.js"></script>
   <script src="weather.js?v=vercel-api-3"></script>
   <script src="music-services.js"></script>

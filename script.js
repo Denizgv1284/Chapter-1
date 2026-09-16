@@ -1,4 +1,10 @@
 const productCards = [...document.querySelectorAll('.product-card')];
+const shopReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+function animateShopElement(element, frames, duration) {
+  element.getAnimations().forEach(animation => animation.cancel());
+  if (shopReducedMotion.matches || navigator.connection?.saveData) return;
+  element.animate(frames, {duration, easing:'cubic-bezier(.22,.7,.3,1)'});
+}
 const siteMenu = document.querySelector('#siteMenu');
 const menuOpen = document.querySelector('#menuOpen');
 menuOpen.addEventListener('click', () => {
@@ -22,13 +28,28 @@ siteMenu.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener(
 
 document.querySelectorAll('.product-gallery').forEach(gallery => {
   const track = gallery.querySelector('.product-img');
+  const photos = [...track.querySelectorAll('img')];
   const dots = [...gallery.querySelectorAll('[data-slide]')];
   const previous = gallery.querySelector('.gallery-prev');
   const next = gallery.querySelector('.gallery-next');
+  let lastSlide = 0;
+  let glowTimer;
   const current = () => Math.round(track.scrollLeft / (track.clientWidth || 1));
   const go = index => track.scrollTo({left: Math.max(0, Math.min(dots.length - 1, index)) * track.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
   const update = () => {
     const index = current();
+    const photo = photos[index];
+    if (photo?.naturalWidth && photo.naturalHeight) {
+      track.style.aspectRatio = `${photo.naturalWidth} / ${photo.naturalHeight}`;
+    }
+    if (index !== lastSlide) {
+      lastSlide = index;
+      if (!shopReducedMotion.matches && !navigator.connection?.saveData) {
+        gallery.classList.add('is-changing');
+        clearTimeout(glowTimer);
+        glowTimer = setTimeout(() => gallery.classList.remove('is-changing'), 420);
+      }
+    }
     dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
     previous.disabled = index === 0;
     next.disabled = index === dots.length - 1;
@@ -37,6 +58,7 @@ document.querySelectorAll('.product-gallery').forEach(gallery => {
   next.addEventListener('click', () => go(current() + 1));
   dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
   track.addEventListener('scroll', update, {passive:true});
+  photos.forEach(photo => photo.addEventListener('load', update));
   track.addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
@@ -60,6 +82,14 @@ const feedbackStatus = document.querySelector('#feedbackStatus');
 
 let searchTerm = '';
 let cart = [];
+const collectionNames = {all:'New Arrivals', europe:'Europe Edition', black:'Black Edition', casual:'Casual Collection', capital:'Capital Collection', country:'Country Collection'};
+const collectionInputs = [...document.querySelectorAll('input[name="collection"]')];
+function selectCollection(value) {
+  document.querySelector(`input[name="collection"][value="${value}"]`).checked = true;
+  resetFilters();
+}
+collectionInputs.forEach(input => input.addEventListener('change', applyFilters));
+document.querySelectorAll('[data-collection-link]').forEach(link => link.addEventListener('click', () => selectCollection(link.dataset.collectionLink)));
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -106,6 +136,17 @@ feedbackForm.addEventListener('submit', (event) => {
 });
 
 function applyFilters() {
+  const collection = document.querySelector('input[name="collection"]:checked').value;
+  const collectionCards = productCards.filter(card => collection === 'all' || card.dataset.collection === collection);
+  document.querySelector('#selectedCollectionTitle').textContent = collectionNames[collection];
+  categoryInputs.forEach(input => {
+    input.closest('label').querySelector('small').textContent = collectionCards.filter(card => input.value === 'all' || card.dataset.category === input.value).length;
+  });
+  document.querySelectorAll('[data-collection-count]').forEach(count => {
+    const key = count.dataset.collectionCount;
+    const total = productCards.filter(card => key === 'all' || card.dataset.collection === key).length;
+    count.textContent = total || 'Coming soon';
+  });
   const category = document.querySelector('input[name="category"]:checked').value;
   const priceRange = document.querySelector('input[name="price"]:checked').value;
   const [minimum, maximum] = priceRange === 'all'
@@ -118,15 +159,23 @@ function applyFilters() {
     const price = Number(card.dataset.price);
     const name = card.dataset.name.toLowerCase();
     const matchesCategory = category === 'all' || card.dataset.category === category;
-    const matchesPrice = price >= minimum && price <= maximum;
+    const matchesPrice = priceRange === 'all' || (card.dataset.price !== '' && price >= minimum && price <= maximum);
     const matchesSearch = name.includes(searchTerm.toLowerCase());
-    const isVisible = matchesCategory && matchesPrice && matchesSearch;
+    const isVisible = matchesCategory && matchesPrice && matchesSearch && collectionCards.includes(card);
 
+    const entering = card.hidden && isVisible;
     card.hidden = !isVisible;
+    if (entering) animateShopElement(card, [
+      {opacity:0, transform:'translateY(8px)'},
+      {opacity:1, transform:'translateY(0)'}
+    ], 260);
     if (isVisible) visibleProducts += 1;
   });
 
   resultCount.textContent = `${visibleProducts} ${visibleProducts === 1 ? 'piece' : 'pieces'}`;
+  const empty = document.querySelector('#productsEmpty');
+  empty.hidden = visibleProducts > 0;
+  empty.textContent = collectionCards.length ? 'No products match these filters.' : 'Coming soon';
 }
 
 function resetFilters() {

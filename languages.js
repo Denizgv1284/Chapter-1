@@ -7,6 +7,9 @@
   const rows = `
 Language|Language|Dil|Język|Sprache|Язык|语言
 Collections|Collections|Koleksiyonlar|Kolekcje|Kollektionen|Коллекции|系列
+All collections|All collections|Tüm koleksiyonlar|Wszystkie kolekcje|Alle Kollektionen|Все коллекции|所有系列
+Shorts|Shorts|Şort|Szorty|Shorts|Шорты|短裤
+No products match these filters.|No products match these filters.|Bu filtrelere uygun ürün yok.|Brak produktów dla tych filtrów.|Keine passenden Produkte.|Нет подходящих товаров.|没有符合筛选条件的商品。
 Coming soon|Coming soon|Yakında|Wkrótce|Demnächst|Скоро|即将推出
 Open menu|Open menu|Menüyü aç|Otwórz menu|Menü öffnen|Открыть меню|打开菜单
 Close menu|Close menu|Menüyü kapat|Zamknij menu|Menü schließen|Закрыть меню|关闭菜单
