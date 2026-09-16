@@ -14,9 +14,26 @@
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
   <div class="site-stars site-stars-two" aria-hidden="true"></div>
 
-  <div class="top">
-    <span>FREE SHIPPING ON ORDERS OVER $50</span>
-    <div class="top-actions">
+  <nav class="site-nav" aria-label="Main navigation">
+    <button id="menuOpen" class="menu-toggle" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="siteMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a class="nav-brand" href="#" aria-label="DCMD home"><img src="images/dcmd-logo-transparent.png" alt="DCMD logo"></a>
+    <button id="notificationsButton" class="notifications-button" type="button" aria-label="Bildirimler" aria-haspopup="dialog" aria-controls="notificationsDialog" title="Bildirimler">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path><path d="M10 21h4"></path></svg>
+      <span id="notificationsUnread" class="notifications-unread" aria-label="Yeni duyurular"></span>
+    </button>
+  </nav>
+
+  <dialog id="siteMenu" class="site-menu" aria-labelledby="menuTitle">
+    <div class="menu-heading"><h2 id="menuTitle">DCMD</h2><button id="menuClose" class="menu-close" type="button" aria-label="Close menu">&times;</button></div>
+    <div class="menu-links">
+      <a class="menu-featured" href="#products">New Arrivals <span aria-hidden="true">&#8599;</span></a>
+      <p class="eyebrow">Collections</p>
+      <a href="#europe-collection">Europe Edition <span aria-hidden="true">&#8599;</span></a>
+      <a href="#black-collection">Black Edition <span aria-hidden="true">&#8599;</span></a>
+      <a href="#country-collection">Country Collection <span aria-hidden="true">&#8599;</span></a>
+      <div class="menu-secondary"><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+    </div>
+    <div class="menu-language"><p class="eyebrow">Language</p>
     <div class="language-switcher" role="group" aria-label="Language">
       <span aria-hidden="true">◎</span>
       <button type="button" data-language="en" lang="en" title="English">EN</button>
@@ -26,25 +43,8 @@
       <button type="button" data-language="ru" lang="ru" title="Русский">RU</button>
       <button type="button" data-language="zh" lang="zh" title="中文（简体）">中文</button>
     </div>
-    <button id="notificationsButton" class="notifications-button" type="button" aria-label="Bildirimler" aria-haspopup="dialog" aria-controls="notificationsDialog" title="Bildirimler">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path><path d="M10 21h4"></path></svg>
-      <span id="notificationsUnread" class="notifications-unread" aria-label="Yeni duyurular"></span>
-    </button>
     </div>
-  </div>
-
-  <nav>
-    <a href="#">
-      <img src="images/dcmd-logo-transparent.png" alt="DCMD logo">
-    </a>
-
-    <div class="navlinks">
-      <a href="#products">New Arrivals</a>
-      <a href="#weather-style">Havaya Göre Giyin</a>
-      <a href="#story">Our Story</a>
-      <a href="#contact">Contact</a>
-    </div>
-
+    <div class="menu-tools">
     <div class="navright">
       <div class="music-dock" lang="tr" aria-label="Mini müzik oynatıcı">
         <button id="musicOpen" type="button" aria-label="Müzik oynatıcıyı aç" aria-expanded="false" aria-controls="musicPlayer" title="Müzik"><span aria-hidden="true">♫</span></button>
@@ -58,7 +58,8 @@
       <button class="icon" id="searchButton" type="button">SEARCH</button>
       <button class="icon" id="cartButton" type="button">CART (0)</button>
     </div>
-  </nav>
+    </div>
+  </dialog>
 
   <header class="hero">
 
@@ -108,6 +109,15 @@
 
 
 
+
+  <section id="collections" class="collections-section" aria-labelledby="collectionsTitle">
+    <div class="section-head"><div><span class="eyebrow">DCMD / Collections</span><h2 id="collectionsTitle">Collections</h2></div></div>
+    <div class="collection-list">
+      <article id="europe-collection" class="collection-title"><span class="collection-number">01</span><h3>Europe Edition</h3></article>
+      <article id="black-collection" class="collection-title"><span class="collection-number">02</span><h3>Black Edition</h3></article>
+      <article id="country-collection" class="collection-title"><span class="collection-number">03</span><h3>Country Collection</h3><span class="eyebrow">Coming soon</span></article>
+    </div>
+  </section>
 
   <!-- Products section -->
   <section id="products">
@@ -194,11 +204,12 @@
 
       <!-- Europe T-Shirt -->
       <article class="product-card" data-category="tshirt" data-price="59" data-name="Europe Collection Tee">
-        <div class="product-img">
-          <img
-            src="images/europe-tshirt-front.jpeg"
-            alt="DCMD Europe Collection T-shirt"
-          >
+        <div class="product-gallery" role="group" aria-label="DCMD Europe Collection T-shirt">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/europe-tshirt-front.jpeg" alt="DCMD Europe Collection T-shirt - front" draggable="false">
+            <img src="images/europe-tshirt-back.jpeg" alt="DCMD Europe Collection T-shirt - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">
@@ -217,11 +228,12 @@
 
       <!-- Essential T-shirt -->
       <article class="product-card" data-category="tshirt" data-price="49" data-name="Essential Oversized Tee">
-        <div class="product-img">
-          <img
-            src="images/essential-tshirt-front.jpeg"
-            alt="DCMD Essential Collection T-shirt"
-          >
+        <div class="product-gallery" role="group" aria-label="DCMD Essential Collection T-shirt">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/essential-tshirt-front.jpeg" alt="DCMD Essential Collection T-shirt - front" draggable="false">
+            <img src="images/essential-tshirt-back.jpeg" alt="DCMD Essential Collection T-shirt - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">
@@ -240,11 +252,12 @@
 
       <!-- Hoodie -->
       <article class="product-card" data-category="hoodie" data-price="99" data-name="Different Oversized Hoodie">
-        <div class="product-img">
-          <img
-            src="images/hoodie-front.jpeg"
-            alt="DCMD Black Hoodie"
-          >
+        <div class="product-gallery" role="group" aria-label="DCMD Black Hoodie">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/hoodie-front.jpeg" alt="DCMD Black Hoodie - front" draggable="false">
+            <img src="images/hoodie-back.jpeg" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">
@@ -263,11 +276,12 @@
 
       <!-- Pants -->
       <article class="product-card" data-category="pants" data-price="89" data-name="DCMD Wide Leg Pants">
-        <div class="product-img">
-          <img
-            src="images/pants-front.jpeg"
-            alt="DCMD Black Pants"
-          >
+        <div class="product-gallery" role="group" aria-label="DCMD Black Pants">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/pants-front.jpeg" alt="DCMD Black Pants - front" draggable="false">
+            <img src="images/pants-back.jpeg" alt="DCMD Black Pants - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">

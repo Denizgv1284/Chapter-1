@@ -6,6 +6,15 @@
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
 Language|Language|Dil|Język|Sprache|Язык|语言
+Collections|Collections|Koleksiyonlar|Kolekcje|Kollektionen|Коллекции|系列
+Coming soon|Coming soon|Yakında|Wkrótce|Demnächst|Скоро|即将推出
+Open menu|Open menu|Menüyü aç|Otwórz menu|Menü öffnen|Открыть меню|打开菜单
+Close menu|Close menu|Menüyü kapat|Zamknij menu|Menü schließen|Закрыть меню|关闭菜单
+Previous photo|Previous photo|Önceki fotoğraf|Poprzednie zdjęcie|Vorheriges Foto|Предыдущее фото|上一张照片
+Next photo|Next photo|Sonraki fotoğraf|Następne zdjęcie|Nächstes Foto|Следующее фото|下一张照片
+Front|Front|Ön|Przód|Vorderseite|Спереди|正面
+Back|Back|Arka|Tył|Rückseite|Сзади|背面
+Product photos|Product photos|Ürün fotoğrafları|Zdjęcia produktu|Produktfotos|Фото товара|商品照片
 FREE SHIPPING ON ORDERS OVER $50|FREE SHIPPING ON ORDERS OVER $50|50 $ ÜZERİ SİPARİŞLERDE ÜCRETSİZ KARGO|DARMOWA DOSTAWA OD 50 USD|KOSTENLOSER VERSAND AB 50 $|БЕСПЛАТНАЯ ДОСТАВКА ОТ 50 $|订单满50美元免运费
 New Arrivals|New Arrivals|Yeni Ürünler|Nowości|Neuheiten|Новинки|新品
 Havaya Göre Giyin|Dress for the weather|Havaya Göre Giyin|Ubierz się do pogody|Passend zum Wetter|Одежда по погоде|按天气穿搭

@@ -1,4 +1,49 @@
 const productCards = [...document.querySelectorAll('.product-card')];
+const siteMenu = document.querySelector('#siteMenu');
+const menuOpen = document.querySelector('#menuOpen');
+menuOpen.addEventListener('click', () => {
+  siteMenu.showModal();
+  menuOpen.setAttribute('aria-expanded', 'true');
+});
+document.querySelector('#menuClose').addEventListener('click', () => siteMenu.close());
+siteMenu.addEventListener('close', () => {
+  menuOpen.setAttribute('aria-expanded', 'false');
+});
+siteMenu.addEventListener('click', event => {
+  if (event.target !== siteMenu) return;
+  const box = siteMenu.getBoundingClientRect();
+  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) siteMenu.close();
+});
+siteMenu.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', () => siteMenu.close()));
+// Close the modal before opening controls that live outside its focus trap.
+['searchButton', 'cartButton', 'musicOpen'].forEach(id => {
+  document.getElementById(id).addEventListener('click', () => siteMenu.close());
+});
+
+document.querySelectorAll('.product-gallery').forEach(gallery => {
+  const track = gallery.querySelector('.product-img');
+  const dots = [...gallery.querySelectorAll('[data-slide]')];
+  const previous = gallery.querySelector('.gallery-prev');
+  const next = gallery.querySelector('.gallery-next');
+  const current = () => Math.round(track.scrollLeft / (track.clientWidth || 1));
+  const go = index => track.scrollTo({left: Math.max(0, Math.min(dots.length - 1, index)) * track.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  const update = () => {
+    const index = current();
+    dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
+    previous.disabled = index === 0;
+    next.disabled = index === dots.length - 1;
+  };
+  previous.addEventListener('click', () => go(current() - 1));
+  next.addEventListener('click', () => go(current() + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+  track.addEventListener('scroll', update, {passive:true});
+  track.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    go(current() + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  update();
+});
 const categoryInputs = [...document.querySelectorAll('input[name="category"]')];
 const priceInputs = [...document.querySelectorAll('input[name="price"]')];
 const resultCount = document.querySelector('#resultCount');
