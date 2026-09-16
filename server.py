@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parent
 PROVINCES = json.loads((ROOT / 'data/turkiye.json').read_text(encoding='utf-8-sig'))
 COUNTRIES = {c['code']: c for c in json.loads((ROOT / 'data/countries.json').read_text(encoding='utf-8'))}
 CACHE = {}
+SECURITY_HEADERS = json.loads((ROOT / 'vercel.json').read_text(encoding='utf-8'))['headers'][0]['headers']
 
 
 def check_country(country):
@@ -171,7 +172,8 @@ class Handler(SimpleHTTPRequestHandler):
         allowed = {'/', '/index.html', '/style.css', '/script.js', '/weather.css', '/weather.js', '/data/turkiye.json', '/data/countries.json', '/music.css', '/music.js', '/music-services.js', '/languages.js', '/languages.css'}
         path = unquote(parsed.path)
         resolved = (ROOT / path.lstrip('/')).resolve()
-        asset = any(resolved.is_relative_to(ROOT / folder) for folder in ('images', 'vendor'))
+        allowed.add('/commerce.js')
+        asset = any(resolved.is_relative_to(ROOT / folder) for folder in ('images', 'vendor', 'policies'))
         if not resolved.is_relative_to(ROOT) or (path not in allowed and not asset) or (path != '/' and resolved.is_dir()):
             self.send_error(404)
             return
@@ -181,7 +183,8 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_error(405)
 
     def end_headers(self):
-        self.send_header('X-Content-Type-Options', 'nosniff')
+        for header in SECURITY_HEADERS:
+            self.send_header(header['key'], header['value'])
         super().end_headers()
 
 

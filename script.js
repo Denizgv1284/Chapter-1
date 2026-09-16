@@ -96,10 +96,11 @@ function setTheme(theme) {
   const isLight = theme === 'light';
   themeToggle.setAttribute('aria-label', isLight ? 'Switch to night mode' : 'Switch to light mode');
   themeToggle.title = isLight ? 'Night mode' : 'Day mode';
-  localStorage.setItem('dcmd-theme', theme);
+  try {localStorage.setItem('dcmd-theme', theme);} catch {}
 }
 
-const savedTheme = localStorage.getItem('dcmd-theme');
+let savedTheme;
+try {savedTheme = localStorage.getItem('dcmd-theme');} catch {}
 setTheme(savedTheme === 'light' ? 'light' : 'dark');
 
 themeToggle.addEventListener('click', () => {
@@ -120,19 +121,8 @@ feedbackModal.addEventListener('click', (event) => {
 feedbackForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const formData = new FormData(feedbackForm);
-  const savedFeedback = JSON.parse(localStorage.getItem('dcmd-feedback') || '[]');
-  savedFeedback.push({
-    type:formData.get('feedbackType'),
-    category:formData.get('feedbackCategory'),
-    message:formData.get('feedbackMessage'),
-    email:formData.get('feedbackEmail'),
-    createdAt:new Date().toISOString()
-  });
-
-  localStorage.setItem('dcmd-feedback', JSON.stringify(savedFeedback));
   feedbackForm.reset();
-  feedbackStatus.textContent = 'Thank you. Your message has been saved.';
+  feedbackStatus.textContent = 'Test geri bildirimi alındı. Gönderilmedi veya saklanmadı.';
 });
 
 function applyFilters() {
@@ -202,16 +192,17 @@ function renderCart() {
   } else {
     cartItems.innerHTML = cart.map((item, index) => `
       <div class="cart-row">
-        <span>${item.name}</span>
-        <strong>$${item.price}</strong>
+        <span>${item.name} / ${item.size}</span>
+        <strong>${window.DCMDCommerce.money(item.price)}</strong>
         <button type="button" data-remove="${index}" aria-label="Remove ${item.name}">REMOVE</button>
       </div>
     `).join('');
   }
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  cartTotal.textContent = `$${total}`;
+  const total = cart.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100;
+  cartTotal.textContent = window.DCMDCommerce.money(total);
   cartButton.textContent = `CART (${cart.length})`;
+  document.querySelector('.checkout').disabled = cart.length === 0;
 }
 
 categoryInputs.forEach((input) => input.addEventListener('change', applyFilters));
@@ -240,7 +231,10 @@ document.querySelector('#closeCart').addEventListener('click', () => closePanel(
 document.querySelectorAll('.add').forEach((button) => {
   button.addEventListener('click', () => {
     const card = button.closest('.product-card');
-    cart.push({ name: card.dataset.name, price: Number(card.dataset.price) });
+    const line = {productId:card.dataset.productId, size:card.querySelector('.size-select').value, name:card.dataset.name, price:Number(card.dataset.price)};
+    const error = window.DCMDCommerce.validate([...cart,line]);
+    if (error) {card.querySelector('.stock-status').textContent = error;return;}
+    cart.push(line);
     renderCart();
     openPanel(cartPanel);
   });
@@ -254,9 +248,123 @@ cartItems.addEventListener('click', (event) => {
   renderCart();
 });
 
+const checkoutDialog = document.querySelector('#checkoutDialog');
+const checkoutForm = document.querySelector('#checkoutForm');
+const trackingDialog = document.querySelector('#trackingDialog');
+const testOrders = new Map();
+window.addEventListener('dcmd:cleardemo', () => {testOrders.clear();document.querySelector('#orderEmailPreview').textContent='';trackingDialog.close();});
+const paymentNames = {credit:'Kredi kartı', debit:'Banka kartı', apple:'Apple Pay', paypal:'PayPal'};
+const money = window.DCMDCommerce.money;
+let checkoutSnapshot = [];
+function updateDemoPayment() {
+  const method = checkoutForm.elements.payment.value;
+  const wallet = method === 'apple' || method === 'paypal';
+  document.querySelector('#demoCard').hidden = wallet;
+  document.querySelector('#walletDemo').hidden = !wallet;
+  document.querySelector('#walletDemo').textContent = wallet ? `${paymentNames[method]} test simülasyonu. Hesap açılmaz, giriş yapılmaz ve para çekilmez.` : '';
+}
+checkoutForm.querySelectorAll('[name="payment"]').forEach(input => input.addEventListener('change', updateDemoPayment));
 document.querySelector('.checkout').addEventListener('click', () => {
-  window.alert(window.DCMDLanguage.t(cart.length ? 'Checkout will be available soon.' : 'Your cart is empty.'));
+  if (!cart.length) return;
+  checkoutSnapshot = cart.map(item => ({...item}));
+  checkoutForm.reset();
+  updateDemoPayment();
+  document.querySelector('#checkoutSuccess').hidden = true;
+  checkoutForm.hidden = false;
+  document.querySelector('#checkoutError').textContent = '';
+  const list = document.querySelector('#checkoutItems');
+  list.replaceChildren();
+  checkoutSnapshot.forEach(item => {
+    const row = document.createElement('p');
+    row.className = 'checkout-item';
+    const name = document.createElement('span'); name.textContent = `${item.name} / ${item.size}`;
+    const price = document.createElement('strong'); price.textContent = money(item.price);
+    row.append(name, price); list.append(row);
+  });
+  const total = checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100;
+  document.querySelector('#checkoutSubtotal').textContent = money(total);
+  document.querySelector('#checkoutTotal').textContent = money(total);
+  closePanel(cartPanel);
+  checkoutDialog.showModal();
 });
+document.querySelector('#checkoutClose').addEventListener('click', () => checkoutDialog.close());
+checkoutDialog.addEventListener('close', () => {
+  checkoutForm.reset();
+  document.querySelector('#orderEmailPreview').textContent = '';
+  cartButton.focus({preventScroll:true});
+});
+checkoutForm.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!checkoutSnapshot.length || !checkoutForm.reportValidity()) return;
+  const fields = new FormData(checkoutForm);
+  if (['customer','address','city','postal','country'].some(key => !String(fields.get(key)).trim())) {
+    document.querySelector('#checkoutError').textContent = 'Lütfen teslimat alanlarını boş bırakma.';
+    return;
+  }
+  const capacityError = window.DCMDCommerce.commit(checkoutSnapshot);
+  if (capacityError) {document.querySelector('#checkoutError').textContent = capacityError;return;}
+  const order = {
+    id:`DCMD-TEST-${crypto.randomUUID()}`,
+    createdAt:new Date().toISOString(),
+    items:checkoutSnapshot.map(item => ({...item})),
+    total:checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100,
+    currency:'EUR',
+    policyVersion:window.DCMDCommerce.policyVersion,
+    termsAcceptedAt:new Date().toISOString(),
+    marketingPreview:fields.get('marketing') === 'on',
+    method:paymentNames[fields.get('payment')]
+  };
+  // Store only the anonymous demo receipt, never contact, address or card data.
+  testOrders.set(order.id, order);
+  try {
+    localStorage.setItem('dcmd-demo-order', JSON.stringify(order));
+  } catch { /* In-memory tracking still works if browser storage is unavailable. */ }
+  const link = new URL(location.href); link.hash = `track=${order.id}`;
+  document.querySelector('#orderTrackLink').href = link.href;
+  document.querySelector('#orderConfirmation').textContent = `${order.id} · ${money(order.total)} · ${order.method} (test)`;
+  document.querySelector('#orderEmailPreview').textContent = [
+    `Alıcı: ${fields.get('email')}`,
+    `Konu: DCMD test siparişin alındı — ${order.id}`,
+    '', `Merhaba ${String(fields.get('customer')).trim()},`,
+    'DCMD test siparişini aldık. Bu işlemde ödeme alınmadı ve ürün gönderilmeyecek.',
+    '', ...order.items.map(item => `1 × ${item.name} / ${item.size} — ${money(item.price)}`),
+    '', `Toplam: ${money(order.total)}`, `Ödeme: ${order.method} — simülasyon`,
+    '', `Test takip bağlantın: ${link.href}`,
+    'Bu bağlantı yalnızca siparişi oluşturduğun tarayıcıdaki son test kaydı için geçerlidir.',
+    '', 'Bu bir e-posta önizlemesidir; gönderilmedi.', 'DCMD — Don’t Fit In. Stand Out.'
+  ].join('\n');
+  cart = []; checkoutSnapshot = []; renderCart();
+  checkoutForm.reset(); checkoutForm.hidden = true;
+  document.querySelector('#checkoutSuccess').hidden = false;
+  document.querySelector('#orderTrackLink').focus();
+});
+function showTestTracking() {
+  if (!location.hash.startsWith('#track=')) return;
+  const id = location.hash.slice(7);
+  let order = testOrders.get(id);
+  if (!order) {
+    try { const stored = JSON.parse(localStorage.getItem('dcmd-demo-order')); if (stored?.id === id) order = stored; } catch {}
+  }
+  const content = document.querySelector('#trackingContent'); content.replaceChildren();
+  const valid = order && order.currency === 'EUR' && Array.isArray(order.items) && Number.isFinite(order.total) && Number.isFinite(Date.parse(order.createdAt));
+  const description = document.createElement('p');
+  description.textContent = valid ? `${order.id} · ${new Date(order.createdAt).toLocaleString()} · ${money(order.total)}` : 'Bu tarayıcıda bu test siparişi bulunamadı. Takip, siparişin oluşturulduğu tarayıcıda son kayıt için kullanılabilir.';
+  content.append(description);
+  if (valid) {
+    const steps = document.createElement('ol'); steps.className = 'tracking-steps';
+    ['Test siparişi alındı', 'Hazırlanıyor — testte başlatılmadı', 'Kargoya verildi — testte başlatılmadı', 'Teslim edildi — testte başlatılmadı'].forEach((text, index) => {
+      const step = document.createElement('li'); step.textContent = text;
+      if (!index) step.setAttribute('aria-current','step'); steps.append(step);
+    });
+    content.append(steps);
+  }
+  checkoutDialog.close(); siteMenu.close();
+  if (!trackingDialog.open) trackingDialog.showModal();
+}
+document.querySelector('#trackingClose').addEventListener('click', () => trackingDialog.close());
+trackingDialog.addEventListener('close', () => { if (location.hash.startsWith('#track=')) history.replaceState(null,'',location.pathname + location.search + '#products'); });
+window.addEventListener('hashchange', showTestTracking);
+showTestTracking();
 
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;

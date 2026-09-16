@@ -1,1 +1,7 @@
 ﻿/public/
+
+.env
+.env.*
+!.env.example
+music-config.local.json
+__pycache__/

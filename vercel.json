@@ -8,5 +8,32 @@
       "maxDuration": 30,
       "excludeFiles": "{.venv/**,.git/**,.codex/**,.vscode/**,__pycache__/**,public/**,images/**,vendor/**,test_*,*.zip,music-config.local.json}"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://sdk.scdn.co https://js-cdn.music.apple.com"
+        }
+      ]
+    }
+  ]
 }

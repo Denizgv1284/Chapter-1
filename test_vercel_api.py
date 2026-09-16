@@ -23,6 +23,9 @@ class DeploymentTests(unittest.TestCase):
                     response = error
                 with response:
                     self.assertIn('application/json', response.headers['Content-Type'])
+                    self.assertEqual(response.headers['X-Content-Type-Options'], 'nosniff')
+                    self.assertEqual(response.headers['X-Frame-Options'], 'DENY')
+                    self.assertIn("frame-ancestors 'none'", response.headers['Content-Security-Policy'])
                     return response.status, json.load(response)
             finally:
                 server.shutdown()

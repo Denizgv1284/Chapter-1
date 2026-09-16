@@ -257,13 +257,14 @@ if (typeof document !== 'undefined') (async function () {
       const name = document.createElement('h4');
       name.textContent = card.dataset.name;
       const price = document.createElement('p');
-      price.textContent = `$${card.dataset.price}${card.dataset.category === 'tshirt' ? ' · Tişört seçeneği' : ''}`;
+      price.textContent = `${window.DCMDCommerce.money(Number(card.dataset.price))} · ${card.querySelector('.size-select').value}`;
       details.append(name, price);
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = 'Sepete ekle';
       button.setAttribute('aria-label', `${card.dataset.name} — sepete ekle`);
-      button.addEventListener('click', () => card.querySelector('.add').click());
+      button.addEventListener('click', () => {card.scrollIntoView({behavior:'smooth',block:'center'});card.querySelector('.size-select').focus({preventScroll:true});});
+      button.textContent = 'Beden seç';
       row.append(picture, details, button);
       container.append(row);
     });
