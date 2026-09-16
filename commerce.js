@@ -62,6 +62,21 @@
   document.querySelector('#inventoryClose').addEventListener('click', () => document.querySelector('#inventoryDialog').close());
   document.querySelector('#inventoryReset').addEventListener('click', () => {products.forEach(p => sizes.forEach((s,i) => {p.stock[s]=initialStock[i];}));renderStocks();});
   const poll = document.querySelector('#capitalPoll');
+  const pollDialog = document.querySelector('#capitalVote');
+  const pollOpen = document.querySelector('#pollOpen');
+  pollOpen.addEventListener('click', () => {pollDialog.showModal();pollOpen.setAttribute('aria-expanded','true');});
+  document.querySelector('#pollClose').addEventListener('click', () => pollDialog.close());
+  pollDialog.addEventListener('close', () => {pollOpen.setAttribute('aria-expanded','false');pollOpen.focus({preventScroll:true});});
+  pollDialog.addEventListener('click', event => {
+    if (event.target !== pollDialog) return;
+    const box = pollDialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) pollDialog.close();
+  });
+  try {
+    const saved = JSON.parse(localStorage.getItem('dcmd-demo-vote'));
+    const option = [...poll.elements.city].find(input => input.value === saved?.city);
+    if (option) option.checked = true;
+  } catch {}
   poll.addEventListener('submit', event => {
     event.preventDefault();
     const city = new FormData(poll).get('city');
@@ -70,6 +85,7 @@
   });
   document.querySelector('#clearDemoData').addEventListener('click', () => {
     ['dcmd-demo-order','dcmd-demo-vote','dcmd-feedback'].forEach(key => {try{localStorage.removeItem(key);}catch{}});
+    poll.reset();
     window.dispatchEvent(new Event('dcmd:cleardemo'));
     document.querySelector('#pollStatus').textContent='Bu tarayıcıdaki test kayıtları temizlendi.';
   });

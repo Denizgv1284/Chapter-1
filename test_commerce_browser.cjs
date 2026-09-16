@@ -48,8 +48,10 @@ const assert = require('node:assert/strict');
     const policyResponse = await page.request.get(new URL('/policies/privacy.html',page.url()).href);
     assert.equal(policyResponse.status(),200);
     assert.match(await policyResponse.text(),/yarıda kesil/);
-    await page.selectOption('#capitalPoll select','Berlin'); await page.click('#capitalPoll button');
+    await page.click('#pollOpen');
+    await page.check('#capitalPoll input[value="Berlin"]'); await page.click('#capitalPoll button');
     assert.match(await page.locator('#pollStatus').innerText(),/Berlin/);
+    await page.click('#pollClose');
     await page.click('#clearDemoData');
     assert.equal(await page.evaluate(()=>localStorage.getItem('dcmd-demo-order')),null);
     for (const width of [320,390,1440]) {
