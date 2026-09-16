@@ -20,7 +20,28 @@ function recommendOutfit(current) {
   return { title, reason, categories };
 }
 
-if (typeof module !== 'undefined') module.exports = { recommendOutfit };
+async function fetchWeatherApi(endpoint, params, signal) {
+  let response;
+  try {
+    response = await fetch(`/api/${endpoint}?${params}`, {signal, cache:'no-store'});
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
+    throw new Error('Hava durumu servisine ulaşılamadı. İnternet bağlantını kontrol edip tekrar dene.');
+  }
+  if (!response.headers.get('content-type')?.includes('application/json')) {
+    throw new Error('Hava durumu servisi kullanılamıyor. Lütfen biraz sonra tekrar dene.');
+  }
+  let data;
+  try { data = await response.json(); }
+  catch { throw new Error('Hava durumu servisinden geçersiz yanıt geldi. Tekrar dene.'); }
+  if (!response.ok) throw new Error(data?.error || 'Hava durumu servisi geçici olarak kullanılamıyor. Tekrar dene.');
+  if (!data || (endpoint === 'locations' ? !Array.isArray(data.results) : !data.current || !data.coordinates)) {
+    throw new Error('Hava durumu servisinden eksik yanıt geldi. Tekrar dene.');
+  }
+  return data;
+}
+
+if (typeof module !== 'undefined') module.exports = { recommendOutfit, fetchWeatherApi };
 
 if (typeof document !== 'undefined') (async function () {
   const byId = (id) => document.getElementById(id);
@@ -145,10 +166,7 @@ if (typeof document !== 'undefined') (async function () {
     byId('weatherCityStatus').textContent = 'Konumlar aranıyor…';
     try {
       const params = new URLSearchParams({country:countrySelect.value, q:query, language:window.DCMDLanguage?.language || 'tr'});
-      const response = await fetch(`/api/locations?${params}`, {signal:active.signal});
-      if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('Konum servisi kullanılamıyor. Python sunucusundan açmayı dene.');
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Konumlar alınamadı.');
+      const data = await fetchWeatherApi('locations', params, active.signal);
       if (version !== searchVersion) return;
       citySelect.replaceChildren(new Option('Konumunu seç', ''));
       data.results.forEach(place => citySelect.add(new Option([...new Set([place.name, place.district, place.region].filter(Boolean))].join(' / '), place.id)));
@@ -277,10 +295,7 @@ if (typeof document !== 'undefined') (async function () {
     hasRequested = true;
     try {
       const params = new URLSearchParams({country:countrySelect.value, province:provinceSelect.value, district:districtSelect.value, location:citySelect.value, language:window.DCMDLanguage?.language || 'tr'});
-      const response = await fetch(`/api/weather?${params}`, {signal:activeController.signal, cache:'no-store'});
-      if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('Hava durumu için siteyi Python sunucusundan açmalısın.');
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Hava durumu alınamadı.');
+      const data = await fetchWeatherApi('weather', params, activeController.signal);
       if (version !== requestId) return;
       render(data);
       status.textContent = 'Bulunduğun yer, şu anın havası, senin seçimin.';

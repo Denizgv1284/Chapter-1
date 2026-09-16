@@ -1,7 +1,1 @@
-music-config.local.json
-*.p8
-.env
-__pycache__/
-.venv/
-.codex/
-.vscode/
+﻿/public/

@@ -1,4 +1,28 @@
-# Hava durumuna göre kombin — ilk sürüm
+# Hava durumuna göre kombin
+
+## GitHub + Vercel yayını
+
+GitHub kaynak kodunu tutar; site ve Python API uçları Vercel üzerinde çalışır.
+`api/weather.py` ve `api/locations.py`, `server.py` içindeki aynı doğrulama ve
+hava durumu kodunu kullanır. Ziyaretçilerin Python kurması veya bilgisayarındaki
+sunucunun açık kalması gerekmez.
+
+Bu değişiklikleri GitHub'a gönderip Vercel'de yeni deployment oluştur.
+Vercel Root Directory bu dosyanın bulunduğu proje kökü olmalı.
+`vercel.json`, Framework Preset olarak Other, build komutu olarak
+`node build-static.cjs`, çıktı klasörü olarak `public` kullanır.
+Panelde eski build/output override ayarları varsa bunları kaldır.
+`requirements.txt` Python bağımlılıklarını yükletir. Build yalnızca web
+dosyalarını public klasörüne kopyalar; yerel ayarlar ve Python kaynakları
+statik yayına dahil edilmez.
+
+Yayın sonrası `/api/weather?country=TR&province=34` ve
+`/api/locations?country=PL&q=Warszawa` adreslerinin JSON döndürdüğünü kontrol et.
+Ardından sitede il/ilçe ve Avrupa şehir aramasını dene.
+GitHub Pages ve salt statik Live Server Python API çalıştırmaz;
+siteyi Vercel adresinden aç.
+
+## Yerel geliştirme
 
 Çalıştırma (proje klasöründen):
 
@@ -8,8 +32,9 @@
 
 Bilgisayar: http://localhost:8001/#weather-style
 Telefon: aynı Wi-Fi üzerinden bilgisayarın yerel IP adresi, port 8001.
-Sunucu açık kalmalı ve internet bağlantısı bulunmalı. Statik Live Server,
-Python `/api/weather` uç noktasını çalıştırmaz.
+Yalnızca yerel geliştirmede sunucu açık kalmalı. Dosya adı `server.py`;
+`preview_server.py` bu projede yoktur. Sayfayı dosyaya çift tıklayarak değil,
+yukarıdaki localhost adresinden aç. İnternet bağlantısı gereklidir.
 
 `main.py` içindeki hava durumu işlevi hem mevcut konsol uygulamasına hem
 siteye hizmet eder. Web sürümü yalnızca current alanlarını ister.
@@ -38,5 +63,5 @@ Kaynaklar:
 - Harita: https://www.openstreetmap.org/copyright
 - Leaflet 1.9.4: vendor/leaflet-LICENSE.txt
 
-Bu bir yerel prototiptir. Ticari yayına çıkmadan önce Open-Meteo servis
+Ticari yayına çıkmadan önce Open-Meteo servis
 planı ve kullanım şartları değerlendirilmelidir: https://open-meteo.com/en/pricing

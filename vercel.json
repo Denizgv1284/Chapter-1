@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "node build-static.cjs",
+  "outputDirectory": "public",
+  "functions": {
+    "api/*.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{.venv/**,.git/**,.codex/**,.vscode/**,__pycache__/**,public/**,images/**,vendor/**,test_*,*.zip,music-config.local.json}"
+    }
+  }
+}

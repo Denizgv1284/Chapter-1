@@ -1,0 +1,10 @@
+.venv/
+.git/
+.codex/
+.vscode/
+__pycache__/
+api/__pycache__/
+public/
+test_*
+*.zip
+music-config.local.json
