@@ -1,0 +1,48 @@
+.top { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:5px 5vw; }
+.top > span { line-height:1.6; }
+.language-switcher { display:flex; align-items:center; gap:3px; flex-shrink:0; font-family:"Space Grotesk",Arial,sans-serif; letter-spacing:0; }
+.language-switcher > span { font-size:18px; margin-right:4px; color:var(--muted); }
+.language-switcher button { min-width:35px; min-height:34px; padding:6px; color:var(--muted); background:transparent; border:1px solid transparent; border-radius:6px; font:600 11px "Space Grotesk",Arial,sans-serif; }
+.language-switcher button[aria-pressed="true"] { color:var(--text); background:#155cff22; border-color:#557fee; }
+.language-switcher button:focus-visible { outline:2px solid #8daaff; outline-offset:2px; }
+.weather-heading h2,.weather-empty h3,.weather-place h3 { overflow-wrap:anywhere; }
+.story > div { min-width:0; }
+.story h2,.story p { overflow-wrap:anywhere; }
+@media(max-width:700px) { .top { flex-direction:column; gap:2px; padding:6px 10px; } .top > span { font-size:8px; letter-spacing:1px; } .language-switcher { justify-content:center; } .language-switcher button { min-width:39px; min-height:36px; } }
+@media(max-width:560px) { .navright { gap:4px; } .navright .icon { font-size:10px; padding-inline:6px; } }
+html[lang="ru"] h1,html[lang="zh"] h1 { font-family:"Space Grotesk",Arial,sans-serif; }
+
+/* Shared touch layout for all panels, including translated labels. */
+@media (max-width:600px), (hover:none) and (pointer:coarse) {
+  .language-switcher button,.notifications-button { min-height:44px; }
+  .notifications-button { width:44px; }
+  .search-box input,.form-field input,.form-field select,.form-field textarea { font-size:16px; }
+  .search-panel { padding: max(16px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left)); place-items:center; overflow:auto; }
+  .search-box { padding:18px; max-height:100%; overflow:auto; }
+  .search-box button,.feedback-submit,.checkout,.add,.outfit-product button,.weather-map-expand,.weather-map-head button { min-height:44px; }
+  .feedback-type { flex-wrap:wrap; }
+  .feedback-dialog-head { gap:10px; }
+  .feedback-dialog-head h2 { font-size:26px; overflow-wrap:anywhere; }
+  .feedback-dialog,.notifications-dialog { overflow-wrap:anywhere; }
+  .cart-head,.cart-summary,.checkout { flex-shrink:0; }
+  .cart-row { gap:8px; }
+  .cart-row span { min-width:0; overflow-wrap:anywhere; }
+  .cart-row button { min-height:44px; }
+  .weather-map-head { flex-wrap:wrap; }
+  .weather-place { flex-wrap:wrap; }
+  .weather-metrics strong { font-size:13px; }
+  .outfit-product { grid-template-columns:44px minmax(0,1fr); }
+  .outfit-product button { grid-column:2; justify-self:start; }
+  .weather-panel-top { flex-wrap:wrap; }
+  .story > div { padding:40px 5vw; }
+  .story h2 { font-size:clamp(28px,6vw,40px); }
+  .music-player { max-width:calc(100vw - 16px); }
+  .music-dock button { min-height:36px; }
+}
+@media(max-width:400px) {
+  .navright { width:100%; justify-content:space-between; row-gap:8px; }
+  .navright > .icon { min-height:40px; }
+  .music-dock { flex-shrink:1; }
+  .music-dock input { width:26px; }
+  .top-actions .language-switcher button { min-width:32px; }
+}

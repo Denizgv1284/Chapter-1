@@ -1,0 +1,42 @@
+const { chromium } = require(require('node:path').join(process.env.TEMP, 'dcmd-browser-test/node_modules/playwright'));
+const assert = require('node:assert/strict');
+(async () => {
+  const browser = await chromium.launch({channel:'msedge',headless:true});
+  try {
+    const page = await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    const errors = []; page.on('pageerror', e => errors.push(e.message));
+    await page.goto('http://127.0.0.1:8001/#weather-style');
+    await page.waitForFunction(() => !document.querySelector('#weatherCountry').disabled);
+    assert.equal(await page.locator('#weatherCountry option').count(),50);
+    await page.selectOption('#weatherCountry','PL');
+    assert.equal(await page.locator('#weatherProvince').isVisible(),false);
+    await page.fill('#weatherCityQuery','Warsaw');
+    await page.click('#weatherFindCity');
+    await page.waitForFunction(() => !document.querySelector('#weatherCityResult').disabled);
+    await page.selectOption('#weatherCityResult','756135');
+    await page.click('#weatherSubmit');
+    await page.locator('#weatherResult').waitFor({state:'visible',timeout:35000});
+    assert.match(await page.locator('#weatherTimestamp').innerText(),/Europe\/Warsaw/);
+    assert.match(await page.locator('#weatherPlace').innerText(),/Polonya/);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await page.selectOption('#weatherCountry','DE');
+    assert.equal(await page.locator('#weatherResult').isVisible(),false);
+    assert.equal(await page.locator('#weatherCityResult').inputValue(),'');
+    assert.equal(await page.locator('#weatherSubmit').isDisabled(),true);
+    await page.selectOption('#weatherCountry','TR');
+    await page.selectOption('#weatherProvince','34');
+    await page.selectOption('#weatherDistrict','1421');
+    await page.click('#weatherSubmit');
+    await page.locator('#weatherResult').waitFor({state:'visible',timeout:35000});
+    assert.match(await page.locator('#weatherTimestamp').innerText(),/Europe\/Istanbul/);
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await page.selectOption('#weatherCountry','FR');
+    await page.click('#resetWeatherMap');
+    assert.equal(await page.locator('#weatherMapTitle').innerText(),'TÜRKİYE + AVRUPA');
+    await page.setViewportSize({width:1440,height:1000});
+    await page.locator('#weather-style').screenshot({path:require('node:path').join(process.env.TEMP,'dcmd-europe.png')});
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    assert.deepEqual(errors,[]);
+    console.log('PASS: 50 countries, Poland live weather/local time, Turkey district regression, stale selection reset, reduced motion, mobile/desktop overflow');
+  } finally {await browser.close();}
+})().catch(e => {console.error(e);process.exit(1);});

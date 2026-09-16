@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DCMD Store</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="weather.css?v=mobile-map-2">
+  <link rel="stylesheet" href="music.css">
+  <link rel="stylesheet" href="languages.css">
+</head>
+<body>
+  <div class="site-stars site-stars-one" aria-hidden="true"></div>
+  <div class="site-stars site-stars-two" aria-hidden="true"></div>
+
+  <div class="top">
+    <span>FREE SHIPPING ON ORDERS OVER $50</span>
+    <div class="top-actions">
+    <div class="language-switcher" role="group" aria-label="Language">
+      <span aria-hidden="true">◎</span>
+      <button type="button" data-language="en" lang="en" title="English">EN</button>
+      <button type="button" data-language="tr" lang="tr" title="Türkçe">TR</button>
+      <button type="button" data-language="pl" lang="pl" title="Polski">PL</button>
+      <button type="button" data-language="de" lang="de" title="Deutsch">DE</button>
+      <button type="button" data-language="ru" lang="ru" title="Русский">RU</button>
+      <button type="button" data-language="zh" lang="zh" title="中文（简体）">中文</button>
+    </div>
+    <button id="notificationsButton" class="notifications-button" type="button" aria-label="Bildirimler" aria-haspopup="dialog" aria-controls="notificationsDialog" title="Bildirimler">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path><path d="M10 21h4"></path></svg>
+      <span id="notificationsUnread" class="notifications-unread" aria-label="Yeni duyurular"></span>
+    </button>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#">
+      <img src="images/dcmd-logo-transparent.png" alt="DCMD logo">
+    </a>
+
+    <div class="navlinks">
+      <a href="#products">New Arrivals</a>
+      <a href="#weather-style">Havaya Göre Giyin</a>
+      <a href="#story">Our Story</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="navright">
+      <div class="music-dock" lang="tr" aria-label="Mini müzik oynatıcı">
+        <button id="musicOpen" type="button" aria-label="Müzik oynatıcıyı aç" aria-expanded="false" aria-controls="musicPlayer" title="Müzik"><span aria-hidden="true">♫</span></button>
+        <div id="musicDockTrack" class="music-dock-track" hidden><img id="musicDockArt" alt=""><a id="musicDockTitle" target="_blank" rel="noopener"></a></div>
+        <button class="music-toggle" id="musicDockPlay" type="button" aria-label="Oynat" disabled>▶</button>
+        <input id="musicDockSeek" class="music-seek" type="range" min="0" max="1" step="1" value="0" aria-label="Mini oynatıcı: parçanın zamanı" disabled>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch theme">
+        <span class="theme-orb" aria-hidden="true"></span>
+      </button>
+      <button class="icon" id="searchButton" type="button">SEARCH</button>
+      <button class="icon" id="cartButton" type="button">CART (0)</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+
+  <div class="stars stars-one" aria-hidden="true"></div>
+  <div class="stars stars-two" aria-hidden="true"></div>
+  <div class="shooting-star" aria-hidden="true"></div>
+
+  <div>
+    <img
+      class="logo"
+      src="images/dcmd-logo-transparent.png"
+      alt="DCMD logo"
+     >
+     
+     <h1>Don't Fit In.<br>Stand Out.</h1>
+
+     <p>
+      Different. Confident. Mysterious. Desirable.
+      Discover the new DCMD streetwear collection.
+     </p>
+
+     <a class="cta" href="#products">
+      Shop The collection & Feel special. 
+     </a>
+     <a class="mobile-weather-link" href="#weather-style">⌖ Haritadan havana göre kombin bul ↗</a>
+  </div>
+  </header>
+
+  <!-- Moving announcement bar -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>NEW COLLECTION</span>
+        <span>LIMITED EDITION</span>
+        <span>DCMD STREETWEAR</span>
+        <span>DON'T FIT IN. STAND OUT.</span>
+      </div>
+
+      <div class="marquee-content" aria-hidden="true">
+        <span>NEW COLLECTION</span>
+        <span>LIMITED EDITION</span>
+        <span>DCMD STREETWEAR</span>
+        <span>DON'T FIT IN. STAND OUT.</span>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Products section -->
+  <section id="products">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Latest collection</span>
+        <h2>New Arrivals</h2>
+      </div>
+
+      <p>
+        Discover the latest DCMD pieces designed for people
+        who choose to stand out.
+      </p>
+    </div>
+
+    <div class="shop-layout">
+
+      <aside class="filters" aria-label="Product filters">
+        <div class="filter-heading">
+          <span class="eyebrow">Refine</span>
+          <button id="clearFilters" type="button">CLEAR</button>
+        </div>
+
+        <fieldset>
+          <legend>Category</legend>
+
+          <label>
+            <input type="radio" name="category" value="all" checked>
+            <span>All pieces</span>
+            <small>4</small>
+          </label>
+
+          <label>
+            <input type="radio" name="category" value="tshirt">
+            <span>T-shirts</span>
+            <small>2</small>
+          </label>
+
+          <label>
+            <input type="radio" name="category" value="hoodie">
+            <span>Hoodies</span>
+            <small>1</small>
+          </label>
+
+          <label>
+            <input type="radio" name="category" value="pants">
+            <span>Pants</span>
+            <small>1</small>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Price</legend>
+
+          <label>
+            <input type="radio" name="price" value="all" checked>
+            <span>All prices</span>
+          </label>
+
+          <label>
+            <input type="radio" name="price" value="0-60">
+            <span>Under $60</span>
+          </label>
+
+          <label>
+            <input type="radio" name="price" value="61-90">
+            <span>$61 — $90</span>
+          </label>
+
+          <label>
+            <input type="radio" name="price" value="91-999">
+            <span>$91+</span>
+          </label>
+        </fieldset>
+      </aside>
+
+      <div class="products-area">
+        <div class="results-line">
+          <span id="resultCount">4 pieces</span>
+          <span>DCMD / 2026</span>
+        </div>
+
+        <div class="grid">
+
+      <!-- Europe T-Shirt -->
+      <article class="product-card" data-category="tshirt" data-price="59" data-name="Europe Collection Tee">
+        <div class="product-img">
+          <img
+            src="images/europe-tshirt-front.jpeg"
+            alt="DCMD Europe Collection T-shirt"
+          >
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">T-shirt</span>
+            <h3>Europe Collection Tee</h3>
+          </div>
+
+          <strong>$59</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+
+      <!-- Essential T-shirt -->
+      <article class="product-card" data-category="tshirt" data-price="49" data-name="Essential Oversized Tee">
+        <div class="product-img">
+          <img
+            src="images/essential-tshirt-front.jpeg"
+            alt="DCMD Essential Collection T-shirt"
+          >
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">T-shirt</span>
+            <h3>Essential Oversized Tee</h3>
+          </div>
+
+          <strong>$49</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+
+      <!-- Hoodie -->
+      <article class="product-card" data-category="hoodie" data-price="99" data-name="Different Oversized Hoodie">
+        <div class="product-img">
+          <img
+            src="images/hoodie-front.jpeg"
+            alt="DCMD Black Hoodie"
+          >
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">Hoodie</span>
+            <h3>Different Oversized Hoodie</h3>
+          </div>
+
+          <strong>$99</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+
+      <!-- Pants -->
+      <article class="product-card" data-category="pants" data-price="89" data-name="DCMD Wide Leg Pants">
+        <div class="product-img">
+          <img
+            src="images/pants-front.jpeg"
+            alt="DCMD Black Pants"
+          >
+        </div>
+
+        <div class="product-info">
+          <div>
+            <span class="eyebrow">Pants</span>
+            <h3>DCMD Wide Leg Pants</h3>
+          </div>
+
+          <strong>$89</strong>
+        </div>
+
+        <button class="add" type="button">
+          ADD TO CART
+        </button>
+      </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="weather-style" class="weather-style" lang="tr" aria-labelledby="weather-title">
+    <div class="weather-heading">
+      <div><span class="eyebrow">DCMD / WEATHER EDIT</span><h2 id="weather-title">Hava değişir.<br><span>Tarzın seninle.</span></h2></div>
+      <p>Şehrini seç. Şu anın havasını keşfet.<br>Bugünün kombinini birlikte bulalım.</p>
+    </div>
+    <div class="weather-layout">
+      <div class="weather-location">
+        <div class="weather-map-head"><span id="weatherMapTitle">TÜRKİYE + AVRUPA</span><button id="resetWeatherMap" type="button">Avrupa'ya dön ↗</button></div>
+        <div class="weather-map-space"><div id="weatherMap" aria-label="Türkiye ve Avrupa ülke seçim haritası"></div></div>
+        <button id="expandWeatherMap" class="weather-map-expand" type="button" aria-controls="weatherMap" aria-expanded="false">Haritayı büyüt ⤢</button>
+        <p class="map-hint" id="mapHint">Haritadaki ülke noktalarına dokun veya listeden ülkeni seç.</p>
+        <form id="weatherForm" class="weather-form">
+          <label class="weather-country">Ülke<select id="weatherCountry" disabled><option value="TR">Türkiye</option></select></label>
+          <label id="weatherProvinceLabel">İl<select id="weatherProvince" required disabled><option value="">İller yükleniyor…</option></select></label>
+          <label id="weatherDistrictLabel">İlçe<select id="weatherDistrict" disabled><option value="">Önce il seç</option></select></label>
+          <div id="weatherCitySearch" class="weather-city-search" hidden>
+            <label for="weatherCityQuery">Şehir / bölge / posta kodu</label>
+            <div><input id="weatherCityQuery" type="search" placeholder="Örn. Varşova, Kraków…" minlength="2" maxlength="100" autocomplete="off"><button id="weatherFindCity" type="button">Ara</button></div>
+            <p id="weatherCityStatus" role="status"></p>
+            <label for="weatherCityResult">Bulunan konum<select id="weatherCityResult" disabled><option value="">Önce şehir ara</option></select></label>
+          </div>
+          <button id="weatherSubmit" type="submit" disabled>Kombinimi bul <span>↗</span></button>
+        </form>
+      </div>
+      <div class="weather-panel" id="weatherPanel" aria-busy="false">
+        <div class="weather-panel-top"><span class="weather-live">ŞU ANIN HAVASI</span><span id="turkeyClock"></span></div>
+        <p id="weatherStatus" role="status" aria-live="polite">Ülkeni ve bulunduğun yeri seçerek başlayabilirsin.</p>
+        <div id="weatherEmpty" class="weather-empty"><span aria-hidden="true">☀</span><h3>Sen neredesin,<br>tarzın orada.</h3><p>Sana uygun parçaları bulmak için<br>önce bulunduğun yeri seç.</p></div>
+        <div id="weatherResult" hidden>
+          <div class="weather-place"><h3 id="weatherPlace"></h3><span id="weatherDay"></span></div>
+          <div class="weather-temperature"><strong id="weatherTemp"></strong><span id="weatherSymbol" aria-hidden="true"></span></div>
+          <p id="weatherDescription"></p>
+          <div class="weather-metrics"><div>Hissedilen<strong id="weatherFeels"></strong></div><div>Rüzgâr<strong id="weatherWind"></strong></div><div>Yağış<strong id="weatherRain"></strong></div></div>
+          <p class="weather-timestamp" id="weatherTimestamp"></p>
+          <div class="outfit-intro"><span class="eyebrow">ŞİMDİ NE GİYSEM?</span><h3 id="outfitTitle"></h3><p id="outfitReason"></p></div>
+          <div id="outfitProducts" class="outfit-products"></div>
+        </div>
+      </div>
+    </div>
+    <p class="weather-credit">Hava: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · Konumlar: <a href="https://turkiyeapi.dev/" target="_blank" rel="noopener">TürkiyeAPI</a> · Seçilen konumun güncel model verisi; 15 dakikada bir yenilenir. Öneriler hissedilen sıcaklık, yağış ve rüzgâra göre hazırlanır.</p>
+  </section>
+
+  <section class="story" id="story">
+    <div>
+      <span class="eyebrow">Our mindset</span>
+      <h2>Made for those who stand out.</h2>
+      <p>DCMD combines confidence, mystery and freedom with a sharp European streetwear identity.</p>
+    </div>
+
+    <div class="manifesto">
+      <div><b>D</b>IFFERENT</div>
+      <div><b>C</b>ONFIDENT</div>
+      <div><b>M</b>YSTERIOUS</div>
+      <div><b>D</b>ESIRABLE</div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div>
+      <img src="images/dcmd-logo-transparent.png" alt="DCMD logo">
+      <p>© 2026 DCMD. All rights reserved.</p>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1"></circle>
+        </svg>
+        <span>INSTAGRAM</span>
+      </a>
+
+      <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 4v10.5a5 5 0 1 1-4-4.9v3.2a2 2 0 1 0 1 1.7V4h3c.4 2 1.7 3.3 3.7 3.8V11A8 8 0 0 1 15 9.5"></path>
+        </svg>
+        <span>TIKTOK</span>
+      </a>
+
+      <a href="mailto:contact@dcmd.com" aria-label="Contact DCMD">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="m4 7 8 6 8-6"></path>
+        </svg>
+        <span>CONTACT</span>
+      </a>
+    </div>
+
+    <div>
+      <p>PRIVACY POLICY</p>
+      <p>SHIPPING & RETURNS</p>
+      <p>TERMS & CONDITIONS</p>
+    </div>
+  </footer>
+
+  <div class="search-panel" id="searchPanel" aria-hidden="true">
+    <div class="search-box">
+      <label for="productSearch">Search the collection</label>
+      <div>
+        <input id="productSearch" type="search" placeholder="Type a product name..." autocomplete="off">
+        <button class="icon" id="closeSearch" type="button">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="cart" id="cartPanel" aria-hidden="true">
+    <div class="cart-head">
+      <strong>YOUR CART</strong>
+      <button class="icon" id="closeCart" type="button">CLOSE</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <p class="empty-cart">Your cart is currently empty.</p>
+    </div>
+
+    <div class="cart-summary">
+      <span>TOTAL</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+
+    <button class="checkout" type="button">CHECKOUT</button>
+  </aside>
+
+  <button
+    class="feedback-button"
+    id="feedbackButton"
+    type="button"
+    aria-label="Send feedback or a complaint to DCMD support"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 5h16v11H8l-4 3V5Z"></path>
+      <path d="M8 9h8M8 12h5"></path>
+    </svg>
+    <span>FEEDBACK &amp; COMPLAINTS</span>
+  </button>
+
+  <div class="feedback-modal" id="feedbackModal" aria-hidden="true">
+    <div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+      <div class="feedback-dialog-head">
+        <div>
+          <span class="eyebrow">Your voice matters</span>
+          <h2 id="feedbackTitle">Feedback</h2>
+        </div>
+
+        <button class="icon" id="closeFeedback" type="button">CLOSE</button>
+      </div>
+
+      <p class="feedback-intro">
+        You can write any complaints and suggestions. Your comments are valuable to us.
+      </p>
+
+      <form id="feedbackForm">
+        <fieldset class="feedback-type">
+          <legend>Message type</legend>
+
+          <label>
+            <input type="radio" name="feedbackType" value="Suggestion" checked>
+            <span>Suggestion</span>
+          </label>
+
+          <label>
+            <input type="radio" name="feedbackType" value="Complaint">
+            <span>Complaint</span>
+          </label>
+        </fieldset>
+
+        <label class="form-field">
+          <span>Category</span>
+          <select name="feedbackCategory" required>
+            <option value="Product">Product</option>
+            <option value="Order and delivery">Order &amp; delivery</option>
+            <option value="Returns">Returns</option>
+            <option value="Website experience">Website experience</option>
+            <option value="Customer service">Customer service</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span>Your message</span>
+          <textarea name="feedbackMessage" rows="5" placeholder="Tell us how we can improve..." required></textarea>
+        </label>
+
+        <label class="form-field">
+          <span>Email <small>(optional)</small></span>
+          <input type="email" name="feedbackEmail" placeholder="you@example.com">
+        </label>
+
+        <button class="feedback-submit" type="submit">SEND FEEDBACK</button>
+        <p class="feedback-status" id="feedbackStatus" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <aside id="musicPlayer" class="music-player" lang="tr" role="dialog" aria-modal="false" aria-labelledby="musicTitle" hidden>
+    <div class="music-player-head">
+      <button id="musicDrag" type="button" aria-label="Oynatıcıyı taşı. Ok tuşlarıyla da hareket ettirebilirsin." title="Sürükleyerek veya ok tuşlarıyla taşı"><span aria-hidden="true">⠿</span> DCMD SOUND</button>
+      <button id="musicClose" type="button" aria-label="Oynatıcıyı küçült; müzik devam eder" title="Küçült">−</button>
+    </div>
+    <div class="music-player-body">
+      <div class="music-intro"><span class="eyebrow">YOUR STYLE. YOUR SOUND.</span><h2 id="musicTitle">Tarzının bir sesi var.</h2><p>Hesabını bağla. Parçanı bul. Gezinmeye devam et.</p></div>
+      <div class="music-providers" role="group" aria-label="Müzik servisi">
+        <button type="button" data-music-provider="spotify" aria-pressed="true"><span class="spotify-mark" aria-hidden="true">≋</span> Spotify</button>
+        <button type="button" data-music-provider="apple" aria-pressed="false"><span class="apple-mark" aria-hidden="true">♪</span> Apple Music</button>
+      </div>
+      <div class="music-account"><span id="musicAccount">Hesap bağlı değil</span><button id="musicConnect" type="button" disabled>Hesabını bağla ↗</button><button id="musicDisconnect" type="button" hidden>Bağlantıyı kes</button></div>
+      <form id="musicSearchForm" class="music-search" role="search" aria-label="Parça ara">
+        <label class="music-sr" for="musicQuery">Şarkı veya sanatçı</label><input id="musicQuery" type="search" placeholder="Spotify’da şarkı veya sanatçı ara" autocomplete="off" maxlength="150" disabled><button id="musicSearchButton" type="submit" aria-label="Parça ara" disabled>⌕</button>
+      </form>
+      <p id="musicStatus" class="music-status" role="status" aria-live="polite">Müzik bağlantısı hazırlanıyor…</p>
+      <div id="musicResults" class="music-results" aria-label="Şarkı sonuçları"></div>
+      <div class="music-now">
+        <div class="music-art-empty" id="musicArtEmpty" aria-hidden="true">♫</div><img id="musicArt" class="music-art" alt="Albüm kapağı" hidden>
+        <div class="music-track-info"><a id="musicTrackLink" target="_blank" rel="noopener" hidden></a><strong id="musicTrackEmpty">Sıradaki şarkı senin seçimin.</strong><span id="musicArtist">Aramadan bir parça seç.</span><small id="musicSource"></small></div>
+        <button class="music-toggle" id="musicPlay" type="button" aria-label="Oynat" disabled>▶</button>
+      </div>
+      <input id="musicSeek" class="music-seek" type="range" min="0" max="1" step="1" value="0" aria-label="Parçanın zamanı" disabled>
+      <div class="music-time"><span id="musicElapsed">0:00</span><span id="musicDuration">0:00</span></div>
+      <p class="music-footnote">Küçülttüğünde müzik devam eder. Üstteki ♫ ile geri aç.</p>
+    </div>
+  </aside>
+
+  <dialog id="notificationsDialog" class="notifications-dialog" aria-labelledby="notificationsTitle">
+    <div class="notifications-head"><div><span class="eyebrow">DCMD / NEWS</span><h2 id="notificationsTitle">Senden habersiz olmaz.</h2></div><button id="notificationsClose" type="button" aria-label="Kapat">×</button></div>
+    <p class="notifications-intro">Kampanyalar, yeni duraklar ve buluşmalar. DCMD'den haberler burada.</p>
+    <article class="notice-card notice-gift">
+      <span class="notice-tag">İLK ALIŞVERİŞE ÖZEL</span>
+      <h3>İlk adımına bizden bir hediye.</h3>
+      <p>DCMD ile ilk alışverişini küçük bir sürprizle karşılıyoruz. Sınırlı süreli hediye kampanyamızın keyfini çıkar; tarzına yeni bir dokunuş kat.</p>
+      <a id="noticeShop" href="#products">Koleksiyonu keşfet ↗</a>
+    </article>
+    <article class="notice-card">
+      <span class="notice-tag">YENİ DURAKLARA DOĞRU</span>
+      <h3>Bugün burada. Yarın çok daha yakında.</h3>
+      <p>Şu an Türkiye ve seçili Avrupa ülkelerindeyiz. Çok yakında bu özenle tasarladığımız deneyimi dünyanın dört bir yanına taşımayı, tarzınıza yeni dokunuşlar katmayı hedefliyoruz.</p>
+    </article>
+    <div class="notice-events" aria-labelledby="noticeEventsTitle">
+      <h3 id="noticeEventsTitle">Etkinlikler</h3>
+      <div id="noticeEventsList"></div>
+      <p id="noticeEventsEmpty">Şu an duyurulmuş bir etkinliğimiz yok. Senin için yeni buluşmalar hazırlıyoruz. Haberleri burada takip et!</p>
+    </div>
+  </dialog>
+
+  <script src="languages.js"></script>
+  <script src="script.js"></script>
+  <script src="vendor/leaflet.js"></script>
+  <script src="weather.js?v=mobile-map-2"></script>
+  <script src="music-services.js"></script>
+  <script src="music.js"></script>
+
+</body>
+</html>

@@ -5,6 +5,7 @@
 import requests  # requests kütüphanesini kullanarak API'den veri çekeceğiz.
 
 API_URL = "https://api.open-meteo.com/v1/forecast"
+GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
 
 COORDINATES = {
     "latitude": 41.0082,
@@ -24,8 +25,51 @@ print("\nHazırlandı! Devam etmeye hazır.\n")
 # =============================================================================
 # PART 2: API'DEN VERİ ÇEKME
 # =============================================================================
+def sehir_konum_bul(sehir_adi: str) -> dict:
+    """
+    kullanıcının yazdığı Türkiye'deki şehiri arar ve kordinatlarını döndürü.
+    """
 
-def hava_durumu_cek(enlem: float, boylam: float) -> dict:
+    params = {
+        "name": sehir_adi,
+        "count": 1,
+        "language": "tr",
+        "countryCode": "TR"
+    }
+
+
+    try:
+        respone = requests.get(
+            GEOCODING_URL,
+
+            params=params,
+            timeout=10
+        )
+
+        respone.raise_for_status()
+
+
+        veri = respone.json()
+
+    except requests.RequestException as hata:
+        print(f"Hata: Şehir aranamadı - {hata}")
+        return{}
+
+    sonuclar = veri.get("results", [])
+
+    if not sonuclar:
+        print("bu isimde Türkiye'de bir şehir bulunamadı.")
+        return{}
+
+    sehir = sonuclar[0]
+
+    return{
+        "city": sehir["name"],
+        "latitude": sehir["latitude"],
+        "longitude": sehir["longitude"]
+    }
+
+def hava_durumu_cek(enlem: float, boylam: float, sadece_anlik: bool = False, saat_dilimi: str = "Europe/Istanbul") -> dict:
     """
     Open-Meteo API'sinden anlık ve günlük hava durumu verilerini çeker.
 
@@ -40,10 +84,12 @@ def hava_durumu_cek(enlem: float, boylam: float) -> dict:
     params = {
         "latitude": enlem,
         "longitude": boylam,
-        "current": "temperature_2m,weather_code,wind_speed_10m",
-        "daily": "weather_code,temperature_2m_max,temperature_2m_min",
-        "timezone": "Europe/Istanbul"
+        "current": "temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation,is_day",
+        "timezone": saat_dilimi
     }
+
+    if not sadece_anlik:
+        params["daily"] = "weather_code,temperature_2m_max,temperature_2m_min"
 
     try:
         print("API'ye bağlanılıyor...")
@@ -83,6 +129,9 @@ def hava_durumu_cek(enlem: float, boylam: float) -> dict:
         })
 
     return {
+        "current": current,
+        "timezone": veri.get("timezone", "Europe/Istanbul"),
+        "utc_offset_seconds": veri.get("utc_offset_seconds", 10800),
         "sehir": COORDINATES["city"],
         "enlem": enlem,
         "boylam": boylam,
@@ -186,10 +235,20 @@ if __name__ == "__main__":
 
     print("TEST 1: Program main kısmına girdi")
 
-    veri = hava_durumu_cek(
-        COORDINATES["latitude"],
-        COORDINATES["longitude"]
-    )
+    sehir_adi = input("Hangi ilin hava durumunu görmek istersiniz? ")
+
+    konum = sehir_konum_bul(sehir_adi)
+
+    if konum:
+        COORDINATES = konum
+
+        veri = hava_durumu_cek(
+            COORDINATES["latitude"],
+            COORDINATES["longitude"]
+        )
+
+    else:
+        veri = {} 
 
     print("TEST 2: Fonksiyondan geri dönüldü")
     print("Gelen veri:", veri)
@@ -220,7 +279,6 @@ if __name__ == "__main__":
         print("Veri alınamadı!")
 
 # ====================================================================================================
-# PART 4: 5 Günlük Tahmin Tablsou
+# PART 5: Yeni Şehirler ekleniyor... 
 # ====================================================================================================
-
 
