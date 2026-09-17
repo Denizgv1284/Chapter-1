@@ -1,0 +1,257 @@
+/* ==========================================================================
+   DCMD — enhance layer (additive, non-breaking)
+   Bu dosya mevcut style.css / weather.css / music.css / languages.css
+   dosyalarının HİÇBİRİNİ değiştirmez. Sadece üzerine ekleme yapar.
+   Sırayla en son <link> olarak eklenmeli ki override edebilsin.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------
+   1) SIGNATURE SCROLL REVEAL
+   Tek imza hareket: yukarı doğru yükselme + eyebrow altında mavi→altın
+   bir çizginin açılması (mevcut --blue / --gold token'larını kullanır).
+   Her bölüme (section) girişte BİR KERE oynar, abartısız.
+   -------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity .7s cubic-bezier(.22,.7,.3,1),
+    transform .7s cubic-bezier(.22,.7,.3,1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Grid'in kendisi kaymaz; sadece içindeki kartlar kayar (stagger) */
+[data-reveal="stagger"] {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-item] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .55s cubic-bezier(.22,.7,.3,1),
+    transform .55s cubic-bezier(.22,.7,.3,1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+[data-reveal="stagger"].is-revealed [data-reveal-item] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Eyebrow altında imza çizgi (mavi -> altın), sadece reveal edilen
+   bölümlerin içinde. Marka zaten bu iki rengi taşıdığı için tutarlı. */
+[data-reveal] .eyebrow {
+  position: relative;
+  display: inline-block;
+}
+[data-reveal] .eyebrow::after {
+  content: '';
+  display: block;
+  margin-top: 9px;
+  height: 1px;
+  width: 64px;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s cubic-bezier(.22,.7,.3,1) .25s;
+}
+[data-reveal].is-revealed .eyebrow::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  [data-reveal] .eyebrow::after { transform: scaleX(1) !important; transition: none !important; }
+}
+
+/* --------------------------------------------------------------------
+   2) CAPITAL COLLECTION — ülke bayrağı renk aksanı
+   Her .product-card[data-country="xx"] için JS, --flag-a/b/c
+   CSS değişkenlerini set ediyor. Yeni ülke eklemek için tek yapman
+   gereken: HTML'de data-country="xx" eklemek + dcmd-enhance.js
+   içindeki FLAG_COLORS tablosuna bir satır eklemek.
+   -------------------------------------------------------------------- */
+.product-card[data-country] {
+  --flag-a: var(--blue);
+  --flag-b: var(--gold);
+  --flag-c: var(--blue);
+}
+.product-card[data-country] .product-gallery {
+  position: relative;
+  isolation: isolate;
+}
+.product-card[data-country] .product-gallery::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--flag-a), var(--flag-b), var(--flag-c));
+  z-index: 2;
+  opacity: .92;
+}
+.capital-flag-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(8,10,15,.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.14);
+  font: 600 9px/1 "Orbitron", sans-serif;
+  letter-spacing: 1.4px;
+  color: #fff;
+  pointer-events: none;
+}
+.capital-flag-badge .flag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--flag-a), var(--flag-b));
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25);
+}
+html[data-theme="light"] .capital-flag-badge {
+  background: rgba(233,232,226,.82);
+  color: #15171c;
+  border-color: rgba(0,0,0,.12);
+}
+
+/* --------------------------------------------------------------------
+   4) CAMPAIGN MODEL SHOWCASE
+   Two calm editorial windows: Capital Collection + Black Edition.
+   -------------------------------------------------------------------- */
+.model-showcase {
+  padding-block: clamp(64px, 8vw, 110px);
+  background: linear-gradient(180deg, rgba(4,7,13,.2), rgba(7,11,20,.66));
+}
+.model-showcase-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+.model-showcase-head h2 { max-width: 720px; }
+.model-showcase-head p {
+  max-width: 430px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.model-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 14px;
+}
+.model-window {
+  position: relative;
+  min-height: min(72vw, 760px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  isolation: isolate;
+}
+.model-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 45%, rgba(2,5,11,.88) 100%);
+}
+.model-window-warsaw::before,
+.model-window-black::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  height: 3px;
+}
+.model-window-warsaw::before { background: linear-gradient(90deg,#dc143c 0 33%,#fff 33% 66%,#dc143c 66%); }
+.model-window-black::before { background: linear-gradient(90deg,var(--blue),#8caaff,var(--gold)); }
+.model-window img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform .8s cubic-bezier(.22,.7,.3,1);
+}
+.model-window:hover img { transform: scale(1.018); }
+.model-window-copy {
+  position: absolute;
+  z-index: 3;
+  left: clamp(18px,3vw,34px);
+  right: clamp(18px,3vw,34px);
+  bottom: clamp(20px,3vw,36px);
+  color: #fff;
+}
+.model-window-copy > span {
+  color: #bfc5d0;
+  font: 500 9px/1 Orbitron,sans-serif;
+  letter-spacing: 1.8px;
+}
+.model-window-copy h3 {
+  margin: 10px 0 18px;
+  font: 500 clamp(20px,3vw,34px)/1.1 Orbitron,sans-serif;
+}
+.model-window-copy a {
+  display: inline-flex;
+  padding-bottom: 5px;
+  border-bottom: 1px solid currentColor;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+html[data-theme="light"] .model-showcase {
+  background: linear-gradient(180deg,rgba(229,232,236,.28),rgba(209,216,225,.62));
+}
+@media (max-width: 760px) {
+  .model-showcase-head { display: block; }
+  .model-showcase-head p { margin-top: 16px; }
+  .model-showcase-grid { grid-template-columns: 1fr; }
+  .model-window { min-height: 118vw; max-height: 760px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .model-window img { transition: none; }
+  .model-window:hover img { transform: none; }
+}
+
+/* Capital Collection ürün kartına hafif, tek seferlik hover glow —
+   mevcut .product-card:hover davranışını EZMEZ, üstüne ekler. */
+.product-card[data-country]:hover .product-gallery::before {
+  opacity: 1;
+  box-shadow: 0 0 14px -2px var(--flag-a);
+}
+
+/* --------------------------------------------------------------------
+   3) Capital Collection çoklu model galerisi (erkek/kadın) düzeni
+   İsteğe bağlı: index.html'de bu 4 görselli yapıyı kullanırsan
+   (bkz. sohbetteki HTML parçası) galeri noktaları otomatik ortaya çıkar,
+   script.js hiçbir değişiklik gerektirmez.
+   -------------------------------------------------------------------- */
+.gallery-dots[data-model-gallery] button {
+  width: 20px;
+}
+.gallery-dots[data-model-gallery] button[data-slide="0"]::after,
+.gallery-dots[data-model-gallery] button[data-slide="1"]::after {
+  background: #8caaff; /* erkek görselleri işareti */
+}
+.gallery-dots[data-model-gallery] button[data-slide="2"]::after,
+.gallery-dots[data-model-gallery] button[data-slide="3"]::after {
+  background: #f4c400; /* kadın görselleri işareti */
+}

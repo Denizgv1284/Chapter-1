@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="weather.css?v=mobile-map-2">
   <link rel="stylesheet" href="music.css">
   <link rel="stylesheet" href="languages.css">
+  <link rel="stylesheet" href="dcmd-enhance.css?v=1">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -89,6 +90,36 @@
      <a class="mobile-weather-link" href="#weather-style">⌖ Haritadan havana göre kombin bul ↗</a>
   </div>
   </header>
+
+  <section class="model-showcase" aria-labelledby="modelShowcaseTitle">
+    <div class="model-showcase-head">
+      <div>
+        <span class="eyebrow">DCMD campaign</span>
+        <h2 id="modelShowcaseTitle">Two cities. One mindset.</h2>
+      </div>
+      <p>Front and back details, worn as designed. Explore the Capital and Black collections through the campaign cast.</p>
+    </div>
+
+    <div class="model-showcase-grid">
+      <article class="model-window model-window-warsaw">
+        <img src="images/model-warsaw-front-back.jpg" alt="Female model showing the front and back of the DCMD Warsaw Capital Collection T-shirt">
+        <div class="model-window-copy">
+          <span>01 / WARSAW</span>
+          <h3>Capital Collection</h3>
+          <a href="#products" data-collection-link="capital">View front &amp; back</a>
+        </div>
+      </article>
+
+      <article class="model-window model-window-black">
+        <img src="images/model-black-hoodie-front.jpg" alt="Male model wearing the DCMD Black Edition hoodie">
+        <div class="model-window-copy">
+          <span>02 / BLACK EDITION</span>
+          <h3>Different Hoodie</h3>
+          <a href="#products" data-collection-link="black">Explore the piece</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
   <!-- Moving announcement bar -->
   <div class="marquee">
@@ -250,8 +281,9 @@
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/hoodie-front.jpeg" alt="DCMD Black Hoodie - front" draggable="false">
             <img src="images/hoodie-back.jpeg?v=poll-1" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
+            <img src="images/model-black-hoodie-front.jpg" alt="DCMD Black Hoodie worn by a male campaign model" loading="lazy" draggable="false">
           </div>
-          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button><button type="button" aria-label="On model" aria-pressed="false" data-slide="2"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">
@@ -336,7 +368,7 @@
           ADD TO CART
         </button>
       </article>
-<article class="product-card" data-collection="capital" data-category="tshirt" data-price="49.99" data-name="Paris FR Capital Tee">
+<article class="product-card" data-collection="capital" data-country="fr" data-category="tshirt" data-price="49.99" data-name="Paris FR Capital Tee">
         <div class="product-gallery" role="group" aria-label="Paris FR Capital Tee">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/capital-paris-front.jpeg" alt="Paris FR Capital Tee - front" draggable="false">
@@ -358,13 +390,14 @@
           ADD TO CART
         </button>
       </article>
-<article class="product-card" data-collection="capital" data-category="tshirt" data-price="49.99" data-name="Warsaw WAW Capital Tee">
+<article class="product-card" data-collection="capital" data-country="pl" data-category="tshirt" data-price="49.99" data-name="Warsaw WAW Capital Tee">
         <div class="product-gallery" role="group" aria-label="Warsaw WAW Capital Tee">
           <div class="product-img" tabindex="0" aria-label="Product photos">
             <img src="images/capital-warsaw-front.jpeg" alt="Warsaw WAW Capital Tee - front" draggable="false">
             <img src="images/capital-warsaw-back.jpeg?v=poll-1" alt="Warsaw WAW Capital Tee - back" loading="lazy" draggable="false">
+            <img src="images/model-warsaw-front-back.jpg" alt="Warsaw Capital Collection T-shirt shown on female campaign models, front and back" loading="lazy" draggable="false">
           </div>
-          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button><button type="button" aria-label="On models" aria-pressed="false" data-slide="2"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
 
         <div class="product-info">
@@ -717,6 +750,7 @@
   <script src="weather.js?v=poll-1"></script>
   <script src="music-services.js"></script>
   <script src="music.js"></script>
+  <script src="dcmd-enhance.js?v=1"></script>
 
 </body>
 </html>
