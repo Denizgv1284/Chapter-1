@@ -22,7 +22,7 @@ siteMenu.addEventListener('click', event => {
 });
 siteMenu.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', () => siteMenu.close()));
 // Close the modal before opening controls that live outside its focus trap.
-['searchButton', 'cartButton', 'musicOpen'].forEach(id => {
+['searchButton', 'cartButton'].forEach(id => {
   document.getElementById(id).addEventListener('click', () => siteMenu.close());
 });
 
@@ -201,11 +201,20 @@ function renderCart() {
 
   const total = cart.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100;
   cartTotal.textContent = window.DCMDCommerce.money(total);
-  cartButton.textContent = `CART (${cart.length})`;
+  const badge = document.querySelector("#cartBadge");
+  badge.textContent = String(cart.length);
+  badge.hidden = cart.length === 0;
+  cartButton.setAttribute("aria-label", `CART (${cart.length})`);
   document.querySelector('.checkout').disabled = cart.length === 0;
 }
 
 categoryInputs.forEach((input) => input.addEventListener('change', applyFilters));
+window.addEventListener('dcmd:languagechange', () => {
+  productCards.forEach(card => {
+    card.querySelector('.product-info strong').textContent = window.DCMDCommerce.money(Number(card.dataset.price));
+  });
+  renderCart();
+});
 priceInputs.forEach((input) => input.addEventListener('change', applyFilters));
 document.querySelector('#clearFilters').addEventListener('click', resetFilters);
 
@@ -236,7 +245,7 @@ document.querySelectorAll('.add').forEach((button) => {
     if (error) {card.querySelector('.stock-status').textContent = error;return;}
     cart.push(line);
     renderCart();
-    openPanel(cartPanel);
+    document.querySelector("#cartAnnouncement").textContent = `Added to cart (${cart.length})`;
   });
 });
 

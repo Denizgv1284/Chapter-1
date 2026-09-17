@@ -1,4 +1,22 @@
 /* Shared visual language across the storefront and its utility panels. */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+body nav.site-nav { display:flex; gap:12px; }
+body .nav-brand { margin-inline:auto; }
+body .cart-trigger { position:relative; width:46px; height:46px; flex-shrink:0; padding:11px; color:white; background:rgba(14,24,42,.65); }
+.cart-trigger svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.6; }
+.cart-badge { position:absolute; right:-5px; top:-5px; min-width:20px; height:20px; padding:0 5px; display:grid; place-items:center; background:#245be0; color:white; border-radius:20px; font-size:11px; }
+.cart-badge[hidden] { display:none; }
+body .product-card .add { display:block; visibility:visible; opacity:1; min-height:46px; white-space:normal; line-height:1.4; }
+body .product-card .add:disabled { opacity:.55; }
+html[data-theme="light"] body :is(.checkout-fields,.checkout-order,.demo-card,.payment-methods label,.capital-poll,.weather-panel,.weather-map-shell,.outfit-product,.gallery-controls,.cart-row,.tracking-steps li,.email-preview,.checkout-success) { background:var(--panel); color:var(--text); border-color:var(--line); }
+html[data-theme="light"] body :is(.checkout-test-note,.weather-credit,.weather-metrics,.poll-disclaimer,.stock-status,.variant-controls small,.checkout-fields small,.product-info p,.collection-title p) { color:#465974; }
+html[data-theme="light"] body .stock-status[data-level="low"] { color:#815500; }
+html[data-theme="light"] body .stock-status[data-level="empty"] { color:#a12e26; }
+html[data-theme="light"] body :is(input,select,textarea) { color:#17243a; background-color:#f5f7fb; border-color:#adbcd1; }
+html[data-theme="light"] body :is(input,textarea)::placeholder { color:#5b6980; opacity:1; }
+html[data-theme="light"] body :is(.menu-links a,.menu-heading,.checkout-heading,.cart-head,.poll-intro,.weather-heading,.outfit-intro,.payment-methods label,.checkout-order h3,.checkout-total,.email-preview pre,.city-option) { color:var(--text); }
+html[data-theme="light"] body .payment-methods label:has(input:checked) { background:#d5e1fb; border-color:#245be0; }
+html[data-theme="light"] body .cart-trigger { color:white; background:#182b49; }
 :root {
   --bg:#080e1b; --panel:#131e32; --text:#f2f5ff; --muted:#acb9ce;
   --line:rgba(157,185,235,.15); --blue:#326aff;

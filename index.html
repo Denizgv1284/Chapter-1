@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="style.css?v=poll-1">
   <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="weather.css?v=mobile-map-2">
-  <link rel="stylesheet" href="music.css">
   <link rel="stylesheet" href="languages.css">
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
-  <link rel="stylesheet" href="dcmd-system.css?v=1">
+  <link rel="stylesheet" href="dcmd-system.css?v=2">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -19,6 +18,8 @@
   <nav class="site-nav" aria-label="Main navigation">
     <button id="menuOpen" class="menu-toggle" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="siteMenu" aria-expanded="false"><span></span><span></span><span></span></button>
     <a class="nav-brand" href="#" aria-label="DCMD home"><img src="images/dcmd-logo-transparent.png" alt="DCMD logo"></a>
+    <button class="icon cart-trigger" id="cartButton" type="button" aria-label="CART" aria-controls="cartPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l2 14H4L6 7Z"></path><path d="M9 8V5a3 3 0 0 1 6 0v3"></path></svg><span id="cartBadge" class="cart-badge" hidden>0</span></button>
+    <span id="cartAnnouncement" class="sr-only" role="status" aria-live="polite"></span>
     <button id="notificationsButton" class="notifications-button" type="button" aria-label="Bildirimler" aria-haspopup="dialog" aria-controls="notificationsDialog" title="Bildirimler">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"></path><path d="M10 21h4"></path></svg>
       <span id="notificationsUnread" class="notifications-unread" aria-label="Yeni duyurular"></span>
@@ -50,17 +51,11 @@
     </div>
     <div class="menu-tools">
     <div class="navright">
-      <div class="music-dock" lang="tr" aria-label="Mini müzik oynatıcı">
-        <button id="musicOpen" type="button" aria-label="Müzik oynatıcıyı aç" aria-expanded="false" aria-controls="musicPlayer" title="Müzik"><span aria-hidden="true">♫</span></button>
-        <div id="musicDockTrack" class="music-dock-track" hidden><img id="musicDockArt" alt=""><a id="musicDockTitle" target="_blank" rel="noopener"></a></div>
-        <button class="music-toggle" id="musicDockPlay" type="button" aria-label="Oynat" disabled>▶</button>
-        <input id="musicDockSeek" class="music-seek" type="range" min="0" max="1" step="1" value="0" aria-label="Mini oynatıcı: parçanın zamanı" disabled>
-      </div>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch theme">
         <span class="theme-orb" aria-hidden="true"></span>
       </button>
       <button class="icon" id="searchButton" type="button">SEARCH</button>
-      <button class="icon" id="cartButton" type="button">CART (0)</button>
+
     </div>
     </div>
   </dialog>
@@ -492,7 +487,7 @@
     <div class="poll-topline"><span class="eyebrow">DCMD / COMMUNITY EDIT</span><button id="pollClose" type="button" aria-label="Anketi kapat">×</button></div>
     <div class="poll-intro"><span class="poll-orbit" aria-hidden="true">✦</span><span class="eyebrow">CAPITAL COLLECTION — NEXT CHAPTER</span><h2 id="pollTitle">Bir şehir.<br>Senin izin.</h2><p>Sıradaki tasarıma yön ver.<br>Hangi başkenti üzerinde taşımak istersin?</p></div>
     <form id="capitalPoll">
-      <fieldset class="city-options"><legend class="music-sr">Başkentini seç</legend>
+      <fieldset class="city-options"><legend class="sr-only">Başkentini seç</legend>
         <label class="city-choice"><input type="radio" name="city" value="Berlin" required><span class="city-code">BER</span><span class="city-name">Berlin<small>ALMANYA / DE</small></span><span class="city-check" aria-hidden="true">↗</span></label>
         <label class="city-choice"><input type="radio" name="city" value="Roma" required><span class="city-code">ROM</span><span class="city-name">Roma<small>İTALYA / IT</small></span><span class="city-check" aria-hidden="true">↗</span></label>
         <label class="city-choice"><input type="radio" name="city" value="Madrid" required><span class="city-code">MAD</span><span class="city-name">Madrid<small>İSPANYA / ES</small></span><span class="city-check" aria-hidden="true">↗</span></label>
@@ -705,33 +700,6 @@
     </div>
   </div>
 
-  <aside id="musicPlayer" class="music-player" lang="tr" role="dialog" aria-modal="false" aria-labelledby="musicTitle" hidden>
-    <div class="music-player-head">
-      <button id="musicDrag" type="button" aria-label="Oynatıcıyı taşı. Ok tuşlarıyla da hareket ettirebilirsin." title="Sürükleyerek veya ok tuşlarıyla taşı"><span aria-hidden="true">⠿</span> DCMD SOUND</button>
-      <button id="musicClose" type="button" aria-label="Oynatıcıyı küçült; müzik devam eder" title="Küçült">−</button>
-    </div>
-    <div class="music-player-body">
-      <div class="music-intro"><span class="eyebrow">YOUR STYLE. YOUR SOUND.</span><h2 id="musicTitle">Tarzının bir sesi var.</h2><p>Hesabını bağla. Parçanı bul. Gezinmeye devam et.</p></div>
-      <div class="music-providers" role="group" aria-label="Müzik servisi">
-        <button type="button" data-music-provider="spotify" aria-pressed="true"><span class="spotify-mark" aria-hidden="true">≋</span> Spotify</button>
-        <button type="button" data-music-provider="apple" aria-pressed="false"><span class="apple-mark" aria-hidden="true">♪</span> Apple Music</button>
-      </div>
-      <div class="music-account"><span id="musicAccount">Hesap bağlı değil</span><button id="musicConnect" type="button" disabled>Hesabını bağla ↗</button><button id="musicDisconnect" type="button" hidden>Bağlantıyı kes</button></div>
-      <form id="musicSearchForm" class="music-search" role="search" aria-label="Parça ara">
-        <label class="music-sr" for="musicQuery">Şarkı veya sanatçı</label><input id="musicQuery" type="search" placeholder="Spotify’da şarkı veya sanatçı ara" autocomplete="off" maxlength="150" disabled><button id="musicSearchButton" type="submit" aria-label="Parça ara" disabled>⌕</button>
-      </form>
-      <p id="musicStatus" class="music-status" role="status" aria-live="polite">Müzik bağlantısı hazırlanıyor…</p>
-      <div id="musicResults" class="music-results" aria-label="Şarkı sonuçları"></div>
-      <div class="music-now">
-        <div class="music-art-empty" id="musicArtEmpty" aria-hidden="true">♫</div><img id="musicArt" class="music-art" alt="Albüm kapağı" hidden>
-        <div class="music-track-info"><a id="musicTrackLink" target="_blank" rel="noopener" hidden></a><strong id="musicTrackEmpty">Sıradaki şarkı senin seçimin.</strong><span id="musicArtist">Aramadan bir parça seç.</span><small id="musicSource"></small></div>
-        <button class="music-toggle" id="musicPlay" type="button" aria-label="Oynat" disabled>▶</button>
-      </div>
-      <input id="musicSeek" class="music-seek" type="range" min="0" max="1" step="1" value="0" aria-label="Parçanın zamanı" disabled>
-      <div class="music-time"><span id="musicElapsed">0:00</span><span id="musicDuration">0:00</span></div>
-      <p class="music-footnote">Küçülttüğünde müzik devam eder. Üstteki ♫ ile geri aç.</p>
-    </div>
-  </aside>
 
   <dialog id="notificationsDialog" class="notifications-dialog" aria-labelledby="notificationsTitle">
     <div class="notifications-head"><div><span class="eyebrow">DCMD / NEWS</span><h2 id="notificationsTitle">Senden habersiz olmaz.</h2></div><button id="notificationsClose" type="button" aria-label="Kapat">×</button></div>
@@ -754,13 +722,11 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=poll-1"></script>
-  <script src="commerce.js?v=poll-1"></script>
-  <script src="script.js?v=poll-1"></script>
+  <script src="languages.js?v=store-2"></script>
+  <script src="commerce.js?v=store-2"></script>
+  <script src="script.js?v=store-2"></script>
   <script src="vendor/leaflet.js"></script>
   <script src="weather.js?v=poll-1"></script>
-  <script src="music-services.js"></script>
-  <script src="music.js"></script>
   <script src="dcmd-enhance.js?v=2"></script>
 
 </body>

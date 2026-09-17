@@ -6,6 +6,136 @@
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
 Language|Language|Dil|Język|Sprache|Язык|语言
+Önizleme:|Preview:|Önizleme:|Podgląd:|Vorschau:|Предпросмотр:|预览：
+siparişi için cayma/iade talebi. Yanıt adresi:|return request. Reply address:|siparişi için cayma/iade talebi. Yanıt adresi:|wniosek o zwrot. Adres odpowiedzi:|Rückgabeanfrage. Antwortadresse:|запрос возврата. Адрес ответа:|退货申请。回复地址：
+Gönderilmedi ve saklanmadı.|Not sent or saved.|Gönderilmedi ve saklanmadı.|Nie wysłano ani nie zapisano.|Nicht versendet oder gespeichert.|Не отправлено и не сохранено.|未发送或保存。
+Alıcı:|To:|Alıcı:|Do:|An:|Кому:|收件人：
+Konu: DCMD test siparişin alındı —|Subject: DCMD demo order received —|Konu: DCMD test siparişin alındı —|Temat: Zamówienie demo DCMD przyjęte —|Betreff: DCMD-Demobestellung erhalten —|Тема: Демозаказ DCMD принят —|主题：已收到DCMD演示订单 —
+Merhaba|Hello|Merhaba|Witaj|Hallo|Здравствуйте|您好
+Toplam:|Total:|Toplam:|Suma:|Gesamt:|Итого:|总计：
+Ödeme:|Payment:|Ödeme:|Płatność:|Zahlung:|Оплата:|付款：
+simülasyon|simulation|simülasyon|symulacja|Simulation|симуляция|模拟
+Test takip bağlantın:|Your demo tracking link:|Test takip bağlantın:|Link śledzenia demo:|Dein Demo-Trackinglink:|Демо-ссылка отслеживания:|演示追踪链接：
+DCMD test siparişini aldık. Bu işlemde ödeme alınmadı ve ürün gönderilmeyecek.|We received your DCMD demo order. No payment was taken and no products will be shipped.|DCMD test siparişini aldık. Bu işlemde ödeme alınmadı ve ürün gönderilmeyecek.|Otrzymaliśmy zamówienie demo DCMD. Bez płatności i wysyłki.|DCMD-Demobestellung erhalten. Keine Zahlung erfolgt und kein Versand.|Демозаказ DCMD получен. Оплата не списана, товары не отправляются.|已收到DCMD演示订单。未收款，也不会发货。
+Bu bağlantı yalnızca siparişi oluşturduğun tarayıcıdaki son test kaydı için geçerlidir.|This link only works for the latest demo record in the browser that created it.|Bu bağlantı yalnızca siparişi oluşturduğun tarayıcıdaki son test kaydı için geçerlidir.|Link działa tylko dla ostatniego rekordu demo w tej przeglądarce.|Link gilt nur für den letzten Demodatensatz im ursprünglichen Browser.|Ссылка работает только для последней демозаписи в исходном браузере.|链接仅适用于创建订单的浏览器中的最新演示记录。
+Bu bir e-posta önizlemesidir; gönderilmedi.|This is an email preview; it was not sent.|Bu bir e-posta önizlemesidir; gönderilmedi.|To podgląd e-maila; nie wysłano go.|Dies ist eine E-Mail-Vorschau; nicht versendet.|Это предпросмотр письма; оно не отправлено.|这是邮件预览，未发送。
+Bu tarayıcıda bu test siparişi bulunamadı. Takip, siparişin oluşturulduğu tarayıcıda son kayıt için kullanılabilir.|Demo order not found. Tracking works for the latest order in its original browser.|Bu tarayıcıda bu test siparişi bulunamadı. Takip, siparişin oluşturulduğu tarayıcıda son kayıt için kullanılabilir.|Nie znaleziono zamówienia demo. Śledzenie ostatniego zamówienia działa w pierwotnej przeglądarce.|Demobestellung nicht gefunden. Tracking funktioniert für die letzte Bestellung im ursprünglichen Browser.|Демозаказ не найден. Отслеживание последнего заказа доступно в исходном браузере.|未找到演示订单。追踪仅适用于原浏览器中的最新订单。
+Test geri bildirimi alındı. Gönderilmedi veya saklanmadı.|Demo feedback received. Not sent or saved.|Test geri bildirimi alındı. Gönderilmedi veya saklanmadı.|Opinia demo odebrana. Nie wysłano ani nie zapisano.|Demo-Feedback erhalten. Nicht versendet oder gespeichert.|Демоотзыв получен. Не отправлен и не сохранён.|已收到演示反馈，未发送或保存。
+Anketi kapat|Close poll|Anketi kapat|Zamknij ankietę|Umfrage schließen|Закрыть опрос|关闭投票
+İade talebini kapat|Close return request|İade talebini kapat|Zamknij wniosek|Rückgabe schließen|Закрыть возврат|关闭退货申请
+Takibi kapat|Close tracking|Takibi kapat|Zamknij śledzenie|Tracking schließen|Закрыть отслеживание|关闭追踪
+Paneli kapat|Close panel|Paneli kapat|Zamknij panel|Panel schließen|Закрыть панель|关闭面板
+Örnek kart numarası|Sample card number|Örnek kart numarası|Przykładowy numer karty|Beispielkartennummer|Пример номера карты|示例卡号
+ALMANYA / DE|GERMANY / DE|ALMANYA / DE|NIEMCY / DE|DEUTSCHLAND / DE|ГЕРМАНИЯ / DE|德国 / DE
+İTALYA / IT|ITALY / IT|İTALYA / IT|WŁOCHY / IT|ITALIEN / IT|ИТАЛИЯ / IT|意大利 / IT
+İSPANYA / ES|SPAIN / ES|İSPANYA / ES|HISZPANIA / ES|SPANIEN / ES|ИСПАНИЯ / ES|西班牙 / ES
+PORTEKİZ / PT|PORTUGAL / PT|PORTEKİZ / PT|PORTUGALIA / PT|PORTUGAL / PT|ПОРТУГАЛИЯ / PT|葡萄牙 / PT
+TÜRKİYE / TR|TÜRKİYE / TR|TÜRKİYE / TR|TURCJA / TR|TÜRKEI / TR|ТУРЦИЯ / TR|土耳其 / TR
+Talep üzerine üretim · Taslak hazırlık süresi 3–7 iş günü. Gerçek teslimat, vergi ve kargo tutarları satış başlamadan kesinleştirilecek.|Made to order · Draft lead time: 3–7 business days. Delivery, taxes and shipping will be confirmed before sales begin.|Talep üzerine üretim · Taslak hazırlık süresi 3–7 iş günü. Teslimat, vergi ve kargo satış öncesi kesinleşecek.|Na zamówienie · Wstępny czas: 3–7 dni roboczych. Dostawa i opłaty zostaną ustalone przed sprzedażą.|Auf Bestellung · Vorläufig 3–7 Werktage. Lieferung und Abgaben werden vor Verkaufsstart bestätigt.|Под заказ · Предварительно 3–7 рабочих дней. Сроки и сборы уточнят до начала продаж.|按需生产 · 暂定3–7个工作日。配送、税费与运费将在销售前确认。
+Şartlar|Terms|Şartlar|Regulamin|Bedingungen|Условия|条款
+ve|and|ve|i|und|и|及
+kargo/iade taslağını|shipping/returns draft|kargo/iade taslağını|projekt dostawy i zwrotów|Versand-/Retourenentwurf|проект доставки и возврата|配送与退货草案
+okudum. Bunun gerçek ödeme veya sipariş oluşturmadığını anladım.|read. I understand this does not create a real payment or order.|okudum. Bunun gerçek ödeme veya sipariş oluşturmadığını anladım.|przeczytane. Rozumiem, że to nie jest prawdziwa płatność ani zamówienie.|gelesen. Dies ist keine echte Zahlung oder Bestellung.|прочитаны. Это не реальный платёж или заказ.|已阅读。我理解这不会产生真实付款或订单。
+Gizlilik bilgilendirmesi|Privacy notice|Gizlilik bilgilendirmesi|Informacja o prywatności|Datenschutzhinweis|Уведомление о конфиденциальности|隐私说明
+: Form bilgileri test e-posta önizlemesi için kullanılır. Pazarlama izni siparişin koşulu değildir.|: Form details are used for a demo email preview. Marketing consent is optional.|: Form bilgileri test e-posta önizlemesi içindir. Pazarlama izni isteğe bağlıdır.|: Dane służą do podglądu e-maila demo. Zgoda marketingowa jest dobrowolna.|: Daten dienen einer Demo-E-Mail-Vorschau. Marketingeinwilligung ist freiwillig.|: Данные используются для демописьма. Согласие на маркетинг необязательно.|：表单信息用于演示邮件预览，营销同意为可选项。
+Kart bilgilerinizi bu forma girmeyin. Mevcut sürüm telefon numarası istemez; iletişim ve adres bilgilerini sunucuya göndermez. Barındırma ve dış hizmetler bağlantı sırasında IP/teknik bilgileri işleyebilir.|Do not enter real card details. Contact and address data stay in this browser. Hosting and external services may process IP and technical data.|Gerçek kart bilgisi girmeyin. İletişim ve adres bilgileri tarayıcıda kalır. Barındırma ve dış hizmetler IP ve teknik veri işleyebilir.|Nie wpisuj danych prawdziwej karty. Dane kontaktowe i adres zostają w przeglądarce. Hosting i usługi zewnętrzne mogą przetwarzać IP i dane techniczne.|Keine echten Kartendaten eingeben. Kontakt- und Adressdaten bleiben im Browser. Hosting und externe Dienste können IP- und technische Daten verarbeiten.|Не вводите данные настоящей карты. Контакты и адрес остаются в браузере. Хостинг и внешние сервисы могут обрабатывать IP и технические данные.|请勿输入真实卡片信息。联系信息与地址仅留在浏览器中。托管及外部服务可能处理IP和技术数据。
+Ayrıntılar|Details|Ayrıntılar|Szczegóły|Details|Подробнее|详情
+Kampanya e-postaları almak istiyorum (isteğe bağlı test tercihi; abonelik oluşturulmaz).|I'd like promotional emails (optional demo preference; no subscription is created).|Kampanya e-postaları almak istiyorum (isteğe bağlı test tercihi; abonelik oluşturulmaz).|Chcę e-maile promocyjne (dobrowolna opcja demo; bez subskrypcji).|Ich möchte Werbe-E-Mails (freiwillige Demoauswahl; kein Abonnement).|Хочу рекламные письма (необязательная демоопция; подписка не создаётся).|我愿意接收推广邮件（可选演示偏好，不创建订阅）。
+Takip bağlantısı yalnızca bu tarayıcıdaki test kaydını açar. Gerçek kargo bağlantısı değildir.|Tracking opens the demo record in this browser only. It is not a carrier link.|Takip bağlantısı yalnızca bu tarayıcıdaki test kaydını açar. Gerçek kargo bağlantısı değildir.|Śledzenie otwiera tylko rekord demo w tej przeglądarce. To nie jest link przewoźnika.|Tracking öffnet nur den Demodatensatz dieses Browsers, keine Sendungsverfolgung.|Ссылка открывает демозапись в этом браузере, а не сайт перевозчика.|追踪链接仅打开此浏览器的演示记录，并非物流链接。
+Müşteriye gönderilecek e-posta — önizleme|Customer email — preview|Müşteriye gönderilecek e-posta — önizleme|E-mail klienta — podgląd|Kunden-E-Mail — Vorschau|Письмо клиенту — предпросмотр|客户邮件 — 预览
+E-posta gönderilmedi. Bu, sipariş bildiriminin taslağıdır.|No email sent. This is a draft order notification.|E-posta gönderilmedi. Bu, sipariş bildiriminin taslağıdır.|E-mail nie został wysłany. To projekt powiadomienia.|Keine E-Mail gesendet. Dies ist ein Benachrichtigungsentwurf.|Письмо не отправлено. Это черновик уведомления.|未发送邮件，这只是订单通知草稿。
+Bu form yalnızca test önizlemesi oluşturur. Şirkete talep veya e-posta göndermez.|This form creates a demo preview only. Nothing is sent to the company.|Bu form yalnızca test önizlemesi oluşturur. Şirkete talep veya e-posta göndermez.|Formularz tworzy tylko podgląd demo. Nic nie wysyła do firmy.|Dieses Formular erstellt nur eine Demovorschau. Nichts wird versendet.|Форма создаёт только демопредпросмотр. Ничего не отправляется компании.|此表单仅创建演示预览，不会向公司发送任何内容。
+Bu ekran bir testtir. Kargo firmasına bağlı değildir ve gerçek teslimat durumunu göstermez.|Demo screen. Not connected to a carrier; no real delivery status.|Bu ekran bir testtir. Kargo firmasına bağlı değildir ve gerçek teslimat durumunu göstermez.|Ekran demo. Bez połączenia z przewoźnikiem i rzeczywistego statusu dostawy.|Demoansicht ohne Verbindung zum Versanddienst und ohne echten Lieferstatus.|Демоэкран без связи с перевозчиком и без реального статуса доставки.|演示页面，未连接物流公司，不显示真实配送状态。
+Yalnızca bu sayfa oturumunun örnek kapasitesi. Gerçek yönetici paneli değildir; sayfa yenilenince sıfırlanır. Kritik eşik: 3.|Sample capacity for this session. Not a real admin panel; resets on reload. Low-capacity threshold: 3.|Bu oturuma ait örnek kapasite. Gerçek yönetici paneli değildir; yenilemede sıfırlanır. Kritik eşik: 3.|Przykładowa pojemność sesji. To nie jest panel administratora; reset po odświeżeniu. Próg: 3.|Beispielkapazität dieser Sitzung. Kein Adminpanel; Reset beim Neuladen. Schwelle: 3.|Демолимит сеанса. Не панель администратора; сбрасывается при обновлении. Порог: 3.|当前会话示例产能，非真实管理面板，刷新后重置。低产能阈值：3。
+Ürün veya fiyat değişti. Sepeti yeniden oluştur.|Product or price changed. Rebuild your cart.|Ürün veya fiyat değişti. Sepeti yeniden oluştur.|Produkt lub cena się zmieniły. Utwórz koszyk ponownie.|Artikel oder Preis geändert. Warenkorb neu erstellen.|Товар или цена изменились. Соберите корзину заново.|商品或价格已变化，请重新添加购物车。
+yeterli test üretim kapasitesi yok.|not enough demo production capacity.|yeterli test üretim kapasitesi yok.|brak wystarczającej pojemności demo.|nicht genügend Demokapazität.|недостаточно демомест.|演示产能不足。
+Lütfen teslimat alanlarını boş bırakma.|Please complete the delivery fields.|Lütfen teslimat alanlarını boş bırakma.|Uzupełnij dane dostawy.|Bitte Lieferfelder ausfüllen.|Заполните поля доставки.|请填写配送信息。
+test simülasyonu. Hesap açılmaz, giriş yapılmaz ve para çekilmez.|demo simulation. No account, sign-in or charges.|test simülasyonu. Hesap açılmaz, giriş yapılmaz ve para çekilmez.|symulacja demo. Bez konta, logowania i opłat.|Demosimulation. Kein Konto, Login oder Zahlung.|демосимуляция. Без аккаунта, входа и списаний.|演示模拟，不创建账号、不登录、不扣款。
+Bu tarayıcıdaki test kayıtları temizlendi.|Demo data cleared in this browser.|Bu tarayıcıdaki test kayıtları temizlendi.|Dane demo w przeglądarce usunięte.|Demodaten dieses Browsers gelöscht.|Демоданные браузера удалены.|此浏览器的演示数据已清除。
+seçimin test için kaydedildi. Bu tarayıcıda değiştirebilirsin; ortak oylama henüz açık değil.|choice saved for the demo. You can change it in this browser; public voting is not open yet.|seçimin test için kaydedildi. Bu tarayıcıda değiştirebilirsin; ortak oylama henüz açık değil.|wybór zapisany w demo. Możesz go zmienić w przeglądarce; publiczne głosowanie jest zamknięte.|Auswahl in der Demo gespeichert. Im Browser änderbar; öffentliche Abstimmung noch geschlossen.|выбор сохранён в демо. Можно изменить в браузере; общее голосование пока закрыто.|选择已保存为演示。可在此浏览器修改，公共投票尚未开放。
+Test siparişi alındı|Demo order received|Test siparişi alındı|Zamówienie demo przyjęte|Demobestellung erhalten|Демозаказ принят|已收到演示订单
+Hazırlanıyor — testte başlatılmadı|Preparing — not started in demo|Hazırlanıyor — testte başlatılmadı|Przygotowanie — nie rozpoczęto w demo|Vorbereitung — in Demo nicht gestartet|Подготовка — в демо не начата|准备中 — 演示中未开始
+Kargoya verildi — testte başlatılmadı|Shipped — not started in demo|Kargoya verildi — testte başlatılmadı|Wysłano — nie rozpoczęto w demo|Versand — in Demo nicht gestartet|Отправка — в демо не начата|已发货 — 演示中未开始
+Teslim edildi — testte başlatılmadı|Delivered — not started in demo|Teslim edildi — testte başlatılmadı|Dostarczono — nie rozpoczęto w demo|Zustellung — in Demo nicht gestartet|Доставка — в демо не начата|已送达 — 演示中未开始
+Beden / Size|Size|Beden|Rozmiar|Größe|Размер|尺码
+Beden|Size|Beden|Rozmiar|Größe|Размер|尺码
+Small|Small|Küçük|Mały|Klein|Маленький|小码
+Medium|Medium|Orta|Średni|Mittel|Средний|中码
+Large|Large|Büyük|Duży|Groß|Большой|大码
+X Large|Extra large|Çok büyük|Bardzo duży|Extragroß|Очень большой|加大码
+Oversize|Oversize|Bol kesim|Oversize|Oversize|Оверсайз|宽松
+Talep üzerine üretim · Test kapasitesi|Made to order · Demo capacity|Talep üzerine üretim · Test kapasitesi|Produkcja na zamówienie · Pojemność demo|Auf Bestellung · Demokapazität|Под заказ · Демо-лимит|按需生产 · 演示产能
+Üretim kapasitesi dolu|Production capacity full|Üretim kapasitesi dolu|Brak wolnych miejsc produkcji|Produktionskapazität ausgeschöpft|Производственный лимит исчерпан|产能已满
+Kapasite dolu|Capacity full|Kapasite dolu|Brak miejsc|Kapazität voll|Лимит исчерпан|产能已满
+Kritik kapasite|Low capacity|Kritik kapasite|Niska dostępność|Geringe Kapazität|Мало мест|产能紧张
+Üretime uygun|Available for production|Üretime uygun|Dostępne do produkcji|Produktion möglich|Доступно для производства|可生产
+Added to cart|Added to cart|Sepete eklendi|Dodano do koszyka|Zum Warenkorb hinzugefügt|Добавлено в корзину|已加入购物车
+Hakkımızda / Kurumsal bilgiler|About / Company information|Hakkımızda / Kurumsal bilgiler|O nas / Dane firmy|Über uns / Unternehmensdaten|О нас / Данные компании|关于我们 / 公司信息
+Hakkımızda|About us|Hakkımızda|O nas|Über uns|О нас|关于我们
+Şirket unvanı: Kuruluş aşamasında|Company: Being established|Şirket unvanı: Kuruluş aşamasında|Firma: W trakcie tworzenia|Unternehmen: In Gründung|Компания: В процессе создания|公司：筹建中
+Şirket e-postası: Eklenecek|Company email: Not yet available|Şirket e-postası: Henüz hazır değil|E-mail firmy: Jeszcze niedostępny|Firmen-E-Mail: Noch nicht verfügbar|Почта компании: Пока недоступна|公司邮箱：暂未提供
+İade e-postası: Eklenecek|Returns email: Not yet available|İade e-postası: Henüz hazır değil|E-mail zwrotów: Jeszcze niedostępny|Retouren-E-Mail: Noch nicht verfügbar|Почта для возвратов: Пока недоступна|退货邮箱：暂未提供
+İletişim e-postası: Eklenecek|Contact email: Not yet available|İletişim e-postası: Henüz hazır değil|E-mail kontaktowy: Jeszcze niedostępny|Kontakt-E-Mail: Noch nicht verfügbar|Контактная почта: Пока недоступна|联系邮箱：暂未提供
+Kayıtlı adres, ülke ve vergi numarası: Eklenecek|Registered address, country and tax ID: Not yet available|Kayıtlı adres, ülke ve vergi numarası: Henüz hazır değil|Adres, kraj i NIP: Jeszcze niedostępne|Adresse, Land und Steuernummer: Noch nicht verfügbar|Адрес, страна и налоговый номер: Пока недоступны|注册地址、国家和税号：暂未提供
+Test mağazası. Gerçek sipariş ve ödeme kabul edilmez.|Demo store. No real orders or payments accepted.|Test mağazası. Gerçek sipariş ve ödeme kabul edilmez.|Sklep demo. Bez prawdziwych zamówień i płatności.|Demoshop. Keine echten Bestellungen oder Zahlungen.|Демомагазин. Реальные заказы и платежи не принимаются.|演示商店，不接受真实订单或付款。
+Gizlilik politikası (taslak)|Privacy policy (draft)|Gizlilik politikası (taslak)|Polityka prywatności (projekt)|Datenschutz (Entwurf)|Конфиденциальность (проект)|隐私政策（草案）
+Kargo, iade ve cayma (taslak)|Shipping and returns (draft)|Kargo, iade ve cayma (taslak)|Dostawa i zwroty (projekt)|Versand und Widerruf (Entwurf)|Доставка и возврат (проект)|配送与退货（草案）
+Şartlar ve koşullar (taslak)|Terms and conditions (draft)|Şartlar ve koşullar (taslak)|Regulamin (projekt)|AGB (Entwurf)|Условия (проект)|条款与条件（草案）
+Test üretim paneli|Demo inventory|Test üretim paneli|Panel produkcji demo|Demo-Bestand|Демо-инвентарь|演示库存
+Test kayıtlarımı temizle|Clear my demo data|Test kayıtlarımı temizle|Usuń moje dane demo|Meine Demodaten löschen|Удалить мои демоданные|清除演示数据
+Cayma / iade talebi (test)|Return request (demo)|Cayma / iade talebi (test)|Zwrot (demo)|Rückgabe (Demo)|Возврат (демо)|退货申请（演示）
+Contact DCMD|Contact DCMD|DCMD ile iletişim|Kontakt z DCMD|DCMD kontaktieren|Связаться с DCMD|联系DCMD
+Shop the collection|Shop the collection|Koleksiyonu keşfet|Odkryj kolekcję|Kollektion entdecken|Смотреть коллекцию|探索系列
+DCMD campaign|DCMD campaign|DCMD kampanyası|Kampania DCMD|DCMD-Kampagne|Кампания DCMD|DCMD宣传大片
+Two cities. One mindset.|Two cities. One mindset.|İki şehir. Tek bakış açısı.|Dwa miasta. Jedna wizja.|Zwei Städte. Eine Haltung.|Два города. Один взгляд.|两座城市，同一种态度。
+Front and back details, worn as designed. Explore the Capital and Black collections through the campaign cast.|Front and back details, worn as designed. Explore the Capital and Black collections through the campaign cast.|Ön ve arka detayları model üzerinde incele. Capital ve Black koleksiyonlarını keşfet.|Zobacz przód i tył na modelach. Odkryj kolekcje Capital i Black.|Vorder- und Rückseite am Model. Entdecke Capital und Black.|Детали спереди и сзади на моделях. Открой коллекции Capital и Black.|通过模特欣赏正反面细节，探索Capital和Black系列。
+View front & back|View front & back|Önü ve arkayı gör|Zobacz przód i tył|Vorder- und Rückseite|Вид спереди и сзади|查看正反面
+Explore the piece|Explore the piece|Ürünü incele|Zobacz produkt|Artikel entdecken|Смотреть товар|探索单品
+Sıradaki şehir|Next city|Sıradaki şehir|Następne miasto|Nächste Stadt|Следующий город|下一座城市
+Bir şehir.|One city.|Bir şehir.|Jedno miasto.|Eine Stadt.|Один город.|一座城市。
+Senin izin.|Your mark.|Senin izin.|Twój ślad.|Deine Spur.|Твой след.|你的印记。
+Sıradaki tasarıma yön ver.|Shape the next design.|Sıradaki tasarıma yön ver.|Wpłyń na kolejny projekt.|Gestalte das nächste Design mit.|Определи следующий дизайн.|影响下一款设计。
+Hangi başkenti üzerinde taşımak istersin?|Which capital would you wear?|Hangi başkenti üzerinde taşımak istersin?|Którą stolicę chcesz nosić?|Welche Hauptstadt möchtest du tragen?|Какую столицу ты хочешь носить?|你想穿上哪座首都？
+Başkentini seç|Choose your capital|Başkentini seç|Wybierz stolicę|Hauptstadt wählen|Выбери столицу|选择首都
+Seçimini bırak|Cast your vote|Seçimini bırak|Zagłosuj|Abstimmen|Проголосовать|投票
+Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.|Demo poll · Your choice stays in this browser. Public voting is not open yet.|Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.|Ankieta demo · Wybór pozostaje w przeglądarce. Publiczne głosowanie jeszcze nie działa.|Demo-Umfrage · Auswahl nur in diesem Browser. Öffentliche Abstimmung noch nicht aktiv.|Демо-опрос · Выбор хранится в браузере. Общее голосование пока закрыто.|演示投票 · 选择仅存于此浏览器，公共投票尚未开放。
+Siparişini tamamla|Complete your order|Siparişini tamamla|Dokończ zamówienie|Bestellung abschließen|Оформить заказ|完成订单
+Test mağazası · Para çekilmez, ürün gönderilmez ve e-posta gönderilmez. Örnek bilgilerle deneyebilirsin.|Demo store · No charges, shipments or emails. Use sample details.|Test mağazası · Para çekilmez, ürün veya e-posta gönderilmez. Örnek bilgi kullan.|Sklep demo · Bez opłat, wysyłki i e-maili. Użyj przykładowych danych.|Demoshop · Keine Zahlung, Lieferung oder E-Mail. Beispieldaten verwenden.|Демомагазин · Без списаний, доставки и писем. Используй тестовые данные.|演示商店 · 不收费、不发货、不发送邮件。请使用示例信息。
+01 / İletişim ve teslimat|01 / Contact and delivery|01 / İletişim ve teslimat|01 / Kontakt i dostawa|01 / Kontakt und Lieferung|01 / Контакты и доставка|01 / 联系与配送
+Ad soyad|Full name|Ad soyad|Imię i nazwisko|Vollständiger Name|Полное имя|姓名
+Adınız ve soyadınız|Your full name|Adınız ve soyadınız|Twoje imię i nazwisko|Dein vollständiger Name|Ваше полное имя|您的姓名
+E-posta|Email|E-posta|E-mail|E-Mail|Эл. почта|电子邮箱
+E-posta adresiniz|Your email address|E-posta adresiniz|Twój e-mail|Deine E-Mail-Adresse|Ваш адрес почты|您的邮箱地址
+Sipariş e-postasının önizlemesinde kullanılır.|Used in the order email preview.|Sipariş e-postasının önizlemesinde kullanılır.|Do podglądu e-maila zamówienia.|Für die Bestell-E-Mail-Vorschau.|Для предпросмотра письма о заказе.|用于订单邮件预览。
+Teslimat adresi|Delivery address|Teslimat adresi|Adres dostawy|Lieferadresse|Адрес доставки|收货地址
+Cadde, sokak, bina ve daire numarası|Street, building and apartment|Cadde, sokak, bina ve daire numarası|Ulica, budynek i mieszkanie|Straße, Haus und Wohnung|Улица, дом и квартира|街道、楼号和房号
+Şehir|City|Şehir|Miasto|Stadt|Город|城市
+Posta kodu|Postal code|Posta kodu|Kod pocztowy|Postleitzahl|Индекс|邮政编码
+02 / Ödeme yöntemi|02 / Payment method|02 / Ödeme yöntemi|02 / Metoda płatności|02 / Zahlungsart|02 / Способ оплаты|02 / 付款方式
+Kredi kartı|Credit card|Kredi kartı|Karta kredytowa|Kreditkarte|Кредитная карта|信用卡
+Banka kartı|Debit card|Banka kartı|Karta debetowa|Debitkarte|Дебетовая карта|借记卡
+Kart numarası|Card number|Kart numarası|Numer karty|Kartennummer|Номер карты|卡号
+Son kullanma|Expiry date|Son kullanma|Data ważności|Gültig bis|Срок действия|有效期
+Hazır test kartı kullanılır. Gerçek kart bilgisi girilmez veya saklanmaz.|A sample card is used. No real card details are entered or stored.|Hazır test kartı kullanılır. Gerçek kart bilgisi girilmez veya saklanmaz.|Używana jest karta testowa. Prawdziwe dane nie są wpisywane ani zapisywane.|Eine Testkarte wird verwendet. Keine echten Kartendaten werden eingegeben oder gespeichert.|Используется тестовая карта. Реальные данные не вводятся и не хранятся.|使用示例卡，不输入或保存真实卡片信息。
+Sipariş özeti|Order summary|Sipariş özeti|Podsumowanie zamówienia|Bestellübersicht|Состав заказа|订单摘要
+Ürünler|Items|Ürünler|Produkty|Artikel|Товары|商品
+Ürün|Product|Ürün|Produkt|Artikel|Товар|商品
+Test teslimatı|Demo delivery|Test teslimatı|Dostawa demo|Demo-Lieferung|Демо-доставка|演示配送
+Ücretsiz|Free|Ücretsiz|Bezpłatnie|Kostenlos|Бесплатно|免费
+Toplam (EUR)|Total (EUR)|Toplam (EUR)|Suma (EUR)|Gesamt (EUR)|Итого (EUR)|总计（EUR）
+Örnek fiyatlar. Gerçek vergi ve kargo hesaplaması uygulanmaz.|Sample prices. Real taxes and shipping are not calculated.|Örnek fiyatlar. Gerçek vergi ve kargo hesaplaması uygulanmaz.|Przykładowe ceny. Bez rzeczywistych podatków i kosztów dostawy.|Beispielpreise. Keine echten Steuern oder Versandkosten.|Примерные цены. Налоги и доставка не рассчитываются.|示例价格，不计算真实税费和运费。
+Test siparişini oluştur|Place demo order|Test siparişini oluştur|Złóż zamówienie demo|Demobestellung aufgeben|Создать демозаказ|创建演示订单
+Test siparişin oluşturuldu|Demo order created|Test siparişin oluşturuldu|Zamówienie demo utworzone|Demobestellung erstellt|Демозаказ создан|演示订单已创建
+Test siparişini takip et ↗|Track demo order ↗|Test siparişini takip et ↗|Śledź zamówienie demo ↗|Demobestellung verfolgen ↗|Отследить демозаказ ↗|追踪演示订单 ↗
+Cayma / iade talebi|Return request|Cayma / iade talebi|Wniosek o zwrot|Rückgabeanfrage|Запрос возврата|退货申请
+Sipariş numarası|Order number|Sipariş numarası|Numer zamówienia|Bestellnummer|Номер заказа|订单号
+Açıklama (isteğe bağlı)|Message (optional)|Açıklama (isteğe bağlı)|Wiadomość (opcjonalnie)|Nachricht (optional)|Сообщение (необязательно)|留言（选填）
+Test talebini önizle|Preview demo request|Test talebini önizle|Podgląd wniosku demo|Demoanfrage ansehen|Просмотр демозапроса|预览演示申请
+Sipariş takibi|Order tracking|Sipariş takibi|Śledzenie zamówienia|Sendungsverfolgung|Отслеживание заказа|订单追踪
+Test üretim kapasitesi|Demo production capacity|Test üretim kapasitesi|Produkcyjna pojemność demo|Demo-Produktionskapazität|Демо-производственная мощность|演示产能
+Test kapasitesini sıfırla|Reset demo capacity|Test kapasitesini sıfırla|Resetuj pojemność demo|Demokapazität zurücksetzen|Сбросить демолимит|重置演示产能
+Kapasite|Capacity|Kapasite|Dostępność|Kapazität|Лимит|产能
+Durum|Status|Durum|Status|Status|Статус|状态
 Collections|Collections|Koleksiyonlar|Kolekcje|Kollektionen|Коллекции|系列
 All collections|All collections|Tüm koleksiyonlar|Wszystkie kolekcje|Alle Kollektionen|Все коллекции|所有系列
 Shorts|Shorts|Şort|Szorty|Shorts|Шорты|短裤
@@ -217,6 +347,16 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
     const found=countries.find(c=>c.name===key || c.name.toLocaleUpperCase('tr-TR')===key);
     if(found) return country(found.code);
     let m;
+    const pick = values => values[codes.indexOf(language)];
+    if ((m=key.match(/^(Alıcı:|Toplam:|Ödeme:|Önizleme:) (.*)$/))) return t(m[1]) + ' ' + t(m[2]);
+    if ((m=key.match(/^Merhaba (.*),$/))) return t('Merhaba') + ' ' + m[1] + ',';
+    if (key.endsWith(' — simülasyon')) return t(key.slice(0,-13)) + ' — ' + t('simülasyon');
+    if ((m=key.match(/^Added to cart \((\d+)\)$/))) return t('Added to cart') + ' (' + m[1] + ')';
+    if ((m=key.match(/^(.* \/ )(XS|Small|Medium|Large|X Large|Oversize)$/))) return m[1] + t(m[2]);
+    if ((m=key.match(/^Son (\d+) üretim kontenjanı!$/))) return pick([`Only ${m[1]} production slots left!`,key,`Ostatnie ${m[1]} miejsca produkcji!`,`Nur noch ${m[1]} Produktionsplätze!`,`Осталось мест: ${m[1]}!`,`仅剩${m[1]}个生产名额！`]);
+    if ((m=key.match(/^Üretime uygun · (\d+) test kontenjanı$/))) return pick([`Available · ${m[1]} demo slots`,key,`Dostępne · ${m[1]} miejsc demo`,`Verfügbar · ${m[1]} Demoplätze`,`Доступно · ${m[1]} демомест`,`可生产 · ${m[1]}个演示名额`]);
+    if (key.endsWith(' — Beden / Size')) return key.replace('Beden / Size',t('Beden / Size'));
+    if (key.startsWith('Remove ')) return pick(['Remove','Kaldır','Usuń','Entfernen','Удалить','移除']) + key.slice(6);
     if((m=key.match(/^CART \((\d+)\)$/))) return `${t('CART')} (${m[1]})`;
     if((m=key.match(/^(\d+) pieces?$/))) return [ `${m[1]} items`,`${m[1]} ürün`,`${m[1]} szt.`,`${m[1]} Artikel`,`${m[1]} товаров`,`${m[1]} 件商品` ][codes.indexOf(language)];
     if((m=key.match(/^(.*?) içinde şehir veya bölge ara…$/))) return [`Search a city in ${t(m[1])}…`,`${m[1]} içinde şehir veya bölge ara…`,`Szukaj miasta: ${t(m[1])}…`,`Stadt in ${t(m[1])} suchen…`,`Найти город: ${t(m[1])}…`,`搜索${t(m[1])}的城市…`][codes.indexOf(language)];
@@ -234,7 +374,7 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
     if(!node.parentElement || node.parentElement.closest('script,style,.language-switcher,[data-no-translate]')) return;
     const current=node.nodeValue, previous=sources.get(node);
     const original=previous && current===previous.rendered ? previous.original : current;
-    const translated=t(original);
+    const translated=node.parentElement.closest('pre') ? original.split('\n').map(line=>t(line)).join('\n') : t(original);
     const rendered=original.trim() ? original.replace(original.trim(),translated) : original;
     sources.set(node,{original,rendered});
     if(current!==rendered) node.nodeValue=rendered;
@@ -262,7 +402,7 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   function apply(next,save=true) {
     if(!codes.includes(next))return;
     language=next;document.documentElement.lang=next==='zh'?'zh-CN':next;
-    document.querySelectorAll('#weather-style,#musicPlayer,.music-dock').forEach(el=>el.lang=document.documentElement.lang);
+    document.querySelectorAll('[lang]:not(html):not(.language-switcher button)').forEach(el=>el.lang=document.documentElement.lang);
     document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===next)));
     if(save)try{localStorage.setItem('dcmd-language',next);}catch{}
     translate();

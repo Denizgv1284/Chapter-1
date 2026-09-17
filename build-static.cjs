@@ -3,9 +3,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const output = path.join(__dirname, 'public');
 fs.mkdirSync(output, { recursive: true });
+// Remove retired player assets from an existing local build as well.
+for (const retired of ['music.css', 'music.js', 'music-services.js']) {
+  fs.rmSync(path.join(output, retired), {force:true});
+}
 for (const file of [
   'index.html', 'style.css', 'script.js', 'weather.css', 'weather.js',
-  'music.css', 'music.js', 'music-services.js', 'languages.js', 'languages.css',
+  'languages.js', 'languages.css',
   'dcmd-enhance.css', 'dcmd-enhance.js', 'dcmd-system.css',
   'data', 'images', 'vendor', 'policies', 'commerce.js'
 ]) {
