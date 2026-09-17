@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&family=Poppins:wght@600;700&display=swap');
+
 /* ==========================================================================
    DCMD — enhance layer (additive, non-breaking)
    Bu dosya mevcut style.css / weather.css / music.css / languages.css
@@ -360,4 +362,53 @@ html[data-theme="light"] .hero--split p { color: #d0d4dc; }
 .gallery-dots[data-model-gallery] button[data-slide="2"]::after,
 .gallery-dots[data-model-gallery] button[data-slide="3"]::after {
   background: #f4c400; /* kadın görselleri işareti */
+}
+
+/* Reference-inspired typography and transparent photo navigation. */
+body { font-family:Inter,Arial,sans-serif; }
+h2, h3, .product-info h3, .model-window-copy h3 { font-family:Poppins,Arial,sans-serif; font-weight:700; letter-spacing:-.025em; }
+.product-info h3 { font-size:13px; line-height:1.5; }
+.navlinks, .marquee, .filters legend, .feedback-button, .feedback-submit,
+.feedback-dialog legend, .form-field > span, .cta-pill, .cta-pill-outline {
+  font-family:Inter,Arial,sans-serif;
+  font-weight:600;
+}
+nav.site-nav, html[data-theme="light"] nav.site-nav {
+  position:fixed; inset:0 0 auto; height:76px;
+  background:rgba(12,19,29,.12); border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(4px); color:#fff;
+}
+.site-nav .menu-toggle, .site-nav .notifications-button {
+  background:rgba(12,19,29,.3); color:#fff; border-color:rgba(255,255,255,.3);
+}
+.hero--split {
+  min-height:780px; min-height:max(780px,100svh);
+  background:#050b11;
+}
+.hero--split .hero-media { left:38%; }
+.hero--split .hero-media img {
+  object-fit:contain; object-position:center top; opacity:1;
+}
+.hero--split .hero-media::after {
+  background:linear-gradient(90deg,#050b11,transparent 24%),linear-gradient(0deg,#050b11,transparent 14%);
+}
+.hero--split .hero-copy { width:52%; max-width:790px; padding:140px 5vw 80px; }
+.hero--split .logo { display:block; width:190px; margin:24px 0 32px; filter:none; }
+.hero--split h1 {
+  font-family:'Playfair Display',Georgia,serif; font-weight:800;
+  font-size:clamp(44px,4.8vw,76px); line-height:1.1;
+  letter-spacing:-.035em; text-transform:none;
+}
+.hero--split p { font-family:Inter,Arial,sans-serif; font-size:14px; line-height:1.85; max-width:440px; }
+.hero--split .stars { display:none; }
+.hero--split .hero-eyebrow { font-family:Inter,Arial,sans-serif; font-weight:600; letter-spacing:2px; }
+@media(max-width:700px) {
+  .hero--split { min-height:940px; align-items:flex-end; }
+  .hero--split .hero-media { inset:50px 0 auto; height:560px; }
+  .hero--split .hero-media img { object-fit:contain; object-position:center top; }
+  .hero--split .hero-media::after { background:linear-gradient(0deg,#050b11,transparent 38%); }
+  .hero--split .hero-copy { width:100%; padding:480px 7vw 60px; }
+  .hero--split .logo { width:145px; margin:16px 0 22px; }
+  .hero--split h1 { font-size:clamp(38px,10vw,55px); }
+  .hero--split p { font-size:13px; }
 }
