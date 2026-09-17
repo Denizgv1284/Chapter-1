@@ -245,6 +245,12 @@ document.querySelectorAll('.add').forEach((button) => {
     if (error) {card.querySelector('.stock-status').textContent = error;return;}
     cart.push(line);
     renderCart();
+    if (!shopReducedMotion.matches) {
+      document.querySelector('#cartBadge').animate(
+        [{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],
+        {duration:260,easing:'ease-out'}
+      );
+    }
     document.querySelector("#cartAnnouncement").textContent = `Added to cart (${cart.length})`;
   });
 });
@@ -261,6 +267,31 @@ const checkoutDialog = document.querySelector('#checkoutDialog');
 const checkoutForm = document.querySelector('#checkoutForm');
 const trackingDialog = document.querySelector('#trackingDialog');
 const testOrders = new Map();
+const accountDialog = document.querySelector('#accountDialog');
+document.querySelector('#accountOpen').addEventListener('click', () => accountDialog.showModal());
+document.querySelector('#accountClose').addEventListener('click', () => accountDialog.close());
+accountDialog.addEventListener('close', () => document.querySelector('#accountOpen').focus({preventScroll:true}));
+accountDialog.addEventListener('click', event => {if(event.target === accountDialog) accountDialog.close();});
+// Only trusted server order data may drive real fulfillment once commerce is connected.
+// Existing orders are browser-local demos; never infer shipment from elapsed time.
+function orderStatusElement(status = 'processing') {
+  const labels = {processing:'Processing',shipped:'Shipped',cancelled:'Cancelled'};
+  const state = Object.hasOwn(labels,status) ? status : 'processing';
+  const wrapper = document.createElement('div');
+  const badge = document.createElement('p');
+  badge.className = 'order-status';
+  badge.dataset.status = state;
+  badge.setAttribute('role','status');
+  badge.textContent = labels[state] + ' · Demo';
+  wrapper.append(badge);
+  if(state === 'cancelled') {
+    const info = document.createElement('details');info.className='order-support';
+    const title=document.createElement('summary');title.textContent='ⓘ Support contacts';
+    const message=document.createElement('p');message.textContent='Support email is not configured yet.';
+    info.append(title,message);wrapper.append(info);
+  }
+  return wrapper;
+}
 window.addEventListener('dcmd:cleardemo', () => {testOrders.clear();document.querySelector('#orderEmailPreview').textContent='';trackingDialog.close();});
 const paymentNames = {credit:'Kredi kartı', debit:'Banka kartı', apple:'Apple Pay', paypal:'PayPal'};
 const money = window.DCMDCommerce.money;
@@ -318,6 +349,7 @@ checkoutForm.addEventListener('submit', event => {
     items:checkoutSnapshot.map(item => ({...item})),
     total:checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100,
     currency:'EUR',
+    status:'processing',
     policyVersion:window.DCMDCommerce.policyVersion,
     termsAcceptedAt:new Date().toISOString(),
     marketingPreview:fields.get('marketing') === 'on',
@@ -331,6 +363,9 @@ checkoutForm.addEventListener('submit', event => {
   const link = new URL(location.href); link.hash = `track=${order.id}`;
   document.querySelector('#orderTrackLink').href = link.href;
   document.querySelector('#orderConfirmation').textContent = `${order.id} · ${money(order.total)} · ${order.method} (test)`;
+  document.querySelector('#checkoutSuccess .order-status-block')?.remove();
+  const statusBlock=orderStatusElement(order.status);statusBlock.className='order-status-block';
+  document.querySelector('#orderConfirmation').after(statusBlock);
   document.querySelector('#orderEmailPreview').textContent = [
     `Alıcı: ${fields.get('email')}`,
     `Konu: DCMD test siparişin alındı — ${order.id}`,
@@ -360,6 +395,7 @@ function showTestTracking() {
   description.textContent = valid ? `${order.id} · ${new Date(order.createdAt).toLocaleString()} · ${money(order.total)}` : 'Bu tarayıcıda bu test siparişi bulunamadı. Takip, siparişin oluşturulduğu tarayıcıda son kayıt için kullanılabilir.';
   content.append(description);
   if (valid) {
+    content.append(orderStatusElement(order.status));
     const steps = document.createElement('ol'); steps.className = 'tracking-steps';
     ['Test siparişi alındı', 'Hazırlanıyor — testte başlatılmadı', 'Kargoya verildi — testte başlatılmadı', 'Teslim edildi — testte başlatılmadı'].forEach((text, index) => {
       const step = document.createElement('li'); step.textContent = text;

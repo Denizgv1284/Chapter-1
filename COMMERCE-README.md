@@ -93,6 +93,25 @@ Kaynaklar:
 
 ## Test
 
+## Hesap ve sipariş durumu arayüzü
+
+Üst çubukta sepet sayacı ve hesap düğmesi bulunur. Hesap penceresi henüz
+kimlik doğrulama servisine bağlı değildir: alanlar devre dışıdır ve parola
+toplanmaz. Gerçek üyelik için sağlayıcı/proje, güvenli oturum yönetimi,
+e-posta doğrulama ve parola sıfırlama akışları ayrıca bağlanmalıdır.
+
+Siparişlerde `processing` (sarı), `shipped` (yeşil), `cancelled` (kırmızı)
+görünümleri desteklenir. Yeni test siparişleri `processing` başlar; otomatik
+kargolama veya iptal yoktur. Tarayıcıdaki durum verisi yalnızca demodur.
+Gerçek durum değişikliği gelecekte sunucudan doğrulanmalıdır.
+Destek e-postası mağaza sahibi tarafından sağlanana kadar tanımlı değildir;
+iptal bilgi alanı bunu açıkça belirtir.
+
+`node test_account_status.cjs` üç ekran genişliğinde sayaç, hesap penceresi
+ve sentetik siparişlerin üç durumunu test eder.
+
+## Mevcut test akışı
+
 `python server.py --port 8002`
 
 `$env:DCMD_TEST_URL='http://127.0.0.1:8002'; node test_commerce_browser.cjs`

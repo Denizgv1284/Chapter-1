@@ -6,6 +6,17 @@
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
 Language|Language|Dil|Język|Sprache|Язык|语言
+Sign in|Sign in|Giriş yap|Zaloguj się|Anmelden|Войти|登录
+Password|Password|Şifre|Hasło|Passwort|Пароль|密码
+Email & password|Email & password|E-posta ve şifre|E-mail i hasło|E-Mail und Passwort|Почта и пароль|邮箱和密码
+Sign in / Create account|Sign in / Create account|Giriş yap / Hesap oluştur|Zaloguj się / Utwórz konto|Anmelden / Konto erstellen|Войти / Создать аккаунт|登录 / 创建账号
+Accounts are not available yet. No email or password is collected.|Accounts are not available yet. No email or password is collected.|Üyelik henüz açık değil. E-posta veya şifre toplanmaz.|Konta nie są jeszcze dostępne. Nie zbieramy e-maili ani haseł.|Konten sind noch nicht verfügbar. Keine E-Mails oder Passwörter werden erfasst.|Аккаунты пока недоступны. Почта и пароли не собираются.|账号功能尚未开放，不收集邮箱或密码。
+Planned account features: profile, order history and saved preferences.|Planned account features: profile, order history and saved preferences.|Planlanan hesap özellikleri: profil, sipariş geçmişi ve kayıtlı tercihler.|Planowane funkcje: profil, historia zamówień i zapisane preferencje.|Geplante Funktionen: Profil, Bestellverlauf und gespeicherte Einstellungen.|Планируется: профиль, история заказов и сохранённые настройки.|计划提供：个人资料、订单历史和保存偏好。
+Processing · Demo|Processing · Demo|İşleniyor · Demo|W trakcie · Demo|In Bearbeitung · Demo|В обработке · Демо|处理中 · 演示
+Shipped · Demo|Shipped · Demo|Kargoya verildi · Demo|Wysłano · Demo|Versendet · Demo|Отправлено · Демо|已发货 · 演示
+Cancelled · Demo|Cancelled · Demo|İptal edildi · Demo|Anulowano · Demo|Storniert · Demo|Отменено · Демо|已取消 · 演示
+ⓘ Support contacts|ⓘ Support contacts|ⓘ Destek için hatlarımız|ⓘ Kontakt z pomocą|ⓘ Supportkontakt|ⓘ Контакты поддержки|ⓘ 联系客服
+Support email is not configured yet.|Support email is not configured yet.|Destek e-posta adresi henüz tanımlanmadı.|E-mail pomocy nie został jeszcze ustawiony.|Support-E-Mail noch nicht eingerichtet.|Почта поддержки пока не указана.|尚未配置客服邮箱。
 Önizleme:|Preview:|Önizleme:|Podgląd:|Vorschau:|Предпросмотр:|预览：
 siparişi için cayma/iade talebi. Yanıt adresi:|return request. Reply address:|siparişi için cayma/iade talebi. Yanıt adresi:|wniosek o zwrot. Adres odpowiedzi:|Rückgabeanfrage. Antwortadresse:|запрос возврата. Адрес ответа:|退货申请。回复地址：
 Gönderilmedi ve saklanmadı.|Not sent or saved.|Gönderilmedi ve saklanmadı.|Nie wysłano ani nie zapisano.|Nicht versendet oder gespeichert.|Не отправлено и не сохранено.|未发送或保存。
