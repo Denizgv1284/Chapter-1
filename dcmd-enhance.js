@@ -19,7 +19,10 @@
         entry.target.classList.add('is-revealed');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    // A tall mobile product grid can never have 16% of its total height in
+    // the viewport at once. A tiny threshold reveals it as soon as its first
+    // meaningful edge enters the viewport, without leaving content invisible.
+    }, { threshold: 0.01, rootMargin: '0px 0px -4% 0px' });
 
     // Ana bölümler: hero, her <section>, footer
     document.querySelectorAll('header.hero, section, footer#contact').forEach((el) => {

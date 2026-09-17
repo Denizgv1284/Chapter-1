@@ -8,7 +8,8 @@ const assert = require('node:assert/strict');
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
 
-    const response = await page.goto('http://localhost:8002/', { waitUntil:'networkidle' });
+    const baseUrl = process.env.DCMD_TEST_URL || 'http://localhost:8002/';
+    const response = await page.goto(baseUrl, { waitUntil:'networkidle' });
     assert.equal(response.status(), 200);
     await page.waitForFunction(() => document.querySelectorAll('[data-reveal]').length > 2);
 
@@ -32,6 +33,23 @@ const assert = require('node:assert/strict');
     }
 
     assert.deepEqual(errors, []);
+
+    const mobile = await browser.newPage({ viewport:{ width:390, height:844 } });
+    const mobileErrors = [];
+    mobile.on('pageerror', error => mobileErrors.push(error.message));
+    await mobile.goto(baseUrl, { waitUntil:'networkidle' });
+    await mobile.locator('#products').scrollIntoViewIfNeeded();
+    await mobile.waitForFunction(() => {
+      const section = document.querySelector('#products');
+      const firstCard = section?.querySelector('.product-card:not([hidden])');
+      return section?.classList.contains('is-revealed')
+        && section.querySelector('.grid')?.classList.contains('is-revealed')
+        && firstCard
+        && Number.parseFloat(getComputedStyle(firstCard).opacity) > .99;
+    });
+    assert.equal(await mobile.locator('#products .product-card:not([hidden])').first().isVisible(), true);
+    assert.deepEqual(mobileErrors, []);
+    await mobile.close();
     console.log('PASS: enhancement assets, reveals, country accents, model showcase, and three-slide galleries');
   } finally {
     await browser.close();
