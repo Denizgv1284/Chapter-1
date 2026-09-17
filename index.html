@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="weather.css?v=mobile-map-2">
   <link rel="stylesheet" href="music.css">
   <link rel="stylesheet" href="languages.css">
-  <link rel="stylesheet" href="dcmd-enhance.css?v=2">
+  <link rel="stylesheet" href="dcmd-enhance.css?v=3">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -64,13 +64,18 @@
     </div>
   </dialog>
 
-  <header class="hero">
+  <header class="hero hero--split">
 
   <div class="stars stars-one" aria-hidden="true"></div>
   <div class="stars stars-two" aria-hidden="true"></div>
   <div class="shooting-star" aria-hidden="true"></div>
 
-  <div>
+  <div class="hero-media" aria-hidden="true">
+    <img src="images/theme-hero.png" alt="">
+  </div>
+
+  <div class="hero-copy">
+    <span class="eyebrow hero-eyebrow">DCMD / 2026 COLLECTION</span>
     <img
       class="logo"
       src="images/dcmd-logo-transparent.png"
@@ -84,9 +89,14 @@
       Discover the new DCMD streetwear collection.
      </p>
 
-     <a class="cta" href="#products">
-      Shop The collection & Feel special. 
-     </a>
+     <div class="hero-cta-row">
+       <a class="cta-pill" href="#products" data-collection-link="all">
+        Shop the collection <span aria-hidden="true">&#8594;</span>
+       </a>
+       <a class="cta-pill-outline" href="#products" data-collection-link="capital">
+        Capital Collection
+       </a>
+     </div>
      <a class="mobile-weather-link" href="#weather-style">⌖ Haritadan havana göre kombin bul ↗</a>
   </div>
   </header>

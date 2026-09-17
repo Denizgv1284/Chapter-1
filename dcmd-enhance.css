@@ -231,6 +231,112 @@ html[data-theme="light"] .model-showcase {
   .model-window:hover img { transform: none; }
 }
 
+/* --------------------------------------------------------------------
+   5) SPLIT HERO
+   Editorial photo, restrained copy and two collection shortcuts.
+   -------------------------------------------------------------------- */
+.hero--split {
+  position: relative;
+  min-height: min(88vh,820px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  text-align: left;
+  background: #05070b;
+}
+.hero--split::before,
+.hero--split::after { display: none; }
+.hero--split .hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero--split .hero-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 72% 28%;
+  opacity: .94;
+}
+.hero--split .hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,rgba(4,6,10,.97) 0%,rgba(4,6,10,.78) 34%,rgba(4,6,10,.2) 64%,rgba(4,6,10,.04) 82%),
+    linear-gradient(0deg,rgba(4,6,10,.78),transparent 46%);
+}
+.hero--split > .stars,
+.hero--split > .shooting-star { z-index: 2; opacity: .32; }
+.hero--split .hero-copy {
+  position: relative;
+  z-index: 3;
+  width: min(680px,62vw);
+  padding: 112px 5vw 92px;
+}
+.hero--split .logo {
+  width: min(270px,54vw);
+  margin: 20px 0 34px;
+}
+.hero--split .hero-eyebrow { color: #8caaff; }
+.hero--split h1 {
+  max-width: 650px;
+  margin: 0 0 20px;
+  color: #fff;
+  text-align: left;
+}
+.hero--split p {
+  max-width: 560px;
+  margin: 0 0 30px;
+  color: #aeb4bf;
+  text-align: left;
+}
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cta-pill,
+.cta-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 23px;
+  border-radius: 999px;
+  font: 700 10px/1 "Space Grotesk",sans-serif;
+  letter-spacing: 1.45px;
+  text-transform: uppercase;
+  transition: transform .2s,background-color .2s,border-color .2s;
+}
+.cta-pill { border: 1px solid var(--blue); background: var(--blue); color: #fff; }
+.cta-pill-outline { border: 1px solid rgba(255,255,255,.3); background: rgba(7,9,14,.68); color: #fff; }
+.cta-pill:hover,
+.cta-pill-outline:hover { transform: translateY(-2px); }
+.cta-pill:hover { background: #0d49d6; }
+.cta-pill-outline:hover { border-color: #fff; background: rgba(7,9,14,.88); }
+.cta-pill span { transition: transform .2s; }
+.cta-pill:hover span { transform: translateX(3px); }
+html[data-theme="light"] .hero--split h1 { color: #fff; }
+html[data-theme="light"] .hero--split p { color: #d0d4dc; }
+@media (max-width: 700px) {
+  .hero--split { min-height: 760px; align-items: end; }
+  .hero--split .hero-media img { object-position: 58% top; opacity: .82; }
+  .hero--split .hero-media::after {
+    background: linear-gradient(0deg,rgba(4,6,10,.98) 8%,rgba(4,6,10,.72) 52%,rgba(4,6,10,.12) 100%);
+  }
+  .hero--split .hero-copy { width: 100%; padding: 150px 6vw 64px; }
+  .hero--split .logo { width: min(230px,58vw); margin-bottom: 28px; }
+  .hero--split h1 { font-size: clamp(30px,10vw,46px); }
+  .hero-cta-row { display: grid; grid-template-columns: 1fr; }
+  .cta-pill,.cta-pill-outline { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-pill,.cta-pill-outline,.cta-pill span { transition: none; }
+}
+
 /* Capital Collection ürün kartına hafif, tek seferlik hover glow —
    mevcut .product-card:hover davranışını EZMEZ, üstüne ekler. */
 .product-card[data-country]:hover .product-gallery::before {

@@ -15,6 +15,8 @@ const assert = require('node:assert/strict');
 
     assert.equal(await page.locator('link[href^="dcmd-enhance.css"]').count(), 1);
     assert.equal(await page.locator('script[src^="dcmd-enhance.js"]').count(), 1);
+    assert.equal(await page.locator('.hero--split .hero-media img').evaluate(image => image.complete && image.naturalWidth > 0), true);
+    assert.equal(await page.locator('.hero-cta-row a').count(), 2);
     assert.equal(await page.locator('.model-showcase .model-window').count(), 2);
     assert.equal(await page.locator('.model-showcase img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), true);
     assert.equal(await page.locator('.product-card[data-country]').count(), 2);
