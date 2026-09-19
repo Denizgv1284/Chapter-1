@@ -11,33 +11,47 @@
   //    ürün/koleksiyon gridlerine giriş animasyonu.
   // ------------------------------------------------------------------
   function initScrollReveal() {
-    if (reduceMotion.matches) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target);
-      });
-    // A tall mobile product grid can never have 16% of its total height in
-    // the viewport at once. A tiny threshold reveals it as soon as its first
-    // meaningful edge enters the viewport, without leaving content invisible.
-    }, { threshold: 0.01, rootMargin: '0px 0px -4% 0px' });
-
-    // Ana bölümler: hero, her <section>, footer
-    document.querySelectorAll('header.hero, section, footer#contact').forEach((el) => {
-      el.setAttribute('data-reveal', '');
-      observer.observe(el);
+    // Background containers stay visible. Only foreground content moves.
+    document.querySelectorAll('header.hero, section, footer#contact, .grid').forEach(el => {
+      el.setAttribute('data-reveal', el.matches('.grid') ? 'stagger' : '');
+      el.classList.add('is-revealed');
     });
-
-    // Ürün / koleksiyon gridleri: kartlar teker teker, hafif gecikmeli
-    document.querySelectorAll('.grid').forEach((grid) => {
-      [...grid.children].forEach((card, i) => {
-        card.style.setProperty('--i', Math.min(i, 8));
-        card.setAttribute('data-reveal-item', '');
-      });
-      grid.setAttribute('data-reveal', 'stagger');
-      observer.observe(grid);
+    const active = new Set();
+    function reveal(el, delay = 0) {
+      if (reduceMotion.matches || document.hidden || typeof el.animate !== 'function') return;
+      const animation = el.animate([
+        {opacity:0.45, transform:'translateY(12px)'},
+        {opacity:1, transform:'translateY(0)'}
+      ], {duration:420, delay, easing:'cubic-bezier(.2,.7,.3,1)'});
+      active.add(animation);
+      const done = () => active.delete(animation);
+      animation.onfinish = done; animation.oncancel = done;
+    }
+    const stop = () => { active.forEach(animation => animation.cancel()); active.clear(); };
+    reduceMotion.addEventListener('change', stop);
+    document.addEventListener('visibilitychange', () => {if (document.hidden) stop();});
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        let index = 0;
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          reveal(entry.target, Math.min(index++, 3) * 45);
+          observer.unobserve(entry.target);
+        });
+      }, {threshold:0.01});
+      document.querySelectorAll(
+        '.hero-copy > *, .section-head > *, .product-info, .product-gallery, ' +
+        '.model-window, .story h2, .story p, .weather-heading > *, footer > *'
+      ).forEach(el => observer.observe(el));
+    }
+    // Opening a panel animates its content, not its backdrop.
+    document.querySelectorAll('dialog, .cart, .search-panel, .feedback-modal').forEach(panel => {
+      new MutationObserver(records => {
+        const opened = panel.matches('dialog') ? panel.open : panel.classList.contains('open');
+        if (!opened || !records.length) return;
+        const content = panel.querySelector('.feedback-dialog, .search-box') || panel;
+        [...content.children].filter(el => !el.hidden).slice(0, 7).forEach((el, i) => reveal(el, i * 25));
+      }).observe(panel, {attributes:true, attributeFilter:['open','class']});
     });
   }
 

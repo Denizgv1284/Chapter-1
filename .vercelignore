@@ -6,6 +6,9 @@ __pycache__/
 api/__pycache__/
 public/
 test_*
+theme-review/
+audit-theme.cjs
+THEME-REVIEW.md
 *.zip
 music-config.local.json
 .env
