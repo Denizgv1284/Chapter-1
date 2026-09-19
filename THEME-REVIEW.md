@@ -1,5 +1,13 @@
 # Fashe incelemesi
 
+Son gelen Downloads arşivi 2.0.2 olarak tanımlanıyor. Önceki açılmış kopyayla
+dosya içerikleri karşılaştırıldı: ortak dosyalarda config/settings_schema.json ve
+assets/base.css farklı. Yeni ZIP'te README.md, CHANGELOG.md, .shopifyignore ve
+.theme-check.yml bulunmuyor; toplam 98 dosya var. 25 JSON, 50 şema ve 79 referans
+kontrolü geçti. Ekler başlık boyutları, kart açıklama/puan stilleri, menü hizası
+ve fotoğraf üzeri kontrast kuralları. Shopify bağımlılığı ve JS bulguları devam
+ediyor. Eski README'nin lisans belirsizliğini çözen yeni bir lisans verilmemiş.
+
 Arşiv theme-review/fashe klasörüne güvenli yol denetimiyle açıldı; yayın çıktısına dahil değildir.
 102 dosyada 25 JSON, 50 Liquid şeması ve 79 statik şablon referansı kontrolü geçti.
 theme.js sözdizimi kontrolü geçti. Shopify CLI ve gerçek mağaza testi yapılmadı;

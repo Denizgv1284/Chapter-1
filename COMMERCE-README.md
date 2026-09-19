@@ -95,6 +95,11 @@ Kaynaklar:
 
 ## Hesap ve sipariş durumu arayüzü
 
+Son akış: kartta adet seçilir; sepete ekleme çekmeceyi otomatik açar ve toplam
+adet rozetini günceller. Yerel demo kapasitesi hem seçilen adet hem mevcut sepet
+toplamı üzerinden denetlenir. Çekmece native dialog ile klavye odağını sınırlar.
+Gerçek satış için SALES-READINESS.md takip edilir; Vercel tasarımı korunacaktır.
+
 Üst çubukta sepet sayacı ve hesap düğmesi bulunur. Hesap penceresi henüz
 kimlik doğrulama servisine bağlı değildir: alanlar devre dışıdır ve parola
 toplanmaz. Gerçek üyelik için sağlayıcı/proje, güvenli oturum yönetimi,

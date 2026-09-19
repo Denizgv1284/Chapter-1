@@ -9,7 +9,8 @@ const assert=require('node:assert/strict');
   await page.waitForFunction(()=>!document.querySelector('#weatherCountry').disabled);
   await page.selectOption('#weatherProvince','34');await page.selectOption('#weatherDistrict','1421');
   await page.locator('.add').first().click();
-  assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'true');
+  assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'false');
+  await page.click('#closeCart');
   const expected={en:'New Arrivals',tr:'Yeni Ürünler',pl:'Nowości',de:'Neuheiten',ru:'Новинки',zh:'新品'};
   for(const [lang,title] of Object.entries(expected)){
    await page.click('#menuOpen');await page.locator(`[data-language="${lang}"]`).click();await page.click('#menuClose');

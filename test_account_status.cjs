@@ -14,7 +14,8 @@ const assert=require('node:assert/strict');
    for(let count=1;count<=6;count++){
     await page.locator('.product-card .add').first().click();
     assert.equal(await page.locator('#cartBadge').innerText(),String(count));
-    assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'true');
+    assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'false');
+    await page.click('#closeCart');
    }
    await page.click('#accountOpen');await page.locator('#accountDialog').waitFor({state:'visible'});
    assert.ok(await page.locator('#accountDialog input[type=password]').isDisabled());

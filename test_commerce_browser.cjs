@@ -18,8 +18,7 @@ const assert = require('node:assert/strict');
     for (const method of ['credit','debit','apple','paypal']) {
       await page.click('#inventoryOpen'); await page.click('#inventoryReset'); await page.click('#inventoryClose');
       await first.locator('.add').click();
-      assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'true');
-      await page.click('#cartButton');
+      assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'false');
       await page.click('.checkout');
       assert.equal(await page.locator('#checkoutDialog').isVisible(),true);
       assert.equal(await page.locator('[name="marketing"]').isChecked(),false);

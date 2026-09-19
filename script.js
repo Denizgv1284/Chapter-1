@@ -177,6 +177,7 @@ function resetFilters() {
 }
 
 function openPanel(panel) {
+  if (panel === cartPanel && !panel.open) panel.showModal();
   panel.classList.add('open');
   panel.setAttribute('aria-hidden', 'false');
 }
@@ -184,6 +185,7 @@ function openPanel(panel) {
 function closePanel(panel) {
   panel.classList.remove('open');
   panel.setAttribute('aria-hidden', 'true');
+  if (panel === cartPanel && panel.open) panel.close();
 }
 
 function renderCart() {
@@ -236,14 +238,28 @@ searchInput.addEventListener('input', () => {
 
 cartButton.addEventListener('click', () => openPanel(cartPanel));
 document.querySelector('#closeCart').addEventListener('click', () => closePanel(cartPanel));
+cartPanel.addEventListener('close', () => {
+  cartPanel.classList.remove('open');cartPanel.setAttribute('aria-hidden','true');
+  cartButton.focus({preventScroll:true});
+});
+cartPanel.addEventListener('click', event => {
+  if(event.target!==cartPanel)return;
+  const box=cartPanel.getBoundingClientRect();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)closePanel(cartPanel);
+});
 
 document.querySelectorAll('.add').forEach((button) => {
   button.addEventListener('click', () => {
     const card = button.closest('.product-card');
     const line = {productId:card.dataset.productId, size:card.querySelector('.size-select').value, name:card.dataset.name, price:Number(card.dataset.price)};
-    const error = window.DCMDCommerce.validate([...cart,line]);
+    const quantity=card.querySelector('.quantity-input');
+    if(!quantity.reportValidity()||!Number.isInteger(Number(quantity.value)))return;
+    const count=Number(quantity.value);
+    if(count<1||count>Number(quantity.max))return;
+    const additions=Array.from({length:count},()=>({...line}));
+    const error = window.DCMDCommerce.validate([...cart,...additions]);
     if (error) {card.querySelector('.stock-status').textContent = error;return;}
-    cart.push(line);
+    cart.push(...additions);
     renderCart();
     if (!shopReducedMotion.matches) {
       document.querySelector('#cartBadge').animate(
@@ -252,6 +268,7 @@ document.querySelectorAll('.add').forEach((button) => {
       );
     }
     document.querySelector("#cartAnnouncement").textContent = `Added to cart (${cart.length})`;
+    openPanel(cartPanel);
   });
 });
 

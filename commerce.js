@@ -19,6 +19,10 @@
     const status = document.createElement('p'); status.className = 'stock-status'; status.setAttribute('role','status');
     const demo = document.createElement('small'); demo.textContent = 'Talep üzerine üretim · Test kapasitesi';
     controls.append(label,status,demo); card.querySelector('.add').before(controls);
+    const quantityLabel=document.createElement('label');quantityLabel.textContent='Quantity';
+    const quantity=document.createElement('input');quantity.type='number';quantity.className='quantity-input';
+    quantity.min='1';quantity.step='1';quantity.value='1';quantity.inputMode='numeric';quantity.required=true;
+    quantity.setAttribute('aria-label','Quantity');quantityLabel.append(quantity);controls.append(quantityLabel);
     select.addEventListener('change',renderStocks);
   });
   function renderStocks() {
@@ -28,6 +32,9 @@
       status.textContent = remaining === 0 ? 'Üretim kapasitesi dolu' : remaining <= 3 ? `Son ${remaining} üretim kontenjanı!` : `Üretime uygun · ${remaining} test kontenjanı`;
       status.dataset.level = remaining === 0 ? 'empty' : remaining <= 3 ? 'low' : 'available';
       const button = card.querySelector('.add'); button.disabled = remaining === 0;
+      const quantity=card.querySelector('.quantity-input');
+      quantity.max=String(Math.max(1,remaining));quantity.disabled=remaining===0;
+      if(Number(quantity.value)>remaining)quantity.value=String(Math.max(1,remaining));
       button.textContent = remaining === 0 ? 'Kapasite dolu' : 'ADD TO CART';
     });
     renderInventory();

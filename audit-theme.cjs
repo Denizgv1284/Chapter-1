@@ -1,6 +1,6 @@
 // Read-only structural checks. Does not execute the downloaded theme.
 const fs=require('node:fs'),path=require('node:path');
-const root=path.join(__dirname,'theme-review','fashe');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'theme-review','fashe'));
 const files=[];
 function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name);e.isDirectory()?walk(p):files.push(p);}}
 walk(root);

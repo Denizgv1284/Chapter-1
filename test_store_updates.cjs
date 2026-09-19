@@ -35,7 +35,7 @@ const assert=require('node:assert/strict');
       });
       assert.deepEqual(leftovers,[],'Turkish text left in English panels');
       await card.locator('select').selectOption('Medium');
-      for(let n=1;n<=2;n++){await card.locator('.add').click();assert.equal(await page.locator('#cartBadge').innerText(),String(n));assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'true');}
+      for(let n=1;n<=2;n++){await card.locator('.add').click();assert.equal(await page.locator('#cartBadge').innerText(),String(n));assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'false');await page.click('#closeCart');}
       await page.click('#cartButton');assert.equal(await page.locator('#cartPanel').getAttribute('aria-hidden'),'false');
       await page.locator('[data-remove]').first().click();assert.equal(await page.locator('#cartBadge').innerText(),'1');
       await page.locator('[data-remove]').first().click();assert.ok(await page.locator('#cartBadge').isHidden());await page.click('#closeCart');

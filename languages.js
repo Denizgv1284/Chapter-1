@@ -6,6 +6,7 @@
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
 Language|Language|Dil|Język|Sprache|Язык|语言
+Quantity|Quantity|Adet|Ilość|Menge|Количество|数量
 Sign in|Sign in|Giriş yap|Zaloguj się|Anmelden|Войти|登录
 Password|Password|Şifre|Hasło|Passwort|Пароль|密码
 Email & password|Email & password|E-posta ve şifre|E-mail i hasło|E-Mail und Passwort|Почта и пароль|邮箱和密码
