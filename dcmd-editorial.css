@@ -106,3 +106,17 @@ html[data-theme="light"] body .campaign-playback { color: white; background: #0b
   body .hero--luxury .hero-cta-row { display: flex; flex-wrap: wrap; }
   .campaign-playback { left: 16px; bottom: 14px; }
 }
+/* Compact Capital editorial: keep model cutouts on the page background. */
+body .model-showcase { max-width: 1080px; margin-inline: auto; padding: 40px 24px; background: transparent; }
+body .model-showcase-grid { gap: 24px; }
+body .model-window { min-height: 0; max-height: none; background: transparent; border: 0; border-radius: 0; overflow: hidden; }
+body .model-window::before, body .model-window::after { display: none; }
+body .model-window img { position: static; display: block; width: 100%; height: 360px; object-fit: contain; object-position: center bottom; transform: none; }
+body .model-window:hover img { transform: none; }
+body .model-window-copy { position: static; padding: 18px 8px; color: var(--text); background: transparent; }
+body .model-window-copy h3 { font-size: 22px; margin-block: 8px; }
+body .model-window-copy a { color: var(--text); }
+@media(max-width:700px) {
+  body .model-showcase { padding: 28px 20px; }
+  body .model-window img { height: 300px; }
+}

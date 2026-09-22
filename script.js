@@ -423,6 +423,7 @@ checkoutForm.addEventListener('submit', event => {
   cart = []; checkoutSnapshot = []; renderCart();
   checkoutForm.reset(); checkoutForm.hidden = true;
   document.querySelector('#checkoutSuccess').hidden = false;
+  window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:order.id}}));
   document.querySelector('#orderTrackLink').focus();
 });
 function showTestTracking() {

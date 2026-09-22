@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="languages.css">
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
   <link rel="stylesheet" href="dcmd-system.css?v=3">
-  <link rel="stylesheet" href="dcmd-editorial.css?v=luxury-4">
+  <link rel="stylesheet" href="dcmd-editorial.css?v=compact-models-5">
+  <link rel="stylesheet" href="dcmd-reference.css?v=1">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -21,6 +22,12 @@
 
   <nav class="site-nav" aria-label="Main navigation">
     <button id="menuOpen" class="menu-toggle" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="siteMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="reference-nav">
+      <a href="#campaignLooks">FEATURED</a>
+      <button type="button" data-mega-view="collections" aria-controls="megaPanel" aria-expanded="false">Collections</button>
+      <button type="button" data-mega-view="mens" aria-controls="megaPanel" aria-expanded="false">Mens</button>
+      <button type="button" data-mega-view="womens" aria-controls="megaPanel" aria-expanded="false">Womens</button>
+    </div>
     <a class="nav-brand" href="#" aria-label="DCMD home"><img src="images/dcmd-logo-transparent.png" alt="DCMD logo"></a>
     <button class="icon cart-trigger" id="accountOpen" type="button" aria-label="Sign in" aria-haspopup="dialog" aria-controls="accountDialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21v-2a8 8 0 0 1 16 0v2"></path></svg></button>
     <button class="icon cart-trigger" id="cartButton" type="button" aria-label="CART" aria-controls="cartPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 12h11l3-9H6M8 15l-1 3h13"></path><circle cx="9" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle></svg><span id="cartBadge" class="cart-badge" hidden>0</span></button>
@@ -30,6 +37,24 @@
       <span id="notificationsUnread" class="notifications-unread" aria-label="Yeni duyurular"></span>
     </button>
   </nav>
+  <div id="megaPanel" class="megamenu-dropdown-content" hidden aria-label="Collections">
+    <div class="megamenu-links">
+      <span class="eyebrow">DCMD / COLLECTIONS</span>
+      <a href="#products" data-collection-link="all">New Arrivals</a>
+      <a href="#products" data-collection-link="capital">Capital Collection</a>
+      <a href="#products" data-collection-link="europe">Europe Edition</a>
+      <a href="#products" data-collection-link="black">Black Edition</a>
+      <a href="#products" data-collection-link="casual">Casual Collection</a>
+      <a href="#campaignLooks">View lookbook</a>
+      <a href="#rewards">DCMD Rewards</a>
+      <p>Unisex pieces. One shared collection.</p>
+    </div>
+    <div class="megamenu-visuals">
+      <a class="visual-card" href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"><span>Europe Edition</span></a>
+      <a class="visual-card" href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"><span>Black Edition</span></a>
+    </div>
+    <button id="megaClose" class="icon" type="button" aria-label="Close menu">×</button>
+  </div>
 
   <dialog id="accountDialog" class="checkout-dialog account-dialog" aria-labelledby="accountTitle">
     <div class="checkout-heading"><h2 id="accountTitle">Sign in</h2><button id="accountClose" type="button" aria-label="CLOSE">×</button></div>
@@ -51,7 +76,8 @@
       <a href="#products" data-collection-link="country">Country Collection <span aria-hidden="true">&#8599;</span></a>
       <a href="#products" data-collection-link="casual">Casual Collection <span aria-hidden="true">&#8599;</span></a>
       <a href="#products" data-collection-link="capital">Capital Collection <span aria-hidden="true">&#8599;</span></a>
-      <div class="menu-secondary"><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+      <div class="menu-secondary"><a href="#campaignLooks">View lookbook</a><a href="#rewards">DCMD Rewards</a><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+      <div class="mobile-menu-visuals"><a href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"></a><a href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"></a></div>
     </div>
     <div class="menu-language"><p class="eyebrow">Language</p>
     <div class="language-switcher" role="group" aria-label="Language">
@@ -93,7 +119,7 @@
       alt="DCMD logo"
      >
      
-     <h1>Don't Fit In.<br>Stand Out.</h1>
+     <h1>Don't Fit In. <br>Stand Out.</h1>
 
      <p>
       Different. Confident. Mysterious. Desirable.
@@ -113,7 +139,7 @@
   <button id="campaignPlayback" class="campaign-playback" type="button" aria-controls="campaignVideo" aria-pressed="false">Play film</button>
   </header>
 
-  <section class="campaign-editorial" aria-labelledby="campaignTitle">
+  <section class="campaign-editorial" id="campaignLooks" aria-labelledby="campaignTitle">
     <div class="campaign-heading"><span class="eyebrow">DCMD / 2026 COLLECTION</span><h2 id="campaignTitle">Don't Fit In. Stand Out.</h2></div>
     <div class="campaign-pairs">
       <article class="campaign-pair">
@@ -139,7 +165,7 @@
         <span class="eyebrow">DCMD campaign</span>
         <h2 id="modelShowcaseTitle">Two cities. One mindset.</h2>
       </div>
-      <p>Front and back details, worn as designed. Explore the Capital and Black collections through the campaign cast.</p>
+      <p>Warsaw / PL · Paris / FR</p>
     </div>
 
     <div class="model-showcase-grid">
@@ -152,12 +178,12 @@
         </div>
       </article>
 
-      <article class="model-window model-window-black">
-        <img src="images/model-black-hoodie-front.jpg" alt="Male model wearing the DCMD Black Edition hoodie">
+      <article class="model-window model-window-paris">
+        <img src="images/model-paris-cutout.png" loading="lazy" alt="DCMD Paris FR Capital Collection">
         <div class="model-window-copy">
-          <span>02 / BLACK EDITION</span>
-          <h3>Different Hoodie</h3>
-          <a href="#products" data-collection-link="black">Explore the piece</a>
+          <span>02 / PARIS</span>
+          <h3>Capital Collection</h3>
+          <a href="#products" data-collection-link="capital">Explore the piece</a>
         </div>
       </article>
     </div>
@@ -540,10 +566,31 @@
     </div>
     <p class="poll-disclaimer">Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.</p>
   </dialog>
-  <footer id="contact">
+  <section class="reference-lookbook" aria-label="View lookbook">
+    <a class="lookbook-tile" href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"><span><b>01</b><small>View look</small></span></a>
+    <a class="lookbook-tile" href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"><span><b>02</b><small>View look</small></span></a>
+    <a class="lookbook-tile" href="#products" data-collection-link="capital"><img src="images/model-paris-cutout.png" alt="Capital Collection" loading="lazy"><span><b>03</b><small>View look</small></span></a>
+  </section>
+  <section id="rewards" class="rewards-section" aria-labelledby="rewardsTitle">
+    <div><span class="eyebrow">DCMD COMMUNITY</span><h2 id="rewardsTitle">DCMD Rewards</h2><p>Preview the rewards experience. Demo points have no cash or discount value.</p><button id="previewPoints" class="icon" type="button">Preview +50 points</button></div>
+    <div class="rewards-card">
+      <div class="rewards-header"><h3>DCMD<sub>✦</sub></h3><span>REWARDS · DEMO</span></div>
+      <div id="rewardStars" class="rewards-icons" aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
+      <p class="rewards-balance"><output id="rewardBalance">0 / 250</output> <span>Demo points</span></p>
+      <div class="rewards-actions"><button id="scanRewards" class="btn-scan" type="button">SCAN CODE</button><button id="redeemRewards" class="btn-redeem" type="button" disabled>REDEEM</button></div>
+      <p id="rewardsStatus" role="status">Demo only. No account or purchase required.</p>
+    </div>
+  </section>
+  <div id="pointsPopup" class="points-popup" hidden>
+    <div class="popup-brand" aria-hidden="true">✦</div><div class="popup-content" role="status"><span>+50 POINTS</span><small>DEMO</small></div><button id="pointsClose" class="popup-close" type="button" aria-label="CLOSE">×</button>
+  </div>
+  <footer id="contact" class="luxury-footer">
+    <div class="newsletter-box"><h3>Join the Conversation</h3><p>Newsletter preview. Subscriptions are not open yet.</p>
+      <form id="newsletterForm"><label for="newsletterEmail">Email</label><div class="input-group"><input id="newsletterEmail" type="email" autocomplete="email" placeholder="Email address" required aria-describedby="newsletterStatus"><button type="submit" aria-label="Preview newsletter">→</button></div><p id="newsletterStatus" role="status">Your email is not sent or stored.</p></form>
+    </div>
+    <div class="footer-explore"><h3>Explore</h3><a href="#story">Our Story</a><a href="#campaignLooks">View lookbook</a><a href="#rewards">DCMD Rewards</a><a href="#products" data-collection-link="all">New Arrivals</a></div>
     <div>
       <img src="images/dcmd-logo-transparent.png" alt="DCMD logo">
-      <p>© 2026 DCMD. All rights reserved.</p>
       <div id="companyInfo" lang="tr"><h3>Hakkımızda / Kurumsal bilgiler</h3><p>Şirket unvanı: Kuruluş aşamasında</p><p>Şirket e-postası: Eklenecek</p><p>İade e-postası: Eklenecek</p><p>İletişim e-postası: Eklenecek</p><p>Kayıtlı adres, ülke ve vergi numarası: Eklenecek</p><small>Test mağazası. Gerçek sipariş ve ödeme kabul edilmez.</small></div>
     </div>
 
@@ -582,6 +629,7 @@
       <button id="clearDemoData" type="button" class="icon">Test kayıtlarımı temizle</button>
       <button id="returnOpen" type="button" class="icon">Cayma / iade talebi (test)</button>
     </div>
+    <div class="footer-bottom"><p>© 2026 DCMD. All rights reserved.</p><div class="footer-selectors"><label for="footerLanguage">Language</label><select id="footerLanguage"><option value="en">English</option><option value="tr">Türkçe</option><option value="pl">Polski</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="zh">中文</option></select><span>EUR (€)</span></div></div>
   </footer>
 
   <div class="search-panel" id="searchPanel" aria-hidden="true">
@@ -764,12 +812,13 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=film-4"></script>
+  <script src="languages.js?v=reference-6"></script>
   <script src="commerce.js?v=poll-5"></script>
-  <script src="script.js?v=film-5"></script>
+  <script src="script.js?v=reference-6"></script>
   <script src="vendor/leaflet.js"></script>
   <script src="weather.js?v=recovery-1"></script>
   <script src="dcmd-enhance.js?v=3"></script>
+  <script src="dcmd-reference.js?v=1"></script>
 
 </body>
 </html>

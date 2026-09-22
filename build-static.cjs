@@ -11,6 +11,7 @@ for (const file of [
   'index.html', 'style.css', 'script.js', 'weather.css', 'weather.js',
   'languages.js', 'languages.css',
   'dcmd-enhance.css', 'dcmd-enhance.js', 'dcmd-system.css', 'dcmd-editorial.css',
+  'dcmd-reference.css', 'dcmd-reference.js',
   'data', 'images', 'vendor', 'policies', 'commerce.js'
 ]) {
   fs.cpSync(path.join(__dirname, file), path.join(output, file), { recursive: true });

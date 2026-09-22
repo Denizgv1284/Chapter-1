@@ -5,6 +5,28 @@
   try { const saved=localStorage.getItem('dcmd-language'); if(codes.includes(saved)) language=saved; } catch {}
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
+FEATURED|FEATURED|ÖNE ÇIKANLAR|POLECANE|EMPFOHLEN|ИЗБРАННОЕ|精选
+Mens|Mens|Erkek|Mężczyźni|Herren|Мужчины|男装
+Womens|Womens|Kadın|Kobiety|Damen|Женщины|女装
+View lookbook|View lookbook|Stil albümünü gör|Zobacz lookbook|Lookbook ansehen|Смотреть лукбук|查看造型册
+View look|View look|Kombini gör|Zobacz stylizację|Look ansehen|Смотреть образ|查看造型
+Explore|Explore|Keşfet|Odkryj|Entdecken|Открыть|探索
+Unisex pieces. One shared collection.|Unisex pieces. One shared collection.|Unisex parçalar. Ortak bir koleksiyon.|Ubrania unisex. Wspólna kolekcja.|Unisex-Mode. Eine gemeinsame Kollektion.|Унисекс. Единая коллекция.|男女同款，共享系列。
+DCMD Rewards|DCMD Rewards|DCMD Ödülleri|Nagrody DCMD|DCMD Prämien|Награды DCMD|DCMD 奖励
+Preview the rewards experience. Demo points have no cash or discount value.|Preview the rewards experience. Demo points have no cash or discount value.|Ödül deneyimini önizle. Demo puanların para veya indirim değeri yoktur.|Wypróbuj nagrody. Punkty demo nie mają wartości pieniężnej ani rabatowej.|Prämienvorschau. Demopunkte haben keinen Geld- oder Rabattwert.|Предпросмотр наград. Демобаллы не имеют денежной ценности и не дают скидок.|预览奖励体验，演示积分不可兑换现金或折扣。
+Preview +50 points|Preview +50 points|+50 puanı önizle|Podgląd +50 punktów|+50 Punkte testen|Предпросмотр +50 баллов|预览 +50 积分
+Demo points|Demo points|Demo puan|Punkty demo|Demopunkte|Демобаллы|演示积分
+SCAN CODE|SCAN CODE|KOD TARA|SKANUJ KOD|CODE SCANNEN|СКАНИРОВАТЬ КОД|扫描代码
+REDEEM|REDEEM|KULLAN|ODBIERZ|EINLÖSEN|ИСПОЛЬЗОВАТЬ|兑换
+Demo only. No account or purchase required.|Demo only. No account or purchase required.|Yalnızca demo. Hesap veya alışveriş gerektirmez.|Tylko demo. Konto ani zakup nie są wymagane.|Nur Demo. Kein Konto oder Kauf erforderlich.|Только демо. Аккаунт и покупка не нужны.|仅供演示，无需账号或购买。
+Code scanning is not connected. This is a preview only.|Code scanning is not connected. This is a preview only.|Kod tarama bağlı değil. Bu yalnızca bir önizlemedir.|Skanowanie nie jest podłączone. To tylko podgląd.|Codescanner nicht verbunden. Nur eine Vorschau.|Сканирование не подключено. Это только предпросмотр.|未连接扫码服务，仅供预览。
+Demo redemption complete. No real reward or discount was issued.|Demo redemption complete. No real reward or discount was issued.|Demo kullanımı tamamlandı. Gerçek ödül veya indirim verilmedi.|Demo zakończone. Nie przyznano prawdziwej nagrody ani rabatu.|Demo eingelöst. Keine echte Prämie oder Ermäßigung gewährt.|Демонстрация завершена. Реальная награда или скидка не выдана.|演示兑换已完成，未发放实际奖励或折扣。
++50 POINTS|+50 POINTS|+50 PUAN|+50 PUNKTÓW|+50 PUNKTE|+50 БАЛЛОВ|+50 积分
+Join the Conversation|Join the Conversation|Sohbete katıl|Dołącz do rozmowy|Sei dabei|Присоединяйтесь к разговору|加入对话
+Newsletter preview. Subscriptions are not open yet.|Newsletter preview. Subscriptions are not open yet.|E-bülten önizlemesi. Abonelikler henüz açık değil.|Podgląd newslettera. Zapisy nie są jeszcze otwarte.|Newsletter-Vorschau. Anmeldung noch nicht geöffnet.|Предпросмотр рассылки. Подписка пока закрыта.|通讯预览，订阅尚未开放。
+Your email is not sent or stored.|Your email is not sent or stored.|E-postan gönderilmez veya saklanmaz.|E-mail nie jest wysyłany ani zapisywany.|Deine E-Mail wird weder gesendet noch gespeichert.|Ваш адрес не отправляется и не сохраняется.|不会发送或保存你的邮箱。
+Preview newsletter|Preview newsletter|Bülteni önizle|Podgląd newslettera|Newsletter-Vorschau|Предпросмотр рассылки|预览通讯
+Preview complete. No subscription was created and no email was stored.|Preview complete. No subscription was created and no email was stored.|Önizleme tamamlandı. Abonelik oluşturulmadı ve e-posta saklanmadı.|Podgląd zakończony. Nie utworzono subskrypcji ani nie zapisano adresu.|Vorschau abgeschlossen. Kein Abo erstellt, keine E-Mail gespeichert.|Предпросмотр завершён. Подписка не создана, адрес не сохранён.|预览完成，未创建订阅或保存邮箱。
 Play film|Play film|Filmi oynat|Odtwórz film|Film abspielen|Смотреть ролик|播放影片
 Pause film|Pause film|Filmi duraklat|Wstrzymaj film|Film pausieren|Приостановить ролик|暂停影片
 OUR STORY|OUR STORY|HİKÂYEMİZ|NASZA HISTORIA|UNSERE GESCHICHTE|НАША ИСТОРИЯ|我们的故事
