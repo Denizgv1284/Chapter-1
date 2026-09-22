@@ -27,10 +27,12 @@ const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browse
    const errors=[];page.on('pageerror',error=>errors.push(error.message));
    await page.goto(process.env.DCMD_TEST_URL||'http://127.0.0.1:8012/',{waitUntil:'domcontentloaded'});
    const headings={en:'Born from',tr:'Gölgelerden',pl:'Zrodzeni',de:'Aus dem',ru:'Рождённые',zh:'诞生于'};
+   const storyPrefixes={en:"DCMD isn't just a brand",tr:'DCMD sadece bir marka değil',pl:'DCMD to nie tylko marka',de:'DCMD ist mehr als eine Marke',ru:'DCMD — не просто бренд',zh:'DCMD 不仅是一个品牌'};
    for (const [language,prefix] of Object.entries(headings)) {
     await page.click('#menuOpen');await page.click(`[data-language="${language}"]`);await page.click('#menuClose');
     await page.waitForFunction(prefix=>document.querySelector('#story h2').textContent.startsWith(prefix),prefix);
     assert.ok((await page.locator('#story p').innerText()).length>120);
+    await page.waitForFunction(prefix=>document.querySelector('#story p').textContent.startsWith(prefix),storyPrefixes[language]);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    }
    await page.click('#pollOpen');
