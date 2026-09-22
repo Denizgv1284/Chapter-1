@@ -76,3 +76,4 @@ html[data-theme="light"] #weatherStatus.is-error { color:#b52323; }
   .weather-map-head { margin-bottom:10px; letter-spacing:.6px; }
   .map-hint { margin:8px 0 16px; }
 }
+#weatherMap[hidden], #weatherRetry[hidden] { display:none !important; }

@@ -41,7 +41,18 @@ async function fetchWeatherApi(endpoint, params, signal) {
   return data;
 }
 
-if (typeof module !== 'undefined') module.exports = { recommendOutfit, fetchWeatherApi };
+// One available piece per weather-appropriate category, never the whole catalog.
+function selectOutfitProducts(products, categories, country) {
+  const code = String(country || '').toLowerCase();
+  const score = product => product.country === code ? 3 : product.collection === 'europe' ? 2 : 1;
+  return categories.flatMap(category => {
+    const candidates = products.filter(product => product.category === category && product.available && (!product.country || product.country === code));
+    candidates.sort((a, b) => score(b) - score(a));
+    return candidates.slice(0, 1);
+  });
+}
+
+if (typeof module !== 'undefined') module.exports = { recommendOutfit, fetchWeatherApi, selectOutfitProducts };
 
 if (typeof document !== 'undefined') (async function () {
   const byId = (id) => document.getElementById(id);
@@ -54,7 +65,7 @@ if (typeof document !== 'undefined') (async function () {
   const status = byId('weatherStatus');
   const result = byId('weatherResult');
   let provinces = [], countries = [], map, selectedMarker, controller, requestId = 0, hasRequested = false;
-  let provinceLayer, countryLayer, searchController, searchVersion = 0;
+  let provinceLayer, countryLayer, searchController, searchVersion = 0, mapTiles;
   let selectedCountry = 'TR';
   let mapOverview = true;
   let lastWeather = null;
@@ -247,7 +258,9 @@ if (typeof document !== 'undefined') (async function () {
     const container = byId('outfitProducts');
     container.replaceChildren();
     const cards = [...document.querySelectorAll('#products .product-card')];
-    const chosen = cards.filter(card => outfit.categories.includes(card.dataset.category) && !card.querySelector('.add').disabled);
+    const chosen = selectOutfitProducts(cards.map(card => ({
+      ...card.dataset, card, available: !card.querySelector('.add').disabled
+    })), outfit.categories, countrySelect.value).map(product => product.card);
     chosen.forEach(card => {
       const row = document.createElement('div');
       row.className = 'outfit-product';
@@ -305,6 +318,7 @@ if (typeof document !== 'undefined') (async function () {
       status.textContent = error.name === 'AbortError' ? 'Bağlantı zaman aşımına uğradı. Tekrar dene.' : error.message;
       status.classList.add('is-error');
       result.hidden = true;
+      byId('weatherEmpty').hidden = false;
     } finally {
       clearTimeout(timeout);
       if (version === requestId) {
@@ -332,10 +346,33 @@ if (typeof document !== 'undefined') (async function () {
     });
   });
 
-  try {
-    const responses = await Promise.all([fetch('data/turkiye.json'),fetch('data/countries.json')]);
-    if (responses.some(r => !r.ok)) throw new Error('Konum listesi yüklenemedi. Sayfayı yenile.');
-    [provinces, countries] = await Promise.all(responses.map(r => r.json()));
+  const retry = document.createElement('button');
+  retry.type='button';retry.id='weatherRetry';retry.className='icon';retry.textContent='Retry';retry.hidden=true;
+  byId('mapHint').after(retry);
+  let initializing=false;
+  async function loadLocationFile(file) {
+    for(let attempt=0;attempt<2;attempt++){
+      const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),8000);
+      try {
+        const response=await fetch(new URL(file,document.baseURI),{signal:abort.signal});
+        if(!response.ok)throw new Error('Locations unavailable');
+        const data=await response.json();
+        if(!Array.isArray(data)||!data.length)throw new Error('Invalid locations');
+        return data;
+      } catch(error) {if(attempt===1)throw error;}
+      finally {clearTimeout(timer);}
+    }
+  }
+  async function initializeWeather() {
+   if(initializing||map)return;
+   initializing=true;retry.hidden=true;retry.disabled=true;
+   try {
+    const loaded = await Promise.all([loadLocationFile('data/turkiye.json'),loadLocationFile('data/countries.json')]);
+    [provinces, countries] = loaded;
+    status.classList.remove('is-error');
+    status.textContent='Ülkeni ve bulunduğun yeri seçerek başlayabilirsin.';
+    byId('mapHint').textContent='Haritadaki ülke noktalarına dokun veya listeden ülkeni seç.';
+    byId('weatherMap').hidden=false;
     countrySelect.replaceChildren();
     countries.slice().sort((a,b) => a.name.localeCompare(b.name,'tr')).forEach(c => countrySelect.add(new Option(c.name,c.code)));
     countrySelect.value = 'TR'; countrySelect.disabled = false;
@@ -345,7 +382,10 @@ if (typeof document !== 'undefined') (async function () {
     if (typeof L === 'undefined') throw new Error('Harita yüklenemedi. İl ve ilçe listesinden devam edebilirsin.');
     map = L.map('weatherMap', {scrollWheelZoom:false, minZoom:2, maxZoom:12, worldCopyJump:true, zoomAnimation:false, fadeAnimation:false}).fitBounds(bounds);
     map.on('dragstart', () => map.stop());
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, updateWhenIdle:true, updateWhenZooming:false, keepBuffer:1, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map).on('tileerror', () => {byId('mapHint').textContent = 'Harita görselleri yüklenemedi. Konum listesinden devam edebilirsin.';});
+    mapTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, updateWhenIdle:true, updateWhenZooming:false, keepBuffer:1, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).on('tileerror', () => {
+      byId('mapHint').textContent = 'Harita görselleri yüklenemedi. Konum listesinden devam edebilirsin.';
+      retry.hidden=false;
+    }).addTo(map);
     provinceLayer = L.layerGroup().addTo(map);
     countryLayer = L.layerGroup().addTo(map);
     countries.forEach(c => {
@@ -374,7 +414,22 @@ if (typeof document !== 'undefined') (async function () {
       });
     }).observe(byId('weatherMap'));
   } catch (error) {
-    status.textContent = error.message;
+    const message=location.protocol==='file:' ? 'Hava durumu için siteyi Python sunucusundan açmalısın.' : provinces.length&&countries.length
+      ? 'Harita yüklenemedi. İl ve ilçe listesinden devam edebilirsin.'
+      : 'Locations are temporarily unavailable. Check your connection and retry.';
+    status.textContent = message;
+    byId('mapHint').textContent=message;
+    if(!map)byId('weatherMap').hidden=true;
+    retry.hidden=location.protocol==='file:';
     status.classList.add('is-error');
+   } finally {initializing=false;retry.disabled=false;}
   }
+  function retryWeatherMap() {
+    if(!map)return initializeWeather();
+    byId('mapHint').textContent='Haritadaki ülke noktalarına dokun veya listeden ülkeni seç.';
+    retry.hidden=true;map.invalidateSize();mapTiles?.redraw();
+  }
+  retry.addEventListener('click',retryWeatherMap);
+  window.addEventListener('online',retryWeatherMap);
+  await initializeWeather();
 })();

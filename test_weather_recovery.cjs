@@ -1,0 +1,21 @@
+const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browser-test/node_modules/playwright'));
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
+ const page=await browser.newPage({viewport:{width:390,height:844}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ let blocked=true,calls=0;
+ await page.route('**/data/turkiye.json',route=>{calls++;return blocked?route.abort('failed'):route.continue();});
+ await page.goto(process.env.DCMD_TEST_URL||'http://127.0.0.1:8012/',{waitUntil:'domcontentloaded'});
+ await page.locator('#weatherRetry').waitFor({state:'visible'});
+ assert.equal(calls,2);assert.ok(!(await page.locator('#weatherStatus').innerText()).includes('Failed to fetch'));
+ assert.ok(await page.locator('#weatherMap').isHidden());
+ blocked=false;await page.click('#weatherRetry');
+ await page.waitForFunction(()=>!document.querySelector('#weatherProvince').disabled);
+ assert.ok(await page.locator('#weatherMap').isVisible());assert.ok(await page.locator('#weatherRetry').isHidden());
+ await page.selectOption('#weatherProvince','34');
+ await page.route('**/api/weather?**',r=>r.abort('failed'));
+ await page.click('#weatherSubmit');
+ await page.waitForFunction(()=>document.querySelector('#weatherStatus').classList.contains('is-error'));
+ assert.ok(await page.locator('#weatherEmpty').isVisible());assert.ok(await page.locator('#weatherSubmit').isEnabled());
+ assert.equal(await page.locator('#weatherPanel').getAttribute('aria-busy'),'false');
+ assert.deepEqual(errors,[]);console.log('PASS: two attempts, friendly failure, retry recovery, API failure recovery state');await page.close();
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

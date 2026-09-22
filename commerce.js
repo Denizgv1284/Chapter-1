@@ -71,6 +71,12 @@
   const poll = document.querySelector('#capitalPoll');
   const pollDialog = document.querySelector('#capitalVote');
   const pollOpen = document.querySelector('#pollOpen');
+  const confirmation = document.querySelector('#pollConfirmation');
+  document.querySelector('#pollChange').addEventListener('click', () => {
+    confirmation.hidden = true;
+    poll.hidden = false;
+    (poll.querySelector('input:checked') || poll.querySelector('input')).focus();
+  });
   pollOpen.addEventListener('click', () => {pollDialog.showModal();pollOpen.setAttribute('aria-expanded','true');});
   document.querySelector('#pollClose').addEventListener('click', () => pollDialog.close());
   pollDialog.addEventListener('close', () => {pollOpen.setAttribute('aria-expanded','false');pollOpen.focus({preventScroll:true});});
@@ -87,12 +93,24 @@
   poll.addEventListener('submit', event => {
     event.preventDefault();
     const city = new FormData(poll).get('city');
+    if (!poll.reportValidity() || ![...poll.elements.city].some(input => input.value === city)) return;
     document.querySelector('#pollStatus').textContent = `${city} seçimin test için kaydedildi. Bu tarayıcıda değiştirebilirsin; ortak oylama henüz açık değil.`;
-    try {localStorage.setItem('dcmd-demo-vote',JSON.stringify({city,at:new Date().toISOString()}));} catch {}
+    try {
+      localStorage.setItem('dcmd-demo-vote',JSON.stringify({city,at:new Date().toISOString()}));
+      confirmation.querySelector('h3').textContent = 'Your selection is saved.';
+    } catch {
+      confirmation.querySelector('h3').textContent = 'Selection could not be saved.';
+      document.querySelector('#pollStatus').textContent = 'Browser storage is unavailable. Please try again.';
+    }
+    poll.hidden = true;
+    confirmation.hidden = false;
+    confirmation.focus({preventScroll:true});
   });
   document.querySelector('#clearDemoData').addEventListener('click', () => {
     ['dcmd-demo-order','dcmd-demo-vote','dcmd-feedback'].forEach(key => {try{localStorage.removeItem(key);}catch{}});
     poll.reset();
+    poll.hidden = false;
+    confirmation.hidden = true;
     window.dispatchEvent(new Event('dcmd:cleardemo'));
     document.querySelector('#pollStatus').textContent='Bu tarayıcıdaki test kayıtları temizlendi.';
   });

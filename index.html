@@ -6,11 +6,11 @@
   <title>DCMD Store</title>
   <link rel="stylesheet" href="style.css?v=poll-1">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="weather.css?v=mobile-map-2">
+  <link rel="stylesheet" href="weather.css?v=recovery-1">
   <link rel="stylesheet" href="languages.css">
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
   <link rel="stylesheet" href="dcmd-system.css?v=3">
-  <link rel="stylesheet" href="dcmd-editorial.css?v=2">
+  <link rel="stylesheet" href="dcmd-editorial.css?v=story-poll-3">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -481,9 +481,9 @@
 
   <section class="story" id="story">
     <div>
-      <span class="eyebrow">Our mindset</span>
-      <h2>Made for those who stand out.</h2>
-      <p>DCMD combines confidence, mystery and freedom with a sharp European streetwear identity.</p>
+      <span class="eyebrow">OUR STORY</span>
+      <h2>Born from the shadows, designed for the spotlight.</h2>
+      <p>DCMD isn't just a brand; it’s a silent statement. Born in the underground currents of modern culture, we set out to break the ordinary. We combine raw confidence, an aura of mystery, and absolute freedom with a sharp European streetwear identity. Every piece we craft is made for those who refuse to blend in—for the ones who write their own rules in the dark and own the room without saying a word.</p>
     </div>
 
     <div class="manifesto">
@@ -508,7 +508,13 @@
       </fieldset>
       <button class="poll-submit" type="submit"><span>Seçimini bırak</span><span aria-hidden="true">↗</span></button>
     </form>
-    <p id="pollStatus" role="status"></p><p class="poll-disclaimer">Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.</p>
+    <div id="pollConfirmation" class="poll-confirmation" hidden tabindex="-1">
+      <span class="poll-confirmation-mark" aria-hidden="true">✓</span>
+      <h3>Your selection is saved.</h3>
+      <p id="pollStatus" role="status"></p>
+      <button id="pollChange" class="poll-submit" type="button">Change selection</button>
+    </div>
+    <p class="poll-disclaimer">Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.</p>
   </dialog>
   <footer id="contact">
     <div>
@@ -734,11 +740,11 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=store-4"></script>
-  <script src="commerce.js?v=store-4"></script>
+  <script src="languages.js?v=story-poll-3"></script>
+  <script src="commerce.js?v=poll-5"></script>
   <script src="script.js?v=store-4"></script>
   <script src="vendor/leaflet.js"></script>
-  <script src="weather.js?v=poll-1"></script>
+  <script src="weather.js?v=recovery-1"></script>
   <script src="dcmd-enhance.js?v=3"></script>
 
 </body>

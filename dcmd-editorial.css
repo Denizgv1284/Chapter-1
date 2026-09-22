@@ -57,3 +57,16 @@ body #accountOpen { border:1px solid #749dff; box-shadow:inset 0 0 0 2px rgba(72
   body #weatherPanel[aria-busy="true"]::before { animation:none; }
   body #menuOpen span, body .product-card { transition:none; }
 }
+/* Story and poll: content stays readable without relying on motion. */
+.story > div:first-child { min-width: 0; }
+.story p { max-width: 65ch; line-height: 1.85; }
+body .story h2 { font-size: clamp(1.8rem, 3.2vw, 3.6rem); text-wrap: balance; }
+#capitalPoll[hidden], #pollConfirmation[hidden] { display: none !important; }
+.poll-confirmation { padding: 28px 16px; text-align: center; }
+.poll-confirmation h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+.poll-confirmation p { line-height: 1.7; }
+.poll-confirmation-mark { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: #2f64ff22; color: #6892ff; font-size: 2rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .poll-confirmation:not([hidden]) { animation: poll-confirm-in .28s ease-out; }
+  @keyframes poll-confirm-in { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
