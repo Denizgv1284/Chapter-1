@@ -1,5 +1,31 @@
 const productCards = [...document.querySelectorAll('.product-card')];
 const shopReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+// Decorative campaign film: explicit pause, no autoplay for reduced motion/data saving.
+(() => {
+  const video = document.querySelector('#campaignVideo');
+  const button = document.querySelector('#campaignPlayback');
+  if (!video || !button) return;
+  let wanted = !shopReducedMotion.matches && !navigator.connection?.saveData;
+  let visible = true;
+  const label = () => {
+    button.textContent = window.DCMDLanguage?.t(video.paused ? 'Play film' : 'Pause film') || (video.paused ? 'Play film' : 'Pause film');
+    button.setAttribute('aria-pressed', String(!video.paused));
+  };
+  const sync = () => {
+    if (!wanted || !visible || document.hidden) { video.pause(); return; }
+    if (!video.getAttribute('src')) video.src = video.dataset.src;
+    video.play().catch(() => { wanted = false; label(); });
+  };
+  button.addEventListener('click', () => { wanted = video.paused; sync(); });
+  video.addEventListener('play', label);
+  video.addEventListener('pause', label);
+  video.addEventListener('error', () => { wanted = false; video.removeAttribute('src'); video.load(); label(); });
+  document.addEventListener('visibilitychange', sync);
+  window.addEventListener('dcmd:languagechange', label);
+  shopReducedMotion.addEventListener('change', () => { wanted = false; sync(); });
+  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }, {threshold:.1}).observe(video);
+  label();
+})();
 function animateShopElement(element, frames, duration) {
   element.getAnimations().forEach(animation => animation.cancel());
   if (shopReducedMotion.matches || navigator.connection?.saveData) return;

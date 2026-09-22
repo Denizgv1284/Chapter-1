@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DCMD Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=poll-1">
   <link rel="stylesheet" href="vendor/leaflet.css">
   <link rel="stylesheet" href="weather.css?v=recovery-1">
   <link rel="stylesheet" href="languages.css">
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
   <link rel="stylesheet" href="dcmd-system.css?v=3">
-  <link rel="stylesheet" href="dcmd-editorial.css?v=story-poll-3">
+  <link rel="stylesheet" href="dcmd-editorial.css?v=luxury-4">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -72,18 +75,18 @@
     </div>
   </dialog>
 
-  <header class="hero hero--split">
+  <header class="hero hero--split hero--luxury">
 
   <div class="stars stars-one" aria-hidden="true"></div>
   <div class="stars stars-two" aria-hidden="true"></div>
   <div class="shooting-star" aria-hidden="true"></div>
 
   <div class="hero-media" aria-hidden="true">
-    <img src="images/theme-hero.png" alt="">
+    <video id="campaignVideo" muted loop playsinline preload="none" poster="images/campaign-black-front.jpeg" tabindex="-1" data-src="images/dcmd-campaign.mp4"></video>
   </div>
 
   <div class="hero-copy">
-    <span class="eyebrow hero-eyebrow">DCMD / 2026 COLLECTION</span>
+    <span class="eyebrow hero-eyebrow">DCMD EXCLUSIVE</span>
     <img
       class="logo"
       src="images/dcmd-logo-transparent.png"
@@ -107,7 +110,28 @@
      </div>
      <a class="mobile-weather-link" href="#weather-style">⌖ Haritadan havana göre kombin bul ↗</a>
   </div>
+  <button id="campaignPlayback" class="campaign-playback" type="button" aria-controls="campaignVideo" aria-pressed="false">Play film</button>
   </header>
+
+  <section class="campaign-editorial" aria-labelledby="campaignTitle">
+    <div class="campaign-heading"><span class="eyebrow">DCMD / 2026 COLLECTION</span><h2 id="campaignTitle">Don't Fit In. Stand Out.</h2></div>
+    <div class="campaign-pairs">
+      <article class="campaign-pair">
+        <div class="campaign-photos">
+          <img src="images/campaign-black-front.jpeg" width="1024" height="1536" loading="lazy" alt="DCMD Black Edition — front">
+          <img src="images/campaign-black-back.jpeg" width="1024" height="1536" loading="lazy" alt="DCMD Black Edition — back">
+        </div>
+        <a href="#products" data-collection-link="black">Black Edition <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="campaign-pair">
+        <div class="campaign-photos">
+          <img src="images/campaign-europe-front.jpeg" width="1024" height="1536" loading="lazy" alt="DCMD Europe Edition — front">
+          <img src="images/campaign-europe-back.jpeg" width="1024" height="1536" loading="lazy" alt="DCMD Europe Edition — back">
+        </div>
+        <a href="#products" data-collection-link="europe">Europe Edition <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </section>
 
   <section class="model-showcase" aria-labelledby="modelShowcaseTitle">
     <div class="model-showcase-head">
@@ -483,7 +507,7 @@
     <div>
       <span class="eyebrow">OUR STORY</span>
       <h2>Born from the shadows, designed for the spotlight.</h2>
-      <p>DCMD isn't just a brand; it’s a silent statement. Born in the underground currents of modern culture, we set out to break the ordinary. We combine raw confidence, an aura of mystery, and absolute freedom with a sharp European streetwear identity. Every piece we craft is made for those who refuse to blend in—for the ones who write their own rules in the dark and own the room without saying a word.</p>
+      <p>DCMD isn't just a brand; it’s a silent statement. Born in the underground currents of modern culture, we set out to break the ordinary. We combine raw confidence, an aura of mystery, and absolute freedom with a sharp European streetwear identity. Every piece we craft is made for those who refuse to blend in for the ones who write their own rules in the dark and own the room without saying a word.</p>
     </div>
 
     <div class="manifesto">
@@ -740,9 +764,9 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=story-poll-3"></script>
+  <script src="languages.js?v=film-4"></script>
   <script src="commerce.js?v=poll-5"></script>
-  <script src="script.js?v=store-4"></script>
+  <script src="script.js?v=film-5"></script>
   <script src="vendor/leaflet.js"></script>
   <script src="weather.js?v=recovery-1"></script>
   <script src="dcmd-enhance.js?v=3"></script>
