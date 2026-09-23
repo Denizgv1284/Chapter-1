@@ -6,10 +6,12 @@ const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browse
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(process.env.DCMD_TEST_URL||'http://127.0.0.1:8012/',{waitUntil:'domcontentloaded'});
   if(width>1100){
-   await page.locator('[data-mega-view="collections"]').focus();await page.keyboard.press('ArrowDown');
+   await page.locator('.reference-nav [data-mega-view="collections"]').focus();await page.keyboard.press('ArrowDown');
    assert.ok(await page.locator('#megaPanel').isVisible());await page.keyboard.press('Escape');
    assert.ok(await page.locator('#megaPanel').isHidden());
-   await page.click('[data-mega-view="mens"]');await page.locator('#megaPanel [data-collection-link="capital"]').click();
+   await page.click('.reference-nav [data-mega-view="mens"]');
+   assert.match(await page.locator('#megaPanel').innerText(),/Coming soon/);
+   await page.locator('#megaPanel [data-menu-filter="all"]').first().click();
    assert.ok(await page.locator('#megaPanel').isHidden());
   }
   assert.equal(await page.locator('#rewardStars span').count(),10);

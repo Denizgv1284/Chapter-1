@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
   <link rel="stylesheet" href="dcmd-system.css?v=3">
   <link rel="stylesheet" href="dcmd-editorial.css?v=compact-models-5">
-  <link rel="stylesheet" href="dcmd-reference.css?v=photos-3">
-  <link rel="stylesheet" href="dcmd-boutique.css?v=1">
+  <link rel="stylesheet" href="dcmd-reference.css?v=editorial-4">
+  <link rel="stylesheet" href="dcmd-boutique.css?v=editorial-2">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -26,6 +26,7 @@
     <div class="reference-nav">
       <a href="#campaignLooks">FEATURED</a>
       <button type="button" data-mega-view="collections" aria-controls="megaPanel" aria-expanded="false">Collections</button>
+      <button type="button" data-mega-view="unisex" aria-controls="megaPanel" aria-expanded="false">Unisex</button>
       <button type="button" data-mega-view="mens" aria-controls="megaPanel" aria-expanded="false">Mens</button>
       <button type="button" data-mega-view="womens" aria-controls="megaPanel" aria-expanded="false">Womens</button>
     </div>
@@ -70,6 +71,7 @@
   <dialog id="siteMenu" class="site-menu" aria-labelledby="menuTitle">
     <div class="menu-heading"><h2 id="menuTitle">DCMD</h2><button id="menuClose" class="menu-close" type="button" aria-label="Close menu">&times;</button></div>
     <div class="menu-links">
+      <div class="mobile-departments"><button type="button" data-mega-view="collections" aria-controls="megaPanel" aria-expanded="false">Collections ↗</button><button type="button" data-mega-view="unisex" aria-controls="megaPanel" aria-expanded="false">Unisex ↗</button><button type="button" data-mega-view="mens" aria-controls="megaPanel" aria-expanded="false">Mens / Coming soon</button><button type="button" data-mega-view="womens" aria-controls="megaPanel" aria-expanded="false">Womens / Coming soon</button></div>
       <a class="menu-featured" href="#products" data-collection-link="all">New Arrivals <span aria-hidden="true">&#8599;</span></a>
       <p class="eyebrow">Collections</p>
       <a href="#products" data-collection-link="europe">Europe Edition <span aria-hidden="true">&#8599;</span></a>
@@ -140,6 +142,15 @@
   <button id="campaignPlayback" class="campaign-playback" type="button" aria-controls="campaignVideo" aria-pressed="false">Play film</button>
   <div class="campaign-sequence"><span id="campaignCounter" aria-live="polite">1 / 2</span><button id="campaignNext" type="button" aria-controls="campaignVideo">Sonraki film →</button></div>
   </header>
+
+  <section class="home-scene scene-capital" aria-labelledby="capitalSceneTitle">
+    <img src="images/theme-lifestyle.png" alt="DCMD streetwear — city at night" loading="lazy">
+    <div class="scene-copy"><span class="eyebrow">02 / CAPITAL CHAPTERS</span><h2 id="capitalSceneTitle">Wear your city.</h2><p>Eight cities. One shared language.</p><div><a href="#products" data-collection-link="capital">SHOP CAPITAL</a><a href="#capsules">DISCOVER THE STORY</a></div></div>
+  </section>
+  <section class="home-scene scene-unisex" aria-labelledby="unisexSceneTitle">
+    <img src="images/theme-hero.png" alt="DCMD editorial atmosphere — dark layered streetwear" loading="lazy">
+    <div class="scene-copy"><span class="eyebrow">03 / THE DCMD PERSPECTIVE</span><h2 id="unisexSceneTitle">No boundaries.</h2><p>Different. Confident. Mysterious. Desirable.</p><div><a href="#products" data-collection-link="all">SHOP UNISEX</a><a href="#campaignLooks">VIEW LOOKBOOK</a></div></div>
+  </section>
 
   <section class="campaign-editorial" id="campaignLooks" aria-labelledby="campaignTitle">
     <div class="campaign-heading"><span class="eyebrow">DCMD / 2026 COLLECTION</span><h2 id="campaignTitle">Don't Fit In. Stand Out.</h2></div>
@@ -864,7 +875,7 @@
   <script src="weather-direct.js?v=1"></script>
   <script src="weather.js?v=recovery-2"></script>
   <script src="dcmd-enhance.js?v=capital-4"></script>
-  <script src="dcmd-reference.js?v=capital-2"></script>
+  <script src="dcmd-reference.js?v=editorial-3"></script>
   <script src="dcmd-boutique.js?v=1"></script>
 
 </body>
