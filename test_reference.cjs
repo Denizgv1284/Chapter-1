@@ -12,17 +12,20 @@ const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browse
    await page.click('[data-mega-view="mens"]');await page.locator('#megaPanel [data-collection-link="capital"]').click();
    assert.ok(await page.locator('#megaPanel').isHidden());
   }
-  await page.click('#previewPoints');assert.equal(await page.locator('#rewardBalance').innerText(),'50 / 250');
+  assert.equal(await page.locator('#rewardStars span').count(),10);
+  await page.evaluate(()=>window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'DCMD-TEST-first'}})));
+  assert.equal(await page.locator('#rewardBalance').innerText(),'1 / 10');
   assert.ok(await page.locator('#pointsPopup').isVisible());await page.click('#pointsClose');
   assert.ok(await page.locator('#pointsPopup').isHidden());
-  for(let i=0;i<4;i++)await page.click('#previewPoints');
-  await page.click('#redeemRewards');assert.equal(await page.locator('#rewardBalance').innerText(),'0 / 250');
-  assert.match(await page.locator('#rewardsStatus').innerText(),/No real reward/);
-  await page.click('#scanRewards');assert.match(await page.locator('#rewardsStatus').innerText(),/not connected/);
-  await page.evaluate(()=>{window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'test-order'}}));window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'test-order'}}));});
-  assert.equal(await page.locator('#rewardBalance').innerText(),'50 / 250');
+  await page.evaluate(()=>{window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'DCMD-TEST-first'}}));window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'invalid'}}));});
+  assert.equal(await page.locator('#rewardBalance').innerText(),'1 / 10');
+  await page.reload({waitUntil:'domcontentloaded'});
+  assert.equal(await page.locator('#rewardBalance').innerText(),'1 / 10');
+  await page.evaluate(()=>{for(let i=0;i<12;i++)window.dispatchEvent(new CustomEvent('dcmd:demo-order',{detail:{id:'DCMD-TEST-'+i}}));});
+  assert.equal(await page.locator('#rewardBalance').innerText(),'10 / 10');
+  assert.equal(await page.locator('#rewardStars .active').count(),10);
   await page.evaluate(()=>window.dispatchEvent(new Event('dcmd:cleardemo')));
-  assert.equal(await page.locator('#rewardBalance').innerText(),'0 / 250');
+  assert.equal(await page.locator('#rewardBalance').innerText(),'0 / 10');
   await page.fill('#newsletterEmail','preview@example.com');await page.locator('#newsletterForm button').click();
   assert.equal(await page.locator('#newsletterEmail').inputValue(),'');
   assert.match(await page.locator('#newsletterStatus').innerText(),/No subscription/);
@@ -34,8 +37,11 @@ const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browse
   }
   await page.click('#menuOpen');await page.click('#themeToggle');await page.click('#menuClose');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-  assert.ok(await page.locator('.model-window-paris img').evaluate(img=>img.src.includes('model-paris-cutout.png')));
-  assert.ok((await page.locator('.model-window-paris img').boundingBox()).height<=360);
+  assert.equal(await page.locator('.model-showcase').count(),0);
+  assert.equal(await page.locator('.reference-lookbook').count(),1);
+  assert.equal(await page.locator('.product-card').count(),14);
+  assert.equal(await page.locator('.capital-flag-badge').count(),8);
+  assert.ok(await page.evaluate(()=>document.querySelector('.reference-lookbook').compareDocumentPosition(document.querySelector('#rewards')) & Node.DOCUMENT_POSITION_FOLLOWING));
   assert.deepEqual(errors,[]);
   if(width===1440){await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:process.env.TEMP+'/dcmd-reference.png'});}
   await page.close();

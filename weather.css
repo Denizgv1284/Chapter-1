@@ -54,7 +54,7 @@
 .outfit-intro p { font-size:12px; color:var(--muted); line-height:1.7; }
 .outfit-products { display:grid; gap:10px; }
 .outfit-product { display:grid; grid-template-columns:56px 1fr auto; align-items:center; gap:12px; border:1px solid var(--line); padding:9px; border-radius:8px; }
-.outfit-product img { width:56px; height:65px; object-fit:cover; border-radius:4px; }
+.outfit-product img { width:56px; height:65px; object-fit:contain; object-position:center; border-radius:4px; }
 .outfit-product h4 { font-size:12px; margin:0 0 5px; font-weight:500; }
 .outfit-product p { font-size:10px; color:var(--muted); margin:0; line-height:1.5; }
 .outfit-product button { border:1px solid var(--line); background:var(--bg); color:var(--text); padding:10px; border-radius:5px; min-height:44px; font-size:11px; }

@@ -3,6 +3,7 @@ const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
  const page=await browser.newPage({viewport:{width:390,height:844}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  let blocked=true,calls=0;
+ await page.route('**/data/locations.js*',route=>route.abort('failed'));
  await page.route('**/data/turkiye.json',route=>{calls++;return blocked?route.abort('failed'):route.continue();});
  await page.goto(process.env.DCMD_TEST_URL||'http://127.0.0.1:8012/',{waitUntil:'domcontentloaded'});
  await page.locator('#weatherRetry').waitFor({state:'visible'});

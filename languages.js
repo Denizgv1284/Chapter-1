@@ -5,6 +5,12 @@
   try { const saved=localStorage.getItem('dcmd-language'); if(codes.includes(saved)) language=saved; } catch {}
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
+Enlarge product photos|Enlarge product photos|Ürün fotoğraflarını büyüt|Powiększ zdjęcia produktu|Produktfotos vergrößern|Увеличить фото товара|放大商品照片
+Ten orders. Ten stars. One shared journey.|Ten orders. Ten stars. One shared journey.|On sipariş. On yıldız. Ortak bir yolculuk.|Dziesięć zamówień. Dziesięć gwiazd. Wspólna droga.|Zehn Bestellungen. Zehn Sterne. Ein gemeinsamer Weg.|Десять заказов. Десять звёзд. Общий путь.|十笔订单，十颗星，共同旅程。
+Completed demo orders|Completed demo orders|Tamamlanan test siparişleri|Ukończone zamówienia testowe|Abgeschlossene Testbestellungen|Завершённые тестовые заказы|已完成的测试订单
+One star per completed demo order. No real reward or discount is issued.|One star per completed demo order. No real reward or discount is issued.|Tamamlanan her test siparişine bir yıldız. Gerçek ödül veya indirim verilmez.|Jedna gwiazda za ukończone zamówienie testowe. Bez prawdziwych nagród i zniżek.|Ein Stern pro abgeschlossener Testbestellung. Keine echten Prämien oder Rabatte.|Одна звезда за завершённый тестовый заказ. Без реальных наград и скидок.|每笔完成的测试订单点亮一颗星。不提供实际奖励或折扣。
++1 STAR|+1 STAR|+1 YILDIZ|+1 GWIAZDA|+1 STERN|+1 ЗВЕЗДА|+1 颗星
+Progress could not be saved. It is available for this session only.|Progress could not be saved. It is available for this session only.|İlerleme kaydedilemedi. Yalnızca bu oturumda geçerli.|Nie zapisano postępu. Jest dostępny tylko w tej sesji.|Fortschritt nicht gespeichert. Nur in dieser Sitzung verfügbar.|Прогресс не сохранён. Доступен только в этом сеансе.|无法保存进度，仅在本次会话中有效。
 FEATURED|FEATURED|ÖNE ÇIKANLAR|POLECANE|EMPFOHLEN|ИЗБРАННОЕ|精选
 Mens|Mens|Erkek|Mężczyźni|Herren|Мужчины|男装
 Womens|Womens|Kadın|Kobiety|Damen|Женщины|女装

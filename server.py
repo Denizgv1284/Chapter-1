@@ -173,8 +173,9 @@ class Handler(SimpleHTTPRequestHandler):
         path = unquote(parsed.path)
         resolved = (ROOT / path.lstrip('/')).resolve()
         allowed.add('/commerce.js')
+        allowed.update({'/weather-direct.js', '/data/locations.js'})
         allowed.update({'/dcmd-enhance.js', '/dcmd-enhance.css', '/dcmd-system.css', '/dcmd-editorial.css'})
-        allowed.update({'/dcmd-reference.css', '/dcmd-reference.js'})
+        allowed.update({'/dcmd-reference.css', '/dcmd-reference.js', '/dcmd-boutique.css', '/dcmd-boutique.js', '/campaign-playlist.js'})
         asset = any(resolved.is_relative_to(ROOT / folder) for folder in ('images', 'vendor', 'policies'))
         if not resolved.is_relative_to(ROOT) or (path not in allowed and not asset) or (path != '/' and resolved.is_dir()):
             self.send_error(404)

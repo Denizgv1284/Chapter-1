@@ -71,7 +71,7 @@
     it: ['#009246', '#FFFFFF', '#CE2B37'], // İtalya (Roma)
     es: ['#AA151B', '#F1BF00', '#AA151B'], // İspanya (Madrid)
     pt: ['#046A38', '#DA291C', '#FFE900'], // Portekiz (Lizbon)
-    nl: ['#21468B', '#FFFFFF', '#AE1C28'], // Hollanda
+    nl: ['#AE1C28', '#FFFFFF', '#21468B'], // Hollanda
     gb: ['#00247D', '#FFFFFF', '#CF142B'], // Birleşik Krallık
   };
 
@@ -90,7 +90,8 @@
         const badge = document.createElement('span');
         badge.className = 'capital-flag-badge';
         badge.setAttribute('aria-hidden', 'true');
-        badge.innerHTML = `<span class="flag-dot"></span>${code.toUpperCase()}`;
+        badge.innerHTML = `<span class="flag-dot"></span>`;
+        badge.append(document.createTextNode(card.dataset.city || (code==='pl'?'WAW':code.toUpperCase())));
         gallery.appendChild(badge);
       }
     });

@@ -7,19 +7,36 @@ const shopReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!video || !button) return;
   let wanted = !shopReducedMotion.matches && !navigator.connection?.saveData;
   let visible = true;
+  const films = (window.DCMDCampaignFilms || [{src:video.dataset.src}]).filter(film => film.src);
+  let filmIndex = 0;
+  const failed = new Set();
+  video.loop = false;
+  const loadFilm = () => {
+    video.src = films[filmIndex].src;
+    video.dataset.filmIndex = String(filmIndex);
+    const counter = document.querySelector('#campaignCounter');
+    if (counter) counter.textContent = `${filmIndex + 1} / ${films.length}`;
+  };
   const label = () => {
     button.textContent = window.DCMDLanguage?.t(video.paused ? 'Play film' : 'Pause film') || (video.paused ? 'Play film' : 'Pause film');
     button.setAttribute('aria-pressed', String(!video.paused));
   };
   const sync = () => {
     if (!wanted || !visible || document.hidden) { video.pause(); return; }
-    if (!video.getAttribute('src')) video.src = video.dataset.src;
+    if (!video.getAttribute('src')) loadFilm();
     video.play().catch(() => { wanted = false; label(); });
   };
   button.addEventListener('click', () => { wanted = video.paused; sync(); });
   video.addEventListener('play', label);
   video.addEventListener('pause', label);
-  video.addEventListener('error', () => { wanted = false; video.removeAttribute('src'); video.load(); label(); });
+  const nextFilm = () => {
+    if (failed.size >= films.length) { wanted = false; label(); return; }
+    do { filmIndex = (filmIndex + 1) % films.length; } while (failed.has(filmIndex));
+    loadFilm(); sync();
+  };
+  video.addEventListener('ended', nextFilm);
+  document.querySelector('#campaignNext')?.addEventListener('click', nextFilm);
+  video.addEventListener('error', () => { failed.add(filmIndex); nextFilm(); });
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('dcmd:languagechange', label);
   shopReducedMotion.addEventListener('change', () => { wanted = false; sync(); });
@@ -64,10 +81,6 @@ document.querySelectorAll('.product-gallery').forEach(gallery => {
   const go = index => track.scrollTo({left: Math.max(0, Math.min(dots.length - 1, index)) * track.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
   const update = () => {
     const index = current();
-    const photo = photos[index];
-    if (photo?.naturalWidth && photo.naturalHeight) {
-      track.style.aspectRatio = `${photo.naturalWidth} / ${photo.naturalHeight}`;
-    }
     if (index !== lastSlide) {
       lastSlide = index;
       if (!shopReducedMotion.matches && !navigator.connection?.saveData) {
@@ -91,8 +104,56 @@ document.querySelectorAll('.product-gallery').forEach(gallery => {
     go(current() + (event.key === 'ArrowRight' ? 1 : -1));
   });
   update();
+  new ResizeObserver(() => {
+    track.scrollTo({left:lastSlide * track.clientWidth, behavior:'instant'});
+  }).observe(track);
 });
 const categoryInputs = [...document.querySelectorAll('input[name="category"]')];
+// Native modal supplies focus trapping and Escape dismissal.
+(() => {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'product-lightbox';
+  dialog.setAttribute('aria-label', 'Product photos');
+  dialog.innerHTML = '<button type="button" class="lightbox-close" aria-label="Close">×</button><img alt=""><div class="lightbox-controls"><button type="button" class="lightbox-prev" aria-label="Previous photo">←</button><p aria-live="polite"></p><button type="button" class="lightbox-next" aria-label="Next photo">→</button></div>';
+  document.body.append(dialog);
+  let photos = [], index = 0, opener;
+  const show = () => {
+    const photo = photos[index];
+    const image = dialog.querySelector('img');
+    image.src = photo.currentSrc || photo.src;
+    image.alt = photo.alt;
+    dialog.querySelector('p').textContent = `${photo.alt} · ${index + 1} / ${photos.length}`;
+    dialog.querySelector('.lightbox-prev').disabled = index === 0;
+    dialog.querySelector('.lightbox-next').disabled = index === photos.length - 1;
+  };
+  const move = delta => { index = Math.max(0, Math.min(photos.length - 1, index + delta)); show(); };
+  dialog.querySelector('.lightbox-close').onclick = () => dialog.close();
+  dialog.querySelector('.lightbox-prev').onclick = () => move(-1);
+  dialog.querySelector('.lightbox-next').onclick = () => move(1);
+  dialog.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); move(event.key === 'ArrowRight' ? 1 : -1); }
+  });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => { document.body.classList.remove('product-zoom-open'); opener?.focus({preventScroll:true}); });
+  productCards.forEach(card => {
+    const track = card.querySelector('.product-img');
+    track.setAttribute('aria-haspopup', 'dialog');
+    track.setAttribute('aria-label', 'Enlarge product photos');
+    const open = () => {
+      photos = [...track.querySelectorAll('img')];
+      index = Math.max(0, Math.min(photos.length - 1, Math.round(track.scrollLeft / (track.clientWidth || 1))));
+      opener = track; show(); dialog.showModal(); document.body.classList.add('product-zoom-open');
+    };
+    let start;
+    track.addEventListener('pointerdown', event => {start = [event.clientX, event.clientY];});
+    card.addEventListener('click', event => {
+      if (event.target.closest('button, input, select, label, a')) return;
+      if (track.contains(event.target) && start && Math.hypot(event.clientX-start[0],event.clientY-start[1]) > 10) return;
+      open();
+    });
+    track.addEventListener('keydown', event => {if (event.key === 'Enter' || event.key === ' ') {event.preventDefault();open();}});
+  });
+})();
 const priceInputs = [...document.querySelectorAll('input[name="price"]')];
 const resultCount = document.querySelector('#resultCount');
 const searchPanel = document.querySelector('#searchPanel');
@@ -220,6 +281,7 @@ function renderCart() {
   } else {
     cartItems.innerHTML = cart.map((item, index) => `
       <div class="cart-row">
+        <img class="order-thumb" src="${window.DCMDCommerce.products.get(item.productId).card.querySelector('img').getAttribute('src')}" alt="">
         <span>${item.name} / ${item.size}</span>
         <strong>${window.DCMDCommerce.money(item.price)}</strong>
         <button type="button" data-remove="${index}" aria-label="Remove ${item.name}">REMOVE</button>
@@ -338,6 +400,16 @@ function orderStatusElement(status = 'processing') {
 window.addEventListener('dcmd:cleardemo', () => {testOrders.clear();document.querySelector('#orderEmailPreview').textContent='';trackingDialog.close();});
 const paymentNames = {credit:'Kredi kartı', debit:'Banka kartı', apple:'Apple Pay', paypal:'PayPal'};
 const money = window.DCMDCommerce.money;
+window.DCMDShop = {
+  selectCollection,
+  addLook(ids, size) {
+    const additions = ids.map(id => window.DCMDCommerce.products.get(id)).filter(Boolean).map(p => ({productId:p.id,name:p.name,size,price:p.priceCents/100}));
+    if (additions.length !== ids.length) return 'Kombindeki ürün bulunamadı.';
+    const error = window.DCMDCommerce.validate([...cart,...additions]);
+    if (error) return error;
+    cart.push(...additions); renderCart(); openPanel(cartPanel); return '';
+  }
+};
 let checkoutSnapshot = [];
 function updateDemoPayment() {
   const method = checkoutForm.elements.payment.value;
@@ -362,7 +434,9 @@ document.querySelector('.checkout').addEventListener('click', () => {
     row.className = 'checkout-item';
     const name = document.createElement('span'); name.textContent = `${item.name} / ${item.size}`;
     const price = document.createElement('strong'); price.textContent = money(item.price);
-    row.append(name, price); list.append(row);
+    const thumbnail = window.DCMDCommerce.products.get(item.productId).card.querySelector('img').cloneNode();
+    thumbnail.className = 'order-thumb'; thumbnail.alt = '';
+    row.append(thumbnail, name, price); list.append(row);
   });
   const total = checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100;
   document.querySelector('#checkoutSubtotal').textContent = money(total);
@@ -392,6 +466,8 @@ checkoutForm.addEventListener('submit', event => {
     items:checkoutSnapshot.map(item => ({...item})),
     total:checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100,
     currency:'EUR',
+    gift:fields.get('gift') === 'on',
+    packaging:fields.get('gift') === 'on' ? 'sealed-box' : 'standard',
     status:'processing',
     policyVersion:window.DCMDCommerce.policyVersion,
     termsAcceptedAt:new Date().toISOString(),
@@ -415,6 +491,8 @@ checkoutForm.addEventListener('submit', event => {
     '', `Merhaba ${String(fields.get('customer')).trim()},`,
     'DCMD test siparişini aldık. Bu işlemde ödeme alınmadı ve ürün gönderilmeyecek.',
     '', ...order.items.map(item => `1 × ${item.name} / ${item.size} — ${money(item.price)}`),
+    '', `Paket: ${order.gift ? 'Özel mühürlü hediye kutusu — demo / ücretsiz' : 'Standart'}`,
+    ...(order.gift && fields.get('giftNote') ? [`Hediye notu: ${String(fields.get('giftNote')).trim()}`] : []),
     '', `Toplam: ${money(order.total)}`, `Ödeme: ${order.method} — simülasyon`,
     '', `Test takip bağlantın: ${link.href}`,
     'Bu bağlantı yalnızca siparişi oluşturduğun tarayıcıdaki son test kaydı için geçerlidir.',

@@ -12,12 +12,22 @@ Final prompt:
 
 This is an AI-edited campaign visualization, not a new product photograph. Original garment images remain unchanged.
 
-## Warsaw — incomplete background extraction
+## Warsaw — background extraction completed
 
-The original `images/model-warsaw-front-back.jpg` is retained. Background extraction failed first due to the image generation usage limit, and on retry due to file access in the image tool. Its white photographic background has NOT been removed. No alternate paid API was used.
+The original `images/model-warsaw-front-back.jpg` is retained. The gallery now uses `images/model-warsaw-front-back-cutout.png`, edited with built-in imagegen with transparent alpha.
 
 ## Reference UI scope
 
 CAPTURE 1–10: DCMD navigation, lookbook, hero placement, footer, newsletter preview, and rewards preview. CAPTURE 11 (authentication) intentionally deferred.
 
-Rewards are in-memory demo points only; not a stored customer balance or a monetary benefit. Newsletter preview clears the input and makes no network request. Production rewards, scanning, subscription delivery and authentication still need real services and business rules.
+Rewards now display ten stars, one per unique completed demo order. A local browser ledger stores up to ten anonymous demo order IDs; clear demo data resets it. This is not an authoritative customer balance or a monetary benefit. Newsletter preview clears the input and makes no network request. Production rewards, subscription delivery and authentication still need real services and business rules.
+
+## Capital expansion and editorial layout
+
+London (LDN/GB), Ankara (ANK/TR), Roma (ROM/IT), Berlin (BER/DE), Madrid (MAD/ES), Amsterdam (AMS/NL): original front/back JPEGs copied from the supplied September 17 WhatsApp images into `images/capital-{city}-{front,back}.jpeg`. No product graphics were altered. Existing Capital demo price of EUR 49.99 is inherited pending pricing confirmation. No new model try-on images were generated.
+
+The old Warsaw/Paris campaign section was removed and replaced by the existing three-tile lookbook, followed by the ten-star promo card. Product galleries share square image viewports with contained, centered images and 5% padding. Source image proportions no longer override the square viewport. Clicking a card opens a keyboard-accessible photo dialog.
+
+## September 23 product cutouts
+
+All 28 garment views and both model gallery photos now use sibling `*-cutout.png` files made with built-in imagegen. Original JPEG/JPG assets remain available. The edits requested background removal, transparent alpha, centered square framing and preservation of garments and graphics. These are AI-edited display assets, not pixel-identical originals; small texture and lettering details may differ. No CLI or paid API fallback was used.

@@ -9,12 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=poll-1">
   <link rel="stylesheet" href="vendor/leaflet.css">
-  <link rel="stylesheet" href="weather.css?v=recovery-1">
+  <link rel="stylesheet" href="weather.css?v=recovery-2">
   <link rel="stylesheet" href="languages.css">
   <link rel="stylesheet" href="dcmd-enhance.css?v=4">
   <link rel="stylesheet" href="dcmd-system.css?v=3">
   <link rel="stylesheet" href="dcmd-editorial.css?v=compact-models-5">
-  <link rel="stylesheet" href="dcmd-reference.css?v=1">
+  <link rel="stylesheet" href="dcmd-reference.css?v=photos-3">
+  <link rel="stylesheet" href="dcmd-boutique.css?v=1">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -45,7 +46,7 @@
       <a href="#products" data-collection-link="europe">Europe Edition</a>
       <a href="#products" data-collection-link="black">Black Edition</a>
       <a href="#products" data-collection-link="casual">Casual Collection</a>
-      <a href="#campaignLooks">View lookbook</a>
+      <a href="#capsules">Editorial / Capsules</a>
       <a href="#rewards">DCMD Rewards</a>
       <p>Unisex pieces. One shared collection.</p>
     </div>
@@ -76,7 +77,7 @@
       <a href="#products" data-collection-link="country">Country Collection <span aria-hidden="true">&#8599;</span></a>
       <a href="#products" data-collection-link="casual">Casual Collection <span aria-hidden="true">&#8599;</span></a>
       <a href="#products" data-collection-link="capital">Capital Collection <span aria-hidden="true">&#8599;</span></a>
-      <div class="menu-secondary"><a href="#campaignLooks">View lookbook</a><a href="#rewards">DCMD Rewards</a><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
+      <div class="menu-secondary"><a href="#capsules">Editorial / Capsules</a><a href="#rewards">DCMD Rewards</a><a href="#weather-style">Havaya G&#246;re Giyin</a><a href="#story">Our Story</a><a href="#contact">Contact</a></div>
       <div class="mobile-menu-visuals"><a href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"></a><a href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"></a></div>
     </div>
     <div class="menu-language"><p class="eyebrow">Language</p>
@@ -108,7 +109,7 @@
   <div class="shooting-star" aria-hidden="true"></div>
 
   <div class="hero-media" aria-hidden="true">
-    <video id="campaignVideo" muted loop playsinline preload="none" poster="images/campaign-black-front.jpeg" tabindex="-1" data-src="images/dcmd-campaign.mp4"></video>
+    <video id="campaignVideo" muted playsinline preload="none" poster="images/campaign-black-front.jpeg" tabindex="-1" data-src="images/dcmd-campaign.mp4"></video>
   </div>
 
   <div class="hero-copy">
@@ -137,6 +138,7 @@
      <a class="mobile-weather-link" href="#weather-style">⌖ Haritadan havana göre kombin bul ↗</a>
   </div>
   <button id="campaignPlayback" class="campaign-playback" type="button" aria-controls="campaignVideo" aria-pressed="false">Play film</button>
+  <div class="campaign-sequence"><span id="campaignCounter" aria-live="polite">1 / 2</span><button id="campaignNext" type="button" aria-controls="campaignVideo">Sonraki film →</button></div>
   </header>
 
   <section class="campaign-editorial" id="campaignLooks" aria-labelledby="campaignTitle">
@@ -159,33 +161,18 @@
     </div>
   </section>
 
-  <section class="model-showcase" aria-labelledby="modelShowcaseTitle">
-    <div class="model-showcase-head">
-      <div>
-        <span class="eyebrow">DCMD campaign</span>
-        <h2 id="modelShowcaseTitle">Two cities. One mindset.</h2>
-      </div>
-      <p>Warsaw / PL · Paris / FR</p>
-    </div>
-
-    <div class="model-showcase-grid">
-      <article class="model-window model-window-warsaw">
-        <img src="images/model-warsaw-front-back.jpg" alt="Female model showing the front and back of the DCMD Warsaw Capital Collection T-shirt">
-        <div class="model-window-copy">
-          <span>01 / WARSAW</span>
-          <h3>Capital Collection</h3>
-          <a href="#products" data-collection-link="capital">View front &amp; back</a>
-        </div>
-      </article>
-
-      <article class="model-window model-window-paris">
-        <img src="images/model-paris-cutout.png" loading="lazy" alt="DCMD Paris FR Capital Collection">
-        <div class="model-window-copy">
-          <span>02 / PARIS</span>
-          <h3>Capital Collection</h3>
-          <a href="#products" data-collection-link="capital">Explore the piece</a>
-        </div>
-      </article>
+  <section class="reference-lookbook" aria-label="View lookbook">
+    <a class="lookbook-tile" href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"><span><b>01</b><small>View look</small></span></a>
+    <a class="lookbook-tile" href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"><span><b>02</b><small>View look</small></span></a>
+    <a class="lookbook-tile" href="#products" data-collection-link="capital"><img src="images/model-paris-cutout.png" alt="Capital Collection" loading="lazy"><span><b>03</b><small>View look</small></span></a>
+  </section>
+  <section id="rewards" class="rewards-section" aria-labelledby="rewardsTitle">
+    <div><span class="eyebrow">DCMD COMMUNITY</span><h2 id="rewardsTitle">DCMD Rewards</h2><p>Ten orders. Ten stars. One shared journey.</p></div>
+    <div class="rewards-card">
+      <div class="rewards-header"><h3>DCMD<sub>✦</sub></h3><span>REWARDS · DEMO</span></div>
+      <div id="rewardStars" class="rewards-icons" aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
+      <p class="rewards-balance"><output id="rewardBalance">0 / 10</output> <span>Completed demo orders</span></p>
+      <p id="rewardsStatus" role="status">One star per completed demo order. No real reward or discount is issued.</p>
     </div>
   </section>
 
@@ -299,8 +286,8 @@
       <article class="product-card" data-collection="europe" data-category="tshirt" data-price="59.99" data-name="Europe Collection Tee">
         <div class="product-gallery" role="group" aria-label="DCMD Europe Collection T-shirt">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/europe-tshirt-front.jpeg" alt="DCMD Europe Collection T-shirt - front" draggable="false">
-            <img src="images/europe-tshirt-back.jpeg?v=poll-1" alt="DCMD Europe Collection T-shirt - back" loading="lazy" draggable="false">
+            <img src="images/europe-tshirt-front-cutout.png" alt="DCMD Europe Collection T-shirt - front" draggable="false">
+            <img src="images/europe-tshirt-back-cutout.png?v=poll-1" alt="DCMD Europe Collection T-shirt - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -323,8 +310,8 @@
       <article class="product-card" data-collection="black" data-category="tshirt" data-price="49.99" data-name="Essential Oversized Tee">
         <div class="product-gallery" role="group" aria-label="DCMD Essential Collection T-shirt">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/essential-tshirt-front.jpeg" alt="DCMD Essential Collection T-shirt - front" draggable="false">
-            <img src="images/essential-tshirt-back.jpeg?v=poll-1" alt="DCMD Essential Collection T-shirt - back" loading="lazy" draggable="false">
+            <img src="images/essential-tshirt-front-cutout.png" alt="DCMD Essential Collection T-shirt - front" draggable="false">
+            <img src="images/essential-tshirt-back-cutout.png?v=poll-1" alt="DCMD Essential Collection T-shirt - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -347,9 +334,9 @@
       <article class="product-card" data-collection="black" data-category="hoodie" data-price="49.99" data-name="Different Oversized Hoodie">
         <div class="product-gallery" role="group" aria-label="DCMD Black Hoodie">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/hoodie-front.jpeg" alt="DCMD Black Hoodie - front" draggable="false">
-            <img src="images/hoodie-back.jpeg?v=poll-1" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
-            <img src="images/model-black-hoodie-front.jpg" alt="DCMD Black Hoodie worn by a male campaign model" loading="lazy" draggable="false">
+            <img src="images/hoodie-front-cutout.png" alt="DCMD Black Hoodie - front" draggable="false">
+            <img src="images/hoodie-back-cutout.png?v=poll-1" alt="DCMD Black Hoodie - back" loading="lazy" draggable="false">
+            <img src="images/model-black-hoodie-front-cutout.png" alt="DCMD Black Hoodie worn by a male campaign model" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button><button type="button" aria-label="On model" aria-pressed="false" data-slide="2"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -372,8 +359,8 @@
       <article class="product-card" data-collection="black" data-category="pants" data-price="49.99" data-name="DCMD Wide Leg Pants">
         <div class="product-gallery" role="group" aria-label="DCMD Black Pants">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/pants-front.jpeg" alt="DCMD Black Pants - front" draggable="false">
-            <img src="images/pants-back.jpeg?v=poll-1" alt="DCMD Black Pants - back" loading="lazy" draggable="false">
+            <img src="images/pants-front-cutout.png" alt="DCMD Black Pants - front" draggable="false">
+            <img src="images/pants-back-cutout.png?v=poll-1" alt="DCMD Black Pants - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -395,8 +382,8 @@
 <article class="product-card" data-collection="casual" data-category="tshirt" data-price="39.99" data-name="Casual Cream Tee">
         <div class="product-gallery" role="group" aria-label="Casual Cream Tee">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/casual-tee-front.jpeg" alt="Casual Cream Tee - front" draggable="false">
-            <img src="images/casual-tee-back.jpeg?v=poll-1" alt="Casual Cream Tee - back" loading="lazy" draggable="false">
+            <img src="images/casual-tee-front-cutout.png" alt="Casual Cream Tee - front" draggable="false">
+            <img src="images/casual-tee-back-cutout.png?v=poll-1" alt="Casual Cream Tee - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -417,8 +404,8 @@
 <article class="product-card" data-collection="casual" data-category="shorts" data-price="39.99" data-name="Casual Cream Shorts">
         <div class="product-gallery" role="group" aria-label="Casual Cream Shorts">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/casual-shorts-front.jpeg" alt="Casual Cream Shorts - front" draggable="false">
-            <img src="images/casual-shorts-back.jpeg?v=poll-1" alt="Casual Cream Shorts - back" loading="lazy" draggable="false">
+            <img src="images/casual-shorts-front-cutout.png" alt="Casual Cream Shorts - front" draggable="false">
+            <img src="images/casual-shorts-back-cutout.png?v=poll-1" alt="Casual Cream Shorts - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -439,8 +426,8 @@
 <article class="product-card" data-collection="capital" data-country="fr" data-category="tshirt" data-price="49.99" data-name="Paris FR Capital Tee">
         <div class="product-gallery" role="group" aria-label="Paris FR Capital Tee">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/capital-paris-front.jpeg" alt="Paris FR Capital Tee - front" draggable="false">
-            <img src="images/capital-paris-back.jpeg?v=poll-1" alt="Paris FR Capital Tee - back" loading="lazy" draggable="false">
+            <img src="images/capital-paris-front-cutout.png" alt="Paris FR Capital Tee - front" draggable="false">
+            <img src="images/capital-paris-back-cutout.png?v=poll-1" alt="Paris FR Capital Tee - back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -461,9 +448,9 @@
 <article class="product-card" data-collection="capital" data-country="pl" data-category="tshirt" data-price="49.99" data-name="Warsaw WAW Capital Tee">
         <div class="product-gallery" role="group" aria-label="Warsaw WAW Capital Tee">
           <div class="product-img" tabindex="0" aria-label="Product photos">
-            <img src="images/capital-warsaw-front.jpeg" alt="Warsaw WAW Capital Tee - front" draggable="false">
-            <img src="images/capital-warsaw-back.jpeg?v=poll-1" alt="Warsaw WAW Capital Tee - back" loading="lazy" draggable="false">
-            <img src="images/model-warsaw-front-back.jpg" alt="Warsaw Capital Collection T-shirt shown on female campaign models, front and back" loading="lazy" draggable="false">
+            <img src="images/capital-warsaw-front-cutout.png" alt="Warsaw WAW Capital Tee - front" draggable="false">
+            <img src="images/capital-warsaw-back-cutout.png?v=poll-1" alt="Warsaw WAW Capital Tee - back" loading="lazy" draggable="false">
+            <img src="images/model-warsaw-front-back-cutout.png" alt="Warsaw Capital Collection T-shirt shown on female campaign models, front and back" loading="lazy" draggable="false">
           </div>
           <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button><button type="button" aria-label="On models" aria-pressed="false" data-slide="2"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
         </div>
@@ -480,6 +467,72 @@
         <button class="add" type="button">
           ADD TO CART
         </button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="gb" data-city="LDN" data-category="tshirt" data-price="49.99" data-name="London LDN Capital Tee">
+        <div class="product-gallery" role="group" aria-label="London LDN Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-london-front-cutout.png" alt="London LDN Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-london-back-cutout.png" alt="London LDN Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>London LDN Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="tr" data-city="ANK" data-category="tshirt" data-price="49.99" data-name="Ankara ANK Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Ankara ANK Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-ankara-front-cutout.png" alt="Ankara ANK Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-ankara-back-cutout.png" alt="Ankara ANK Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>Ankara ANK Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="it" data-city="ROM" data-category="tshirt" data-price="49.99" data-name="Roma ROM Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Roma ROM Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-roma-front-cutout.png" alt="Roma ROM Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-roma-back-cutout.png" alt="Roma ROM Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>Roma ROM Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="de" data-city="BER" data-category="tshirt" data-price="49.99" data-name="Berlin BER Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Berlin BER Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-berlin-front-cutout.png" alt="Berlin BER Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-berlin-back-cutout.png" alt="Berlin BER Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>Berlin BER Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="es" data-city="MAD" data-category="tshirt" data-price="49.99" data-name="Madrid MAD Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Madrid MAD Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-madrid-front-cutout.png" alt="Madrid MAD Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-madrid-back-cutout.png" alt="Madrid MAD Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>Madrid MAD Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
+      </article>
+      <article class="product-card" data-collection="capital" data-country="nl" data-city="AMS" data-category="tshirt" data-price="49.99" data-name="Amsterdam AMS Capital Tee">
+        <div class="product-gallery" role="group" aria-label="Amsterdam AMS Capital Tee">
+          <div class="product-img" tabindex="0" aria-label="Product photos">
+            <img src="images/capital-amsterdam-front-cutout.png" alt="Amsterdam AMS Capital Tee - front" loading="lazy" draggable="false">
+            <img src="images/capital-amsterdam-back-cutout.png" alt="Amsterdam AMS Capital Tee - back" loading="lazy" draggable="false">
+          </div>
+          <div class="gallery-controls"><button type="button" class="gallery-prev" aria-label="Previous photo">&#8592;</button><div class="gallery-dots"><button type="button" aria-label="Front" aria-pressed="true" data-slide="0"></button><button type="button" aria-label="Back" aria-pressed="false" data-slide="1"></button></div><button type="button" class="gallery-next" aria-label="Next photo">&#8594;</button></div>
+        </div>
+        <div class="product-info"><div><span class="eyebrow">T-shirt</span><h3>Amsterdam AMS Capital Tee</h3></div><strong>49.99 EUR</strong></div>
+        <button class="add" type="button">ADD TO CART</button>
       </article>
         </div><p id="productsEmpty" role="status" hidden></p>
       </div>
@@ -566,29 +619,14 @@
     </div>
     <p class="poll-disclaimer">Anket önizlemesi · Seçimin yalnızca bu tarayıcıda saklanır. Ortak oylama henüz açık değil.</p>
   </dialog>
-  <section class="reference-lookbook" aria-label="View lookbook">
-    <a class="lookbook-tile" href="#products" data-collection-link="black"><img src="images/campaign-black-front.jpeg" alt="Black Edition" loading="lazy"><span><b>01</b><small>View look</small></span></a>
-    <a class="lookbook-tile" href="#products" data-collection-link="europe"><img src="images/campaign-europe-front.jpeg" alt="Europe Edition" loading="lazy"><span><b>02</b><small>View look</small></span></a>
-    <a class="lookbook-tile" href="#products" data-collection-link="capital"><img src="images/model-paris-cutout.png" alt="Capital Collection" loading="lazy"><span><b>03</b><small>View look</small></span></a>
-  </section>
-  <section id="rewards" class="rewards-section" aria-labelledby="rewardsTitle">
-    <div><span class="eyebrow">DCMD COMMUNITY</span><h2 id="rewardsTitle">DCMD Rewards</h2><p>Preview the rewards experience. Demo points have no cash or discount value.</p><button id="previewPoints" class="icon" type="button">Preview +50 points</button></div>
-    <div class="rewards-card">
-      <div class="rewards-header"><h3>DCMD<sub>✦</sub></h3><span>REWARDS · DEMO</span></div>
-      <div id="rewardStars" class="rewards-icons" aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-      <p class="rewards-balance"><output id="rewardBalance">0 / 250</output> <span>Demo points</span></p>
-      <div class="rewards-actions"><button id="scanRewards" class="btn-scan" type="button">SCAN CODE</button><button id="redeemRewards" class="btn-redeem" type="button" disabled>REDEEM</button></div>
-      <p id="rewardsStatus" role="status">Demo only. No account or purchase required.</p>
-    </div>
-  </section>
   <div id="pointsPopup" class="points-popup" hidden>
-    <div class="popup-brand" aria-hidden="true">✦</div><div class="popup-content" role="status"><span>+50 POINTS</span><small>DEMO</small></div><button id="pointsClose" class="popup-close" type="button" aria-label="CLOSE">×</button>
+    <div class="popup-brand" aria-hidden="true">✦</div><div class="popup-content" role="status"><span>+1 STAR</span><small>DEMO</small></div><button id="pointsClose" class="popup-close" type="button" aria-label="CLOSE">×</button>
   </div>
   <footer id="contact" class="luxury-footer">
     <div class="newsletter-box"><h3>Join the Conversation</h3><p>Newsletter preview. Subscriptions are not open yet.</p>
       <form id="newsletterForm"><label for="newsletterEmail">Email</label><div class="input-group"><input id="newsletterEmail" type="email" autocomplete="email" placeholder="Email address" required aria-describedby="newsletterStatus"><button type="submit" aria-label="Preview newsletter">→</button></div><p id="newsletterStatus" role="status">Your email is not sent or stored.</p></form>
     </div>
-    <div class="footer-explore"><h3>Explore</h3><a href="#story">Our Story</a><a href="#campaignLooks">View lookbook</a><a href="#rewards">DCMD Rewards</a><a href="#products" data-collection-link="all">New Arrivals</a></div>
+    <div class="footer-explore"><h3>Explore</h3><a href="#story">Our Story</a><a href="#capsules">Editorial / Capsules</a><a href="#rewards">DCMD Rewards</a><a href="#products" data-collection-link="all">New Arrivals</a></div>
     <div>
       <img src="images/dcmd-logo-transparent.png" alt="DCMD logo">
       <div id="companyInfo" lang="tr"><h3>Hakkımızda / Kurumsal bilgiler</h3><p>Şirket unvanı: Kuruluş aşamasında</p><p>Şirket e-postası: Eklenecek</p><p>İade e-postası: Eklenecek</p><p>İletişim e-postası: Eklenecek</p><p>Kayıtlı adres, ülke ve vergi numarası: Eklenecek</p><small>Test mağazası. Gerçek sipariş ve ödeme kabul edilmez.</small></div>
@@ -687,8 +725,13 @@
             </div>
             <p id="walletDemo" class="checkout-test-note" hidden></p>
           </fieldset>
+          <fieldset class="checkout-fields gift-fields"><legend>03 / Hediye ambalajı</legend>
+            <label class="gift-choice"><input type="checkbox" name="gift"><span>Bu bir hediye mi? Özel mühürlü kutu ile gelsin.</span></label>
+            <small>Demo seçeneği · Ek ücret yok. Satış koşulları açılışta kesinleşecek.</small>
+            <label hidden>Hediye notu (isteğe bağlı)<textarea name="giftNote" maxlength="250" disabled placeholder="Kısa bir not bırak…"></textarea></label>
+          </fieldset>
         </div>
-        <aside class="checkout-order"><h3>Sipariş özeti</h3><div id="checkoutItems"></div><p class="checkout-total"><span>Ürünler</span><strong id="checkoutSubtotal"></strong></p><p class="checkout-total"><span>Test teslimatı</span><span>Ücretsiz</span></p><p class="checkout-total"><span>Toplam (EUR)</span><strong id="checkoutTotal"></strong></p><small>Örnek fiyatlar. Gerçek vergi ve kargo hesaplaması uygulanmaz.</small></aside>
+        <aside class="checkout-order"><h3>Sipariş özeti</h3><p id="giftSummary">Standart ambalaj</p><div id="checkoutItems"></div><p class="checkout-total"><span>Ürünler</span><strong id="checkoutSubtotal"></strong></p><p class="checkout-total"><span>Test teslimatı</span><span>Ücretsiz</span></p><p class="checkout-total"><span>Toplam (EUR)</span><strong id="checkoutTotal"></strong></p><small>Örnek fiyatlar. Gerçek vergi ve kargo hesaplaması uygulanmaz.</small></aside>
       </div>
       <p>Talep üzerine üretim · Taslak hazırlık süresi 3–7 iş günü. Gerçek teslimat, vergi ve kargo tutarları satış başlamadan kesinleştirilecek.</p>
       <label class="checkout-consent"><input type="checkbox" name="termsAccepted" required><span><a href="policies/terms.html" target="_blank" rel="noopener">Şartlar</a> ve <a href="policies/shipping.html" target="_blank" rel="noopener">kargo/iade taslağını</a> okudum. Bunun gerçek ödeme veya sipariş oluşturmadığını anladım.</span></label>
@@ -812,13 +855,17 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=reference-6"></script>
-  <script src="commerce.js?v=poll-5"></script>
-  <script src="script.js?v=reference-6"></script>
+  <script src="languages.js?v=capital-7"></script>
+  <script src="commerce.js?v=boutique-6"></script>
+  <script src="campaign-playlist.js?v=1"></script>
+  <script src="script.js?v=boutique-8"></script>
   <script src="vendor/leaflet.js"></script>
-  <script src="weather.js?v=recovery-1"></script>
-  <script src="dcmd-enhance.js?v=3"></script>
-  <script src="dcmd-reference.js?v=1"></script>
+  <script src="data/locations.js?v=1"></script>
+  <script src="weather-direct.js?v=1"></script>
+  <script src="weather.js?v=recovery-2"></script>
+  <script src="dcmd-enhance.js?v=capital-4"></script>
+  <script src="dcmd-reference.js?v=capital-2"></script>
+  <script src="dcmd-boutique.js?v=1"></script>
 
 </body>
 </html>

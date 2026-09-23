@@ -31,36 +31,40 @@
   document.addEventListener('focusin',event=>{if(!panel.contains(event.target)&&!event.target.closest('[data-mega-view]'))closeMenu();});
   window.addEventListener('resize',()=>{if(innerWidth<=1100)closeMenu();});
 
-  // Explicit, session-only preview. This is not a customer loyalty balance.
-  let points=0, timer;
+  // Local demo order ledger, never an authoritative customer loyalty balance.
+  let timer;
+  const ledgerKey='dcmd-demo-loyalty-v1';
   const seenOrders=new Set();
+  try {
+    const saved=JSON.parse(localStorage.getItem(ledgerKey)||'[]');
+    if(Array.isArray(saved))saved.filter(id=>typeof id==='string'&&id.startsWith('DCMD-TEST-')&&id.length<100).slice(0,10).forEach(id=>seenOrders.add(id));
+  } catch {}
   const popup=document.querySelector('#pointsPopup');
   const status=document.querySelector('#rewardsStatus');
   function render(){
-    document.querySelector('#rewardBalance').textContent=`${points} / 250`;
-    document.querySelectorAll('#rewardStars span').forEach((star,index)=>star.classList.toggle('active',index<points/50));
-    document.querySelector('#redeemRewards').disabled=points<250;
+    document.querySelector('#rewardBalance').textContent=`${seenOrders.size} / 10`;
+    document.querySelectorAll('#rewardStars span').forEach((star,index)=>star.classList.toggle('active',index<seenOrders.size));
   }
   function preview(){
-    if(points>=250)return;
-    points+=50;render();
+    render();
     // A native checkout dialog is in the top layer; keep its toast visible there.
     (document.querySelector('dialog[open]') || document.body).append(popup);
     popup.hidden=false;
     clearTimeout(timer);timer=setTimeout(()=>popup.hidden=true,6500);
   }
-  document.querySelector('#previewPoints').addEventListener('click',preview);
   document.querySelector('#pointsClose').addEventListener('click',()=>{popup.hidden=true;clearTimeout(timer);});
-  document.querySelector('#scanRewards').addEventListener('click',()=>status.textContent='Code scanning is not connected. This is a preview only.');
-  document.querySelector('#redeemRewards').addEventListener('click',()=>{
-    if(points<250)return;
-    points=0;render();popup.hidden=true;status.textContent='Demo redemption complete. No real reward or discount was issued.';
-  });
   window.addEventListener('dcmd:demo-order',event=>{
-    const id=event.detail?.id;if(typeof id!=='string'||seenOrders.has(id))return;
-    seenOrders.add(id);preview();
+    const id=event.detail?.id;
+    if(typeof id!=='string'||!id.startsWith('DCMD-TEST-')||id.length>=100||seenOrders.has(id)||seenOrders.size>=10)return;
+    seenOrders.add(id);
+    try { localStorage.setItem(ledgerKey,JSON.stringify([...seenOrders])); }
+    catch { status.textContent='Progress could not be saved. It is available for this session only.'; }
+    preview();
   });
-  window.addEventListener('dcmd:cleardemo',()=>{points=0;seenOrders.clear();render();popup.hidden=true;});
+  window.addEventListener('dcmd:cleardemo',()=>{
+    seenOrders.clear();try {localStorage.removeItem(ledgerKey);}catch {}
+    render();popup.hidden=true;clearTimeout(timer);
+  });
   document.querySelector('#newsletterForm').addEventListener('submit',event=>{
     event.preventDefault();
     if(!event.currentTarget.reportValidity())return;

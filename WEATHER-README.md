@@ -19,8 +19,9 @@ statik yayına dahil edilmez.
 Yayın sonrası `/api/weather?country=TR&province=34` ve
 `/api/locations?country=PL&q=Warszawa` adreslerinin JSON döndürdüğünü kontrol et.
 Ardından sitede il/ilçe ve Avrupa şehir aramasını dene.
-GitHub Pages ve salt statik Live Server Python API çalıştırmaz;
-siteyi Vercel adresinden aç.
+GitHub Pages ve salt statik Live Server Python API çalıştırmaz. Bu önizlemelerde
+API bulunamadığında `weather-direct.js` aynı sağlayıcıya doğrudan bağlanır.
+Ülke ve ilçe doğrulaması korunur; yanlış konum için veri gösterilmez.
 
 ## Yerel geliştirme
 
@@ -32,9 +33,11 @@ siteyi Vercel adresinden aç.
 
 Bilgisayar: http://localhost:8001/#weather-style
 Telefon: aynı Wi-Fi üzerinden bilgisayarın yerel IP adresi, port 8001.
-Yalnızca yerel geliştirmede sunucu açık kalmalı. Dosya adı `server.py`;
-`preview_server.py` bu projede yoktur. Sayfayı dosyaya çift tıklayarak değil,
-yukarıdaki localhost adresinden aç. İnternet bağlantısı gereklidir.
+Yerel Python API için sunucu açık kalmalı. Dosya adı `server.py`;
+`preview_server.py` bu projede yoktur. `index.html` çift tıklanarak da açılabilir:
+konum listeleri `data/locations.js` üzerinden yüklenir, hava verisi doğrudan
+sağlayıcıdan alınır. Güncel hava ve sokak haritası için internet gerekir.
+Yerel Natural Earth ülke sınırları internet olmadan da haritada görünür.
 
 `main.py` içindeki hava durumu işlevi hem mevcut konsol uygulamasına hem
 siteye hizmet eder. Web sürümü yalnızca current alanlarını ister.

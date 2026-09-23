@@ -6,7 +6,7 @@ const assert = require('node:assert/strict');
     const page = await browser.newPage({viewport:{width:390,height:844}});
     const errors = []; page.on('pageerror', e => errors.push(e.message));
     await page.goto(process.env.DCMD_TEST_URL || 'http://localhost:8002/', {waitUntil:'domcontentloaded'});
-    assert.equal(await page.locator('.size-select').count(),8);
+    assert.equal(await page.locator('.size-select').count(),14);
     for (const [collection, price] of Object.entries({europe:'59.99',black:'49.99',capital:'49.99',casual:'39.99'})) {
       for (const card of await page.locator(`.product-card[data-collection="${collection}"]`).all()) assert.equal(await card.getAttribute('data-price'),price);
     }
@@ -35,6 +35,7 @@ const assert = require('node:assert/strict');
       await page.check('[name="termsAccepted"]');
       await page.click('#checkoutForm [type="submit"]');
       await page.locator('#checkoutSuccess').waitFor({state:'visible'});
+      assert.equal(await page.locator('#rewardBalance').innerText(),`${['credit','debit','apple','paypal'].indexOf(method)+1} / 10`);
       const preview = await page.locator('#orderEmailPreview').innerText();
       assert.match(preview,/test@example.com/); assert.match(preview,/X Large/); assert.ok(!preview.includes('USD'));
       assert.ok(await first.locator('.add').isDisabled(),'capacity must be consumed');

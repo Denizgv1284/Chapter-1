@@ -6,7 +6,7 @@
   const products = new Map();
   const money = amount => new Intl.NumberFormat(window.DCMDLanguage?.locale || 'en-IE', {style:'currency',currency:'EUR'}).format(amount);
   document.querySelectorAll('.product-card').forEach(card => {
-    const id = card.querySelector('img').getAttribute('src').split('/').pop().replace('-front.jpeg','');
+    const id = card.querySelector('img').getAttribute('src').split('/').pop().split('?')[0].replace(/-front(?:-cutout)?\.(?:jpe?g|png)$/i,'');
     const product = {id, name:card.dataset.name, collection:card.dataset.collection, priceCents:prices[card.dataset.collection], stock:Object.fromEntries(sizes.map((size,i) => [size,initialStock[i]])), card};
     products.set(id,product); card.dataset.productId = id;
     card.dataset.price = (product.priceCents / 100).toFixed(2);
@@ -38,6 +38,7 @@
       button.textContent = remaining === 0 ? 'Kapasite dolu' : 'ADD TO CART';
     });
     renderInventory();
+    window.dispatchEvent(new Event('dcmd:stockchange'));
   }
   function validate(lines) {
     const counts = new Map();

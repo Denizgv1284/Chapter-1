@@ -21,6 +21,7 @@ function recommendOutfit(current) {
 }
 
 async function fetchWeatherApi(endpoint, params, signal) {
+  if (typeof window !== 'undefined' && window.DCMDWeatherDirect && location.protocol === 'file:') return window.DCMDWeatherDirect(endpoint, params, signal);
   let response;
   try {
     response = await fetch(`/api/${endpoint}?${params}`, {signal, cache:'no-store'});
@@ -28,7 +29,9 @@ async function fetchWeatherApi(endpoint, params, signal) {
     if (error.name === 'AbortError') throw error;
     throw new Error('Hava durumu servisine ulaşılamadı. İnternet bağlantını kontrol edip tekrar dene.');
   }
-  if (!response.headers.get('content-type')?.includes('application/json')) {
+  const jsonResponse = response.headers.get('content-type')?.includes('application/json');
+  if (typeof window !== 'undefined' && window.DCMDWeatherDirect && (response.status === 404 || response.status === 405 || (response.ok && !jsonResponse))) return window.DCMDWeatherDirect(endpoint, params, signal);
+  if (!jsonResponse) {
     throw new Error('Hava durumu servisi kullanılamıyor. Lütfen biraz sonra tekrar dene.');
   }
   let data;
@@ -235,11 +238,16 @@ if (typeof document !== 'undefined') (async function () {
   }
 
   function render(data) {
-    lastWeather = data;
     const c = data.current;
     const stamp = new Date(data.timestamp * 1000);
     const age = Date.now() - stamp.getTime();
     if (!Number.isFinite(age) || age > 90 * 60000 || age < -30 * 60000) throw new Error('Güncel veri henüz gelmedi. Biraz sonra yeniden dene.');
+    const fields = ['temperature_2m', 'apparent_temperature', 'wind_speed_10m', 'precipitation', 'weather_code', 'is_day'];
+    if (fields.some(field => !Number.isFinite(c[field])) || !Number.isFinite(data.coordinates.latitude) || !Number.isFinite(data.coordinates.longitude)) {
+      throw new Error('Hava durumu servisinden eksik yanıt geldi. Tekrar dene.');
+    }
+    try { new Intl.DateTimeFormat('tr-TR', {timeZone:data.timezone}).format(stamp); }
+    catch { throw new Error('Hava durumu servisinden geçersiz saat dilimi geldi. Tekrar dene.'); }
     const [description, symbol] = describeWeather(c.weather_code, c.is_day);
     byId('weatherPlace').textContent = [...new Set([data.province, data.district, window.DCMDLanguage?.t(data.country) || data.country].filter(Boolean))].join(' / ');
     byId('weatherDay').textContent = c.is_day ? 'Gündüz' : 'Gece';
@@ -275,8 +283,12 @@ if (typeof document !== 'undefined') (async function () {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = 'Sepete ekle';
-      button.setAttribute('aria-label', `${card.dataset.name} — sepete ekle`);
-      button.addEventListener('click', () => {card.scrollIntoView({behavior:'smooth',block:'center'});card.querySelector('.size-select').focus({preventScroll:true});});
+      button.setAttribute('aria-label', `${card.dataset.name} — beden seç`);
+      button.addEventListener('click', () => {
+        selectCollection(card.dataset.collection);
+        card.scrollIntoView({behavior:reducedMotion.matches ? 'instant' : 'smooth',block:'center'});
+        card.querySelector('.size-select').focus({preventScroll:true});
+      });
       button.textContent = 'Beden seç';
       row.append(picture, details, button);
       container.append(row);
@@ -290,6 +302,7 @@ if (typeof document !== 'undefined') (async function () {
     }
     byId('weatherEmpty').hidden = true;
     result.hidden = false;
+    lastWeather = data;
   }
 
   async function loadWeather() {
@@ -315,6 +328,7 @@ if (typeof document !== 'undefined') (async function () {
       status.textContent = 'Bulunduğun yer, şu anın havası, senin seçimin.';
     } catch (error) {
       if (version !== requestId) return;
+      lastWeather = null;
       status.textContent = error.name === 'AbortError' ? 'Bağlantı zaman aşımına uğradı. Tekrar dene.' : error.message;
       status.classList.add('is-error');
       result.hidden = true;
@@ -334,7 +348,10 @@ if (typeof document !== 'undefined') (async function () {
 
   window.addEventListener('dcmd:languagechange', () => {
     updateClock();
-    if (lastWeather && !result.hidden) render(lastWeather);
+    if (lastWeather && !result.hidden) {
+      try { render(lastWeather); }
+      catch { loadWeather(); }
+    }
     if (countrySelect.value !== 'TR' && cityQuery.value.trim().length >= 2) {
       findCity(true).then(() => {if (hasRequested && citySelect.value) loadWeather();});
     }
@@ -351,6 +368,8 @@ if (typeof document !== 'undefined') (async function () {
   byId('mapHint').after(retry);
   let initializing=false;
   async function loadLocationFile(file) {
+    const bundled = window.DCMDLocationData?.[file.includes('turkiye') ? 'provinces' : 'countries'];
+    if (location.protocol === 'file:' && bundled?.length) return bundled;
     for(let attempt=0;attempt<2;attempt++){
       const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),8000);
       try {
@@ -359,7 +378,7 @@ if (typeof document !== 'undefined') (async function () {
         const data=await response.json();
         if(!Array.isArray(data)||!data.length)throw new Error('Invalid locations');
         return data;
-      } catch(error) {if(attempt===1)throw error;}
+      } catch(error) {if(attempt===1) {if(bundled?.length)return bundled;throw error;}}
       finally {clearTimeout(timer);}
     }
   }
@@ -381,6 +400,13 @@ if (typeof document !== 'undefined') (async function () {
     provinceSelect.disabled = false;
     if (typeof L === 'undefined') throw new Error('Harita yüklenemedi. İl ve ilçe listesinden devam edebilirsin.');
     map = L.map('weatherMap', {scrollWheelZoom:false, minZoom:2, maxZoom:12, worldCopyJump:true, zoomAnimation:false, fadeAnimation:false}).fitBounds(bounds);
+    // Local country outlines remain visible while external street tiles load.
+    if (window.DCMDLocationData?.boundaries) {
+      map.createPane('localBase');
+      map.getPane('localBase').style.zIndex = '150';
+      L.geoJSON(window.DCMDLocationData.boundaries, {pane:'localBase',interactive:false,style:{color:'#647da4',weight:1,fillColor:'#263d5a',fillOpacity:1}}).addTo(map);
+      map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a>');
+    }
     map.on('dragstart', () => map.stop());
     mapTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, updateWhenIdle:true, updateWhenZooming:false, keepBuffer:1, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).on('tileerror', () => {
       byId('mapHint').textContent = 'Harita görselleri yüklenemedi. Konum listesinden devam edebilirsin.';
