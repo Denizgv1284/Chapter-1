@@ -173,6 +173,7 @@ class Handler(SimpleHTTPRequestHandler):
         path = unquote(parsed.path)
         resolved = (ROOT / path.lstrip('/')).resolve()
         allowed.add('/commerce.js')
+        allowed.add('/languages-extra.js')
         allowed.update({'/weather-direct.js', '/data/locations.js'})
         allowed.update({'/dcmd-enhance.js', '/dcmd-enhance.css', '/dcmd-system.css', '/dcmd-editorial.css'})
         allowed.update({'/dcmd-reference.css', '/dcmd-reference.js', '/dcmd-boutique.css', '/dcmd-boutique.js', '/campaign-playlist.js'})

@@ -30,4 +30,6 @@ The old Warsaw/Paris campaign section was removed and replaced by the existing t
 
 ## September 23 product cutouts
 
+September 24 editorial update: `theme-lifestyle-dcmd.png` and `theme-hero-dcmd.png` were edited with built-in imagegen using the original scene, hoodie, wide-leg pants and transparent logo as references. The models now wear DCMD clothing; scene colour and atmosphere were retained, with a logo in the upper-left space. All displayed uses of the two unbranded theme images were switched to these sibling assets. They are editorial AI edits and not pixel-identical product photographs. Mobile uses the full image instead of cropping faces and clothing into a tall background.
+
 All 28 garment views and both model gallery photos now use sibling `*-cutout.png` files made with built-in imagegen. Original JPEG/JPG assets remain available. The edits requested background removal, transparent alpha, centered square framing and preservation of garments and graphics. These are AI-edited display assets, not pixel-identical originals; small texture and lettering details may differ. No CLI or paid API fallback was used.

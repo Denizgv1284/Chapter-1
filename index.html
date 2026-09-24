@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="dcmd-system.css?v=3">
   <link rel="stylesheet" href="dcmd-editorial.css?v=compact-models-5">
   <link rel="stylesheet" href="dcmd-reference.css?v=editorial-4">
-  <link rel="stylesheet" href="dcmd-boutique.css?v=editorial-2">
+  <link rel="stylesheet" href="dcmd-boutique.css?v=mobile-locale-3">
 </head>
 <body>
   <div class="site-stars site-stars-one" aria-hidden="true"></div>
@@ -144,11 +144,11 @@
   </header>
 
   <section class="home-scene scene-capital" aria-labelledby="capitalSceneTitle">
-    <img src="images/theme-lifestyle.png" alt="DCMD streetwear — city at night" loading="lazy">
+    <img src="images/theme-lifestyle-dcmd.png" alt="DCMD streetwear — city at night" loading="lazy">
     <div class="scene-copy"><span class="eyebrow">02 / CAPITAL CHAPTERS</span><h2 id="capitalSceneTitle">Wear your city.</h2><p>Eight cities. One shared language.</p><div><a href="#products" data-collection-link="capital">SHOP CAPITAL</a><a href="#capsules">DISCOVER THE STORY</a></div></div>
   </section>
   <section class="home-scene scene-unisex" aria-labelledby="unisexSceneTitle">
-    <img src="images/theme-hero.png" alt="DCMD editorial atmosphere — dark layered streetwear" loading="lazy">
+    <img src="images/theme-hero-dcmd.png" alt="DCMD editorial atmosphere — dark layered streetwear" loading="lazy">
     <div class="scene-copy"><span class="eyebrow">03 / THE DCMD PERSPECTIVE</span><h2 id="unisexSceneTitle">No boundaries.</h2><p>Different. Confident. Mysterious. Desirable.</p><div><a href="#products" data-collection-link="all">SHOP UNISEX</a><a href="#campaignLooks">VIEW LOOKBOOK</a></div></div>
   </section>
 
@@ -608,7 +608,7 @@
     </div>
   </section>
 
-  <button id="pollOpen" class="poll-tab" type="button" aria-haspopup="dialog" aria-controls="capitalVote" aria-expanded="false" lang="tr"><span class="poll-tab-star" aria-hidden="true">✦</span><span>Sıradaki şehir</span><span aria-hidden="true">↗</span></button>
+  <button id="pollOpen" class="poll-tab" type="button" aria-label="Sıradaki şehir" aria-haspopup="dialog" aria-controls="capitalVote" aria-expanded="false" lang="tr"><span class="poll-tab-star" aria-hidden="true">✦</span><span>Sıradaki şehir</span><span aria-hidden="true">↗</span></button>
   <dialog id="capitalVote" class="capital-poll poll-dialog" aria-labelledby="pollTitle" lang="tr">
     <div class="poll-topline"><span class="eyebrow">DCMD / COMMUNITY EDIT</span><button id="pollClose" type="button" aria-label="Anketi kapat">×</button></div>
     <div class="poll-intro"><span class="poll-orbit" aria-hidden="true">✦</span><span class="eyebrow">CAPITAL COLLECTION — NEXT CHAPTER</span><h2 id="pollTitle">Bir şehir.<br>Senin izin.</h2><p>Sıradaki tasarıma yön ver.<br>Hangi başkenti üzerinde taşımak istersin?</p></div>
@@ -777,13 +777,12 @@
     class="feedback-button"
     id="feedbackButton"
     type="button"
-    aria-label="Send feedback or a complaint to DCMD support"
+    aria-label="Help &amp; support" aria-controls="feedbackModal" aria-haspopup="dialog" title="Help &amp; support"
   >
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4 5h16v11H8l-4 3V5Z"></path>
-      <path d="M8 9h8M8 12h5"></path>
+      <path d="M12 1 15 9 23 12 15 15 12 23 9 15 1 12 9 9Z"></path>
     </svg>
-    <span>FEEDBACK &amp; COMPLAINTS</span>
+    <span>Help &amp; support</span>
   </button>
 
   <div class="feedback-modal" id="feedbackModal" aria-hidden="true">
@@ -866,7 +865,8 @@
     </div>
   </dialog>
 
-  <script src="languages.js?v=capital-7"></script>
+  <script src="languages-extra.js?v=1"></script>
+  <script src="languages.js?v=locale-8"></script>
   <script src="commerce.js?v=boutique-6"></script>
   <script src="campaign-playlist.js?v=1"></script>
   <script src="script.js?v=boutique-8"></script>
@@ -876,7 +876,7 @@
   <script src="weather.js?v=recovery-2"></script>
   <script src="dcmd-enhance.js?v=capital-4"></script>
   <script src="dcmd-reference.js?v=editorial-3"></script>
-  <script src="dcmd-boutique.js?v=1"></script>
+  <script src="dcmd-boutique.js?v=locale-2"></script>
 
 </body>
 </html>

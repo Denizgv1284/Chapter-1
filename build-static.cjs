@@ -13,7 +13,7 @@ for (const retired of ['music.css', 'music.js', 'music-services.js']) {
 }
 for (const file of [
   'index.html', 'style.css', 'script.js', 'weather.css', 'weather.js', 'weather-direct.js',
-  'languages.js', 'languages.css',
+  'languages.js', 'languages.css', 'languages-extra.js',
   'dcmd-enhance.css', 'dcmd-enhance.js', 'dcmd-system.css', 'dcmd-editorial.css',
   'dcmd-reference.css', 'dcmd-reference.js', 'dcmd-boutique.css', 'dcmd-boutique.js', 'campaign-playlist.js',
   'data', 'images', 'vendor', 'policies', 'commerce.js'

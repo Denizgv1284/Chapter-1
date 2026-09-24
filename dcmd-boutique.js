@@ -4,7 +4,7 @@
   const capsules = [
     {name:'Midnight Series', collection:'black', image:'campaign-black-front.jpeg', text:'Geceye ait. Keskin çizgiler, siyah katmanlar.', ids:['essential-tshirt','pants']},
     {name:'Urban Shadow', collection:'europe', image:'campaign-europe-front.jpeg', text:'Şehrin ritmi. Avrupa detayları, rahat kalıplar.', ids:['europe-tshirt','pants']},
-    {name:'Capital Chapters', collection:'capital', image:'theme-lifestyle.png', text:'Şehirden ilham alan bir atmosfer. Yeni bölüm: London, Ankara, Roma, Berlin, Madrid ve Amsterdam. Aşağıda bu hikâyeye eşlik eden parçalar.', ids:['capital-london','pants']}
+    {name:'Capital Chapters', collection:'capital', image:'theme-lifestyle-dcmd.png', text:'Şehirden ilham alan bir atmosfer. Yeni bölüm: London, Ankara, Roma, Berlin, Madrid ve Amsterdam. Aşağıda bu hikâyeye eşlik eden parçalar.', ids:['capital-london','pants']}
   ];
   const editorial = document.createElement('section');
   editorial.id='capsules'; editorial.className='boutique-editorial'; editorial.lang='tr';
@@ -67,7 +67,7 @@
   const draw=()=>{
     register.hidden=true;area.hidden=false;reveal.hidden=false;
     if(reward.revealed){showReward();return;}
-    canvas.hidden=false;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#bbc3cd';ctx.fillRect(0,0,320,180);ctx.fillStyle='#132039';ctx.font='80px serif';ctx.textAlign='center';ctx.fillText('✦',160,108);ctx.font='14px sans-serif';ctx.fillText('YILDIZI KAZI',160,150);
+    canvas.hidden=false;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#bbc3cd';ctx.fillRect(0,0,320,180);ctx.fillStyle='#132039';ctx.font='80px serif';ctx.textAlign='center';ctx.fillText('✦',160,108);ctx.font='14px sans-serif';ctx.fillText(window.DCMDLanguage.t('YILDIZI KAZI'),160,150);
     rewardBox.querySelector('.scratch-result').textContent=resultText();
   };
   register.onclick=()=>{if(!reward){const values=['15','20','50'];const n=new Uint32Array(1);crypto.getRandomValues(n);reward={value:values[n[0]%3],revealed:false};save();}draw();};
@@ -77,6 +77,7 @@
   ['pointerup','pointercancel','lostpointercapture'].forEach(type=>canvas.addEventListener(type,()=>drawing=false));
   function scratch(e){const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*320/r.width,y=(e.clientY-r.top)*180/r.height;ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,24,0,Math.PI*2);ctx.fill();cells.add(`${Math.floor(x/20)},${Math.floor(y/20)}`);if(cells.size>22)showReward();}
   if(reward)draw();
+  window.addEventListener('dcmd:languagechange',()=>{if(reward)draw();});
   const accountLink=document.createElement('button');accountLink.type='button';accountLink.className='reward-register';accountLink.textContent='Üyelik ödülünü dene ✦';accountLink.onclick=()=>{document.querySelector('#accountDialog').close();rewardBox.scrollIntoView({behavior:'smooth',block:'center'});(reward?reveal:register).focus({preventScroll:true});};document.querySelector('#accountDialog').append(accountLink);
   window.addEventListener('dcmd:cleardemo',()=>{reward=null;try{localStorage.removeItem(key);}catch{}cells.clear();area.hidden=true;register.hidden=false;reveal.hidden=true;});
 })();

@@ -3,6 +3,7 @@ const assert=require('node:assert/strict');
 (async()=>{const b=await chromium.launch({channel:'msedge',headless:true});try{
  const p=await b.newPage({viewport:{width:1280,height:900},reducedMotion:'reduce'});const errors=[];p.on('pageerror',e=>errors.push(e.stack));
  await p.goto(process.env.DCMD_TEST_URL||'http://localhost:8012/',{waitUntil:'domcontentloaded'});
+ await p.selectOption('#footerLanguage','tr');
  assert.equal(await p.locator('.limited-drop').count(),14);assert.equal(await p.locator('.new-chapters button').count(),6);
  assert.equal(await p.evaluate(()=>DCMDCommerce.products.has('pants')),true);
  await p.locator('.new-chapters button').last().click();assert.ok(await p.locator('.product-card[data-product-id="capital-amsterdam"]').isVisible());

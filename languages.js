@@ -3,6 +3,8 @@
   const locales = {en:'en-GB',tr:'tr-TR',pl:'pl-PL',de:'de-DE',ru:'ru-RU',zh:'zh-CN'};
   let language = 'en';
   try { const saved=localStorage.getItem('dcmd-language'); if(codes.includes(saved)) language=saved; } catch {}
+  const requestedLanguage=new URLSearchParams(location.search).get('lang');
+  if(codes.includes(requestedLanguage))language=requestedLanguage;
   // Source text | English | Turkish | Polish | German | Russian | Simplified Chinese.
   const rows = `
 Enlarge product photos|Enlarge product photos|Ürün fotoğraflarını büyüt|Powiększ zdjęcia produktu|Produktfotos vergrößern|Увеличить фото товара|放大商品照片
@@ -386,8 +388,8 @@ Etkinlikler|Events|Etkinlikler|Wydarzenia|Events|События|活动
 Şu an duyurulmuş bir etkinliğimiz yok. Senin için yeni buluşmalar hazırlıyoruz. Haberleri burada takip et!|No events have been announced yet. We're preparing new experiences for you. Stay tuned here!|Şu an duyurulmuş bir etkinliğimiz yok. Senin için yeni buluşmalar hazırlıyoruz. Haberleri burada takip et!|Nie ogłosiliśmy jeszcze żadnych wydarzeń. Przygotowujemy dla ciebie nowe spotkania. Śledź wiadomości tutaj!|Aktuell sind keine Events angekündigt. Wir bereiten neue Erlebnisse für dich vor. Bleib hier auf dem Laufenden!|Пока нет объявленных событий. Мы готовим для тебя новые встречи. Следи за новостями здесь!|目前暂无已公布的活动。我们正在为你筹备新的体验，敬请关注这里！
 Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not available yet.|Hesap bağlantıları henüz kullanıma açılmadı.|Połączenia z kontami nie są jeszcze dostępne.|Kontoverbindungen sind noch nicht verfügbar.|Подключение аккаунтов пока недоступно.|账号连接功能暂未开放。
 `;
-  const dictionary = new Map(rows.trim().split('\n').map(row=>{const [source,...values]=row.split('|'); return [source,values];}));
-  const phrases=[...dictionary].filter(([original])=>original.length>12 || ['Veri zamanı:','Yerel saat'].includes(original)).sort((a,b)=>b[0].length-a[0].length);
+  const dictionary = new Map((rows.trim()+'\n'+(window.DCMDExtraTranslations||'').trim()).split('\n').filter(Boolean).map(row=>{const [source,...values]=row.split('|'); return [source,values];}));
+  const phrases=[...dictionary].filter(([original])=>original.length>12 || ['Veri zamanı:','Yerel saat','Paket:','Hediye notu:','Standart','kombin bedeni'].includes(original)).sort((a,b)=>b[0].length-a[0].length);
   const normalize = text => text.replace(/\s+/g,' ').trim();
   const sources = new WeakMap();
   const attributes = new WeakMap();
@@ -457,10 +459,12 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
     document.querySelectorAll('[lang]:not(html):not(.language-switcher button)').forEach(el=>el.lang=document.documentElement.lang);
     document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===next)));
     if(save)try{localStorage.setItem('dcmd-language',next);}catch{}
+    if(save&&new URLSearchParams(location.search).has('lang')){const url=new URL(location.href);url.searchParams.set('lang',next);history.replaceState(null,'',url);}
     translate();
+    document.querySelectorAll('a[href*="policies/"]').forEach(link=>{const url=new URL(link.getAttribute('href'),location.href);url.searchParams.set('lang',next);link.href=url.href;});
     window.dispatchEvent(new Event('dcmd:languagechange'));
   }
-  window.DCMDLanguage={t,country,get language(){return language;},get locale(){return locales[language];}};
+  window.DCMDLanguage={t,country,apply,get language(){return language;},get locale(){return locales[language];}};
   document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>apply(button.dataset.language)));
   const observer=new MutationObserver(records=>{
     for(const record of records) {
@@ -471,5 +475,6 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   });
   observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title','alt']});
   apply(language,false);
+  window.addEventListener('storage',event=>{if(event.key==='dcmd-language'&&codes.includes(event.newValue))apply(event.newValue,false);});
   fetch('data/countries.json').then(r=>r.json()).then(data=>{countries=data;translate();}).catch(()=>{});
 })();

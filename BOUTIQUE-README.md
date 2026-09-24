@@ -4,6 +4,10 @@ Production target authorized by the owner: https://dcmd-designer.vercel.app/ (pr
 
 ## Editorial navigation and theme
 
+Localization: `languages-extra.js` extends the six-language store dictionary, including gifts, rewards, capsules and navigation. Policy pages use `policies/translations.js` and `policies/localize.js`, inherit the selected language and provide their own selector. Turkish source drafts remain available; other languages render the corresponding translated sections. Support now opens from the star tab on the left edge. `test_localization_mobile.cjs` covers all 24 policy/language combinations and footer clearance.
+
+Mobile photography: at widths up to 700px the two editorial scene images display at their full aspect ratio with copy below. The campaign film gets its own portrait viewport. `theme-lifestyle-dcmd.png` and `theme-hero-dcmd.png` are the branded versions; the originals remain as source references.
+
 The landing page uses three consecutive full-width chapters: the existing film loop, Capital city atmosphere, and the DCMD editorial image. Replace the two `.home-scene > img` sources in `index.html` for future theme photos. The faint shop background is the `#products::before` image in `dcmd-boutique.css`.
 
 `dcmd-reference.js` defines collection and unisex category previews. Each uses matching front/back product images in square frames. Mens and Womens are explicitly coming-soon departments with a link to the available unisex range. Footwear, accessories and Country Collection are not presented as available stock. The same menus are available from the mobile drawer. `test_editorial_navigation.cjs` checks previews, filtering, coming-soon states, panel placement and mobile navigation.
