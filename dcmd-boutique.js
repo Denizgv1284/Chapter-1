@@ -12,13 +12,13 @@
   document.querySelector('#campaignLooks').after(editorial);
   capsules.forEach((capsule,i) => {
     const article=document.createElement('article'); article.className='capsule-card';
-    article.innerHTML=`<div class="capsule-photo"><img src="images/${capsule.image}" alt="${capsule.name} — koleksiyon atmosferi" loading="lazy"><span>0${i+1} / DCMD</span></div><div class="capsule-copy"><h3>${capsule.name}</h3><p>${capsule.text}</p><button class="capsule-explore" type="button">Koleksiyonu keşfet ↗</button><div class="look-pieces"></div><label>Kombin bedeni<select aria-label="${capsule.name} kombin bedeni"></select></label><button class="look-add" type="button">Kombini sepete ekle</button><p class="look-status" role="status"></p></div>`;
+    article.innerHTML=`<div class="capsule-photo"><img src="images/${capsule.image.replace(/\.[^.]+$/,'-960.webp')}" decoding="async" alt="${capsule.name} — koleksiyon atmosferi" loading="lazy"><span>0${i+1} / DCMD</span></div><div class="capsule-copy"><h3>${capsule.name}</h3><p>${capsule.text}</p><button class="capsule-explore" type="button">Koleksiyonu keşfet ↗</button><div class="look-pieces"></div><label>Kombin bedeni<select aria-label="${capsule.name} kombin bedeni"></select></label><button class="look-add" type="button">Kombini sepete ekle</button><p class="look-status" role="status"></p></div>`;
     const select=article.querySelector('select');
     window.DCMDCommerce.sizes.forEach(size=>select.add(new Option(size,size)));select.value='Medium';
     capsule.ids.forEach(id=>{
       const p=products.get(id);if(!p)return;
       const button=document.createElement('button');button.type='button';button.className='look-piece';
-      const img=p.card.querySelector('img').cloneNode();img.removeAttribute('class');img.removeAttribute('style');
+      const img=p.card.querySelector('img').cloneNode();img.removeAttribute('class');img.removeAttribute('style');img.sizes='100px';
       const name=document.createElement('span');name.textContent=p.name;
       button.append(img,name);button.addEventListener('click',()=>showProduct(p));article.querySelector('.look-pieces').append(button);
     });
@@ -46,7 +46,7 @@
     const partner=products.get(p.id==='pants'?'hoodie':p.collection==='casual'?(p.id==='casual-shorts'?'casual-tee':'casual-shorts'):'pants');
     if(!partner||partner.id===p.id)return;
     const rec=document.createElement('button');rec.type='button';rec.className='complete-look';
-    const img=partner.card.querySelector('img').cloneNode();img.removeAttribute('class');img.removeAttribute('style');
+    const img=partner.card.querySelector('img').cloneNode();img.removeAttribute('class');img.removeAttribute('style');img.sizes='100px';
     const text=document.createElement('span');text.textContent=`Kombinini tamamla ↗ · ${partner.name}`;rec.append(img,text);rec.onclick=()=>showProduct(partner);p.card.append(rec);
   });
   // Gift note is used only in the in-memory email preview, never persisted.

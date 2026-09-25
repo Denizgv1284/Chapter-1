@@ -4,6 +4,8 @@ Production target authorized by the owner: https://dcmd-designer.vercel.app/ (pr
 
 ## Editorial navigation and theme
 
+Performance (September 25): responsive 480/960px WebP derivatives are used for storefront images, menus and thumbnails. Original PNGs remain the photo zoom source. `optimize-images.cjs` creates encoding-only derivatives from unchanged originals and updates image srcsets; run it against a local server after adding photos. Language translation caches repeated strings and skips its own unchanged DOM writes. The product background no longer uses a fixed, filtered layer, and invisible star timers are disabled. `audit-performance.cjs URL...` records browser long tasks, transferred bytes and runtime/image errors for the same scroll/language scenario. Browser and network conditions affect results; this is not a universal frame-rate guarantee.
+
 Localization: `languages-extra.js` extends the six-language store dictionary, including gifts, rewards, capsules and navigation. Policy pages use `policies/translations.js` and `policies/localize.js`, inherit the selected language and provide their own selector. Turkish source drafts remain available; other languages render the corresponding translated sections. Support now opens from the star tab on the left edge. `test_localization_mobile.cjs` covers all 24 policy/language combinations and footer clearance.
 
 Mobile photography: at widths up to 700px the two editorial scene images display at their full aspect ratio with copy below. The campaign film gets its own portrait viewport. `theme-lifestyle-dcmd.png` and `theme-hero-dcmd.png` are the branded versions; the originals remain as source references.

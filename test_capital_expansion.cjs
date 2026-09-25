@@ -6,10 +6,10 @@ const {chromium}=require(require('node:path').join(process.env.TEMP,'dcmd-browse
  for(const code of ['LDN','ANK','ROM','BER','MAD','AMS']){
   const card=page.locator(`[data-city="${code}"]`);
   assert.match(await card.locator('.capital-flag-badge').innerText(),new RegExp(code));
-  for(const img of await card.locator('img').all()){
+  for(const img of await card.locator('.product-img img').all()){
    await img.scrollIntoViewIfNeeded();
    await img.evaluate(img=>img.decode());
-   assert.ok(await img.evaluate(img=>img.naturalWidth>1000));
+   assert.ok(await img.evaluate(img=>img.naturalWidth>=300));
   }
   await card.locator('[data-slide="0"]').click();
   await page.waitForFunction(code => document.querySelector(`[data-city="${code}"] .product-img`).scrollLeft < 1, code);

@@ -394,8 +394,17 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   const sources = new WeakMap();
   const attributes = new WeakMap();
   let countries = [];
+  let translationRevision = 0;
+  const translationCache = new Map();
   function country(code) {try{return new Intl.DisplayNames([locales[language]],{type:'region'}).of(code);}catch{return code;}}
   function t(source) {
+    const key=normalize(source);
+    if(translationCache.has(key))return translationCache.get(key);
+    const result=translateValue(key);
+    if(translationCache.size>5000)translationCache.clear();
+    translationCache.set(key,result);return result;
+  }
+  function translateValue(source) {
     const key=normalize(source), direct=dictionary.get(key);
     if(direct) return direct[codes.indexOf(language)] || key;
     const found=countries.find(c=>c.name===key || c.name.toLocaleUpperCase('tr-TR')===key);
@@ -427,10 +436,11 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   function translateText(node) {
     if(!node.parentElement || node.parentElement.closest('script,style,.language-switcher,[data-no-translate]')) return;
     const current=node.nodeValue, previous=sources.get(node);
+    if(previous?.language===language && previous.revision===translationRevision && current===previous.rendered)return;
     const original=previous && current===previous.rendered ? previous.original : current;
     const translated=node.parentElement.closest('pre') ? original.split('\n').map(line=>t(line)).join('\n') : t(original);
     const rendered=original.trim() ? original.replace(original.trim(),translated) : original;
-    sources.set(node,{original,rendered});
+    sources.set(node,{original,rendered,language,revision:translationRevision});
     if(current!==rendered) node.nodeValue=rendered;
   }
   function translateAttributes(el) {
@@ -439,8 +449,9 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
     for(const attr of ['placeholder','aria-label','title','alt']) {
       if(!el.hasAttribute(attr)) continue;
       const current=el.getAttribute(attr),old=saved[attr];
+      if(old?.language===language && old.revision===translationRevision && current===old.rendered)continue;
       const original=old && current===old.rendered ? old.original : current;
-      const rendered=t(original);saved[attr]={original,rendered};
+      const rendered=t(original);saved[attr]={original,rendered,language,revision:translationRevision};
       if(current!==rendered)el.setAttribute(attr,rendered);
     }
     attributes.set(el,saved);
@@ -455,6 +466,7 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   }
   function apply(next,save=true) {
     if(!codes.includes(next))return;
+    translationCache.clear();
     language=next;document.documentElement.lang=next==='zh'?'zh-CN':next;
     document.querySelectorAll('[lang]:not(html):not(.language-switcher button)').forEach(el=>el.lang=document.documentElement.lang);
     document.querySelectorAll('[data-language]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.language===next)));
@@ -467,14 +479,18 @@ Hesap bağlantıları henüz kullanıma açılmadı.|Account connections are not
   window.DCMDLanguage={t,country,apply,get language(){return language;},get locale(){return locales[language];}};
   document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>apply(button.dataset.language)));
   const observer=new MutationObserver(records=>{
+    const roots=new Set(),texts=new Set(),elements=new Set();
     for(const record of records) {
-      if(record.type==='characterData')translateText(record.target);
-      else if(record.type==='attributes')translateAttributes(record.target);
-      else record.addedNodes.forEach(node=>translate(node));
+      if(record.type==='characterData')texts.add(record.target);
+      else if(record.type==='attributes')elements.add(record.target);
+      else record.addedNodes.forEach(node=>roots.add(node));
     }
+    roots.forEach(node=>{if(!node.isConnected)return;for(let parent=node.parentNode;parent;parent=parent.parentNode){if(roots.has(parent))return;}translate(node);});
+    texts.forEach(node=>{if(node.isConnected)translateText(node);});
+    elements.forEach(node=>{if(node.isConnected)translateAttributes(node);});
   });
   observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title','alt']});
   apply(language,false);
   window.addEventListener('storage',event=>{if(event.key==='dcmd-language'&&codes.includes(event.newValue))apply(event.newValue,false);});
-  fetch('data/countries.json').then(r=>r.json()).then(data=>{countries=data;translate();}).catch(()=>{});
+  fetch('data/countries.json').then(r=>r.json()).then(data=>{countries=data;translationRevision++;translationCache.clear();translate();}).catch(()=>{});
 })();

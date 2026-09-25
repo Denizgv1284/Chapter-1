@@ -8,7 +8,7 @@ body #feedbackButton.feedback-button span{display:block;writing-mode:vertical-rl
 /* Editorial storefront: three full-width chapters and a quiet photographic shop. */
 :root,html[data-theme="dark"]{--bg:#111213;--panel:#1b1c1e;--surface:#1c1d1f;--control:#303235;--line:#ffffff26;--muted:#b1b0ad;--blue:#a3b7d8;--text:#f0eeea}
 html[data-theme="light"]{--bg:#e7e4de;--panel:#eeeae3;--surface:#f0ece5;--control:#d7d2c9;--line:#39363136;--muted:#615d57;--text:#262522}
-body .site-nav{background:#242525f5;border-bottom:1px solid #ffffff24;backdrop-filter:blur(14px)}
+body .site-nav{background:#242525fa;border-bottom:1px solid #ffffff24;backdrop-filter:none}
 .reference-nav{gap:16px}.reference-nav a,.reference-nav button{font-size:10px;letter-spacing:1px}
 body .megamenu-dropdown-content{z-index:35;background:#e9e6e0;color:#242321;border:0;border-bottom:1px solid #bab7b0;box-shadow:0 15px 30px #0003;gap:5vw;padding:36px 5vw;align-items:start}
 body .megamenu-links{flex:1;gap:15px;min-width:240px}
@@ -45,7 +45,7 @@ body .scene-copy h2{font:400 clamp(42px,6vw,90px) Georgia,serif;letter-spacing:-
 .scene-copy a{display:grid;place-items:center;width:min(300px,42vw);min-height:54px;background:#111;border:1px solid #ffffff30;color:#fff;font-size:11px;letter-spacing:.1em;padding:12px}
 .scene-copy a:hover{background:#eeece7;color:#181818}
 body #products{position:relative;isolation:isolate;background:#151617;padding-block:60px;scroll-margin-top:85px}
-#products::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(#12141680,#12141680),url('images/theme-lifestyle-dcmd.png') center/cover fixed;opacity:.28;pointer-events:none;filter:grayscale(.75)}
+#products::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(#12141680,#12141680),url('images/theme-lifestyle-dcmd-960.webp') center top/100% auto repeat-y;opacity:.22;pointer-events:none}
 body #products .section-head{border-bottom:1px solid #ffffff30;padding-bottom:30px}
 body #products .product-card{background:#191b1dd9;border:1px solid #ffffff26;border-radius:0;box-shadow:none}
 body #products .product-info,body #products .gallery-controls{background:transparent}

@@ -18,13 +18,15 @@ const assert=require('node:assert/strict');
  for(const img of images){
   assert.match(img.src,/-cutout\.png/);
   assert.equal(img.width,img.height,img.src);
-  assert.ok(img.width>=1000,img.src);
+  assert.ok(img.width>=300,img.src);
   assert.ok(img.transparent>.1 && img.solid>.15,JSON.stringify(img));
  }
  await page.evaluate(()=>selectCollection('casual'));
  await page.locator('.product-card[data-category="shorts"] .product-img').scrollIntoViewIfNeeded();
  await page.locator('#products').screenshot({path:'theme-review/casual-products-fixed.png'});
  await page.locator('.product-card[data-category="shorts"] .product-img').click();
+ await page.locator('.product-lightbox > img').evaluate(img=>img.decode());
+ assert.ok(await page.locator('.product-lightbox > img').evaluate(img=>img.naturalWidth>=1000),'Zoom retains original resolution');
  await page.locator('.product-lightbox').screenshot({path:'theme-review/product-zoom-fixed.png'});
  await page.keyboard.press('Escape');
  const review=await browser.newPage({viewport:{width:1440,height:2000}});

@@ -120,7 +120,7 @@ const categoryInputs = [...document.querySelectorAll('input[name="category"]')];
   const show = () => {
     const photo = photos[index];
     const image = dialog.querySelector('img');
-    image.src = photo.currentSrc || photo.src;
+    image.src = photo.src;
     image.alt = photo.alt;
     dialog.querySelector('p').textContent = `${photo.alt} · ${index + 1} / ${photos.length}`;
     dialog.querySelector('.lightbox-prev').disabled = index === 0;
@@ -281,7 +281,7 @@ function renderCart() {
   } else {
     cartItems.innerHTML = cart.map((item, index) => `
       <div class="cart-row">
-        <img class="order-thumb" src="${window.DCMDCommerce.products.get(item.productId).card.querySelector('img').getAttribute('src')}" alt="">
+        <img class="order-thumb" src="${window.DCMDCommerce.products.get(item.productId).card.querySelector('img').getAttribute('src').split('?')[0].replace(/\.[^.]+$/, '-480.webp')}" alt="" decoding="async">
         <span>${item.name} / ${item.size}</span>
         <strong>${window.DCMDCommerce.money(item.price)}</strong>
         <button type="button" data-remove="${index}" aria-label="Remove ${item.name}">REMOVE</button>
@@ -435,7 +435,7 @@ document.querySelector('.checkout').addEventListener('click', () => {
     const name = document.createElement('span'); name.textContent = `${item.name} / ${item.size}`;
     const price = document.createElement('strong'); price.textContent = money(item.price);
     const thumbnail = window.DCMDCommerce.products.get(item.productId).card.querySelector('img').cloneNode();
-    thumbnail.className = 'order-thumb'; thumbnail.alt = '';
+    thumbnail.className = 'order-thumb'; thumbnail.alt = ''; thumbnail.sizes = '64px';
     row.append(thumbnail, name, price); list.append(row);
   });
   const total = checkoutSnapshot.reduce((sum, item) => sum + Math.round(item.price * 100), 0) / 100;
@@ -571,8 +571,7 @@ function launchShootingStar() {
   });
 }
 
-window.setTimeout(launchShootingStar, 1200);
-window.setInterval(launchShootingStar, 12000);
+// The editorial theme hides decorative stars; do not schedule invisible work.
 
 function launchRedStar(delay = 0) {
   window.setTimeout(() => {
@@ -617,8 +616,6 @@ function launchRedStarBurst() {
   }
 }
 
-window.setTimeout(launchRedStarBurst, 3500);
-window.setInterval(launchRedStarBurst, 15000);
 applyFilters();
 renderCart();
 

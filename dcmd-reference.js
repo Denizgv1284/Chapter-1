@@ -28,7 +28,7 @@
     const [value,title,src]=item;
     const available=Boolean(src);
     const back=src?.replace('-front-cutout','-back-cutout');
-    visuals.innerHTML=available ? `<a class="visual-card" href="#products" data-menu-filter="${value}" data-filter-type="${type}"><div class="menu-image-square"><img src="images/${src}" alt="${title} — front"></div><span>${title} / UNISEX</span></a><a class="visual-card" href="#products" data-menu-filter="${value}" data-filter-type="${type}"><div class="menu-image-square"><img src="images/${back}" alt="${title} — back"></div><span>Explore the collection ↗</span></a>` : `<div class="menu-coming"><span class="eyebrow">DCMD / ${title}</span><strong>Coming soon</strong><p>Yeni bölüm hazırlanıyor.</p><a href="#products" data-menu-filter="all" data-filter-type="collection">Explore unisex ↗</a></div>`;
+    visuals.innerHTML=available ? `<a class="visual-card" href="#products" data-menu-filter="${value}" data-filter-type="${type}"><div class="menu-image-square"><img src="images/${src.replace(/\.[^.]+$/,'-480.webp')}" decoding="async" alt="${title} — front"></div><span>${title} / UNISEX</span></a><a class="visual-card" href="#products" data-menu-filter="${value}" data-filter-type="${type}"><div class="menu-image-square"><img src="images/${back.replace(/\.[^.]+$/,'-480.webp')}" decoding="async" alt="${title} — back"></div><span>Explore the collection ↗</span></a>` : `<div class="menu-coming"><span class="eyebrow">DCMD / ${title}</span><strong>Coming soon</strong><p>Yeni bölüm hazırlanıyor.</p><a href="#products" data-menu-filter="all" data-filter-type="collection">Explore unisex ↗</a></div>`;
     panel.querySelectorAll('[data-preview]').forEach(link=>link.classList.toggle('is-current',link.dataset.menuFilter===value));
   }
   function renderMenu(view) {
@@ -38,7 +38,7 @@
     if(view==='mens'||view==='womens') {
       const title=view==='mens'?'Mens':'Womens';
       links.innerHTML=`<span class="eyebrow">DCMD / ${title.toUpperCase()}</span><h2>${title}</h2><p class="menu-release">Coming soon</p><p>Şu anki tüm parçalarımız unisex. Kadın ve erkek koleksiyonları yakında.</p><a href="#products" data-menu-filter="all" data-filter-type="collection">Shop unisex ↗</a>`;
-      panel.querySelector('.megamenu-visuals').innerHTML=`<div class="menu-coming"><span class="eyebrow">${title.toUpperCase()} / NEXT CHAPTER</span><strong>Coming soon</strong></div><a class="visual-card" href="#products" data-menu-filter="all" data-filter-type="collection"><div class="menu-image-square"><img src="images/${view==='mens'?'model-black-hoodie-front-cutout.png':'model-warsaw-front-back-cutout.png'}" alt="DCMD unisex collection"></div><span>UNISEX / AVAILABLE NOW ↗</span></a>`;
+      panel.querySelector('.megamenu-visuals').innerHTML=`<div class="menu-coming"><span class="eyebrow">${title.toUpperCase()} / NEXT CHAPTER</span><strong>Coming soon</strong></div><a class="visual-card" href="#products" data-menu-filter="all" data-filter-type="collection"><div class="menu-image-square"><img src="images/${view==='mens'?'model-black-hoodie-front-cutout-480.webp':'model-warsaw-front-back-cutout-480.webp'}" alt="DCMD unisex collection"></div><span>UNISEX / AVAILABLE NOW ↗</span></a>`;
       return;
     }
     const items=view==='unisex'?categories:editions,type=view==='unisex'?'category':'collection';
