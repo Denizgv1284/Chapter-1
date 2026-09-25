@@ -44,6 +44,23 @@ body .scene-copy h2{font:400 clamp(42px,6vw,90px) Georgia,serif;letter-spacing:-
 .scene-copy>div{display:flex;justify-content:center;gap:16px}
 .scene-copy a{display:grid;place-items:center;width:min(300px,42vw);min-height:54px;background:#111;border:1px solid #ffffff30;color:#fff;font-size:11px;letter-spacing:.1em;padding:12px}
 .scene-copy a:hover{background:#eeece7;color:#181818}
+@media(min-width:1101px){
+ body .hero.hero--luxury{height:calc(100svh - 76px);min-height:600px;overflow:hidden}
+ body .hero--luxury .hero-media{inset:0 0 0 44%;width:56%}
+ body .hero--luxury .hero-media video{object-fit:contain;object-position:center}
+ body .hero--luxury .hero-media::after{display:none}
+ body .hero--luxury .hero-copy{width:46%;justify-self:start;padding:40px 5vw 100px;text-align:left}
+ body .hero--luxury h1{text-align:left;font-size:clamp(38px,4.2vw,70px)}
+ body .hero--luxury .hero-cta-row{flex-wrap:wrap;justify-content:flex-start}
+ body .hero--luxury .hero-cta-row a{width:100%;max-width:320px;box-sizing:border-box}
+ body .scene-capital{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center;min-height:0;background:#071217!important}
+ body .scene-capital>img{position:relative;inset:auto;width:100%;height:min(56vw,calc(100svh - 76px));object-fit:contain;object-position:center;z-index:0}
+ body .scene-capital::after{display:none}
+ body .scene-capital .scene-copy{padding:48px 4vw;text-align:left}
+ body .scene-capital .scene-copy h2{font-size:clamp(42px,5vw,76px)}
+ body .scene-capital .scene-copy>div{flex-wrap:wrap;justify-content:flex-start}
+ body .scene-capital .scene-copy a{width:100%;max-width:320px;box-sizing:border-box}
+}
 body #products{position:relative;isolation:isolate;background:#151617;padding-block:60px;scroll-margin-top:85px}
 #products::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(#12141680,#12141680),url('images/theme-lifestyle-dcmd-960.webp') center top/100% auto repeat-y;opacity:.22;pointer-events:none}
 body #products .section-head{border-bottom:1px solid #ffffff30;padding-bottom:30px}
